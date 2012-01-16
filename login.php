@@ -8,7 +8,7 @@
 
         if ($username && $password) {
 
-		$seluser = $DB->prepare("SELECT * FROM users WHERE username = ?");
+		$seluser = $DB->prepare("SELECT * FROM users WHERE username = ? AND active=1");
 
 		$return = $DB->execute($seluser, array($username));
 
@@ -37,12 +37,17 @@
 				$_SESSION['username'] = $username;
 	                        $_SESSION['lastseen'] = time();
 				$_SESSION['level'] = $row->level;
-				$_SESSION['override'] = $row->override;
-				$_SESSION['canadd'] = $row->canadd;
 				$_SESSION['userid'] = $row->id;
-				$_SESSION['backlink'] = array();
 
-//				load_userprefs($row->id);
+/* need to pull this from another table
+				$_SESSION['override'] = $row->override;
+*/
+
+				$_SESSION['backlink'] = array();
+				$_SESSION['canadd'] = getflag($row->id, "add");
+
+
+				load_userprefs($row->id);
 				$logmsg = "User ". $username ." logged in from ". $_SERVER['REMOTE_ADDR'] ." at ". gmdate("D, d M Y H:i:s") ." ";
 				writelog($row->id, $row->level, 1, $logmsg);
 				header('Location: index.php');
