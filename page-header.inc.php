@@ -3,9 +3,7 @@
 <html>
 <head>
 	<title><?php print $CONFIG["AppTitle"]; ?>: <?php print $title; ?></title>
-	<link rel="stylesheet" type="text/css" href="default.css.php" media="screen" />
-	<script type="text/javascript" src="util.js"></script>
-	<script type="text/javascript" src="wikibits.js"><!-- wikibits js --></script>
+	<link rel="stylesheet" type="text/css" href="css/default.css" media="screen" />
 </head>
 <body>
 
