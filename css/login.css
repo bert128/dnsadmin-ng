@@ -1,0 +1,65 @@
+/* $Id: login.css,v 1.3 2008/08/21 08:37:12 bertcvs Exp $ */
+
+HTML {
+	width: 100%;
+	height: 100%;
+}
+
+TABLE.vcenter {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+}
+
+TABLE.vcenter TR TD {
+	text-align: center;
+	vertical-align: middle;
+}
+
+TABLE.login {
+	width: 350px;
+	margin: 0px auto 0px auto;
+}
+
+TABLE.login TD.title {
+	text-align: left;
+	font-size: 20pt;
+	font-weight: bold;
+	border-bottom: 2px solid black;
+}
+
+TABLE.login TD.label {
+	width: 1%;
+	padding: 10px 5px 0px 0px;
+	font-weight: bold;
+	text-align: right;
+}
+
+TABLE.login TD.input {
+	padding: 10px 0px 0px 0px;
+}
+	TABLE.login TD.input INPUT {
+		width: 100%;
+	}
+
+TABLE.login TD.error {
+	padding: 10px 0px 10px 0px;
+	font-size: 8pt;
+	font-weight: bold;
+	color: red;
+	text-align: center;
+}
+
+TABLE.login TD.controls {
+	padding: 5px 0px 0px 0px;
+	border-top: 2px solid black;
+	text-align: right;
+}
+
+
+#cssnotice:first-child { display: none; }
