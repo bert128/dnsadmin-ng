@@ -1,5 +1,5 @@
-<?php
 <!-- END CONTENT -->
+
 	</td>
 </tr>
 

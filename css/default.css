@@ -1,0 +1,805 @@
+HTML {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	overflow: -moz-scrollbars-vertical;
+	background: white;
+}
+
+BODY {
+	behavior: url(csshover.htc);
+	margin: 10px 10px 10px 10px;
+	padding: 0px 0px 0px 0px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	background-color: white;
+	color: black;
+	text-align: center;
+}
+
+TD, P, DIV {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	vertical-align: top;
+	text-align: justify;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+
+TABLE {
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+A {
+	color: blue;
+	text-decoration: none;
+}
+	A:Hover {
+		text-decoration: underline;
+	}
+
+IMG {
+	border: 0;
+}
+
+FORM {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+}
+
+INPUT, TEXTAREA {
+	margin: 0px 0px 0px 0px;
+	padding: 1px 1px 1px 1px;
+	border: 1px solid gray;
+	background-color: #eeeeee;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+}
+	INPUT[type="submit"], INPUT[type="button"] {
+		width: 75px;
+		background-color: #bbbbbb;
+		border: 1px solid black;
+		font-weight: bold;
+		font-size: 8pt;
+	}
+	INPUT[type="checkbox"] {
+		width: 20;
+		background-color: white;
+		margin: 6px 0px 0px -3px;
+		padding: 0px 0px 0px 0px;
+	}
+	INPUT[type="file"] {
+		background-color: white;
+	}
+	INPUT[DISABLED] {
+		color: gray;
+	}
+	TEXTAREA {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 10pt;
+	}
+	INPUT:focus, TEXTAREA:focus {
+		border: 1px solid blue;
+	}
+
+BUTTON {
+    background-color: #bbbbbb;
+    border: 1px solid black;
+    font-weight: bold;
+    font-size: 8pt;	
+}
+
+SELECT {
+	margin: 0px 0px 1px 0px;
+	background-color: #eeeeee;
+	font-size: 9pt;
+}
+
+TABLE#main {
+	width: 100%
+}
+	TABLE#main TD#header {
+		height: 100px;
+		background: url(images/ev6logo2.png) no-repeat top left;
+		padding: 0px 0px 0px 0px;
+		text-align: right;
+		vertical-align: bottom;
+		font-size: 26pt;
+		font-weight: bold;
+		border-bottom: 2px solid black; 
+	}
+	TABLE#main TD#navigation {
+		width: 175px;
+		padding: 5px 5px 0px 0px;
+		vertical-align: top;
+	}
+	TABLE#main TD#content {
+		padding: 5px 0px 0px 5px;
+		vertical-align: top;
+	}
+	TABLE#main TD#contentfooter {
+		padding: 0px 0px 10px 5px;
+		vertical-align: bottom;
+	}
+	TABLE#main TD#pagefooter {
+		border-top: 2px solid black;
+		color: gray;
+	}
+
+TABLE#content-footer {
+	width: 100%;
+	border-top: 1px solid black;
+}
+	TABLE#content-footer TD.left {
+		width: 33%;
+		text-align: left;
+	}
+	TABLE#content-footer TD.middle {
+		width: 34%;
+		text-align: center;
+	}
+	TABLE#content-footer TD.right {
+		width: 33%;
+		text-align: right;
+	}
+
+TABLE#page-footer {
+	width: 100%;
+}
+	TABLE#page-footer TD.left {
+		width: 50%;
+		text-align: left;
+	}
+	TABLE#page-footer TD.right {
+		width: 50%;
+		text-align: right;
+	}
+
+DIV.box {
+	margin: 0px 0px 10px 0px;
+	padding: 5px 5px 0px 5px;
+	border: 1px solid black;
+}
+
+	DIV.box H1 {
+		position: relative;
+		top: -5px;
+		margin: 0px -5px 0px -5px;
+		padding: 0px 0px 2px 5px !important;
+		background: black;
+		color: white;
+		font-weight: bold;
+		font-size: 10pt;
+	}
+	DIV.box H2 {
+		position: relative;
+		top: -5px;
+		margin: 10px -5px 10px -5px;
+		padding: 0px 0px 2px 5px !important;
+		background: grey;
+		color: black;
+		font-weight: bold;
+		font-size: 10pt;
+		border-bottom: 1px solid black;
+		border-top: 1px solid black;
+	}
+	DIV.box P {
+		padding: 0px 0px 5px 0px;
+	}
+	DIV.box FORM {
+		padding: 0px 0px 5px 0px;
+		text-align: right;
+	}
+	DIV.box INPUT[type="text"] {
+		margin: 0px 0px 5px 0px;
+		width: 100%;
+	}
+	DIV.box SELECT {
+		width: 100%;
+	}
+MENU {
+	margin: 0px 0px 5px 15px;
+	padding: 0px 0px 0px 0px;
+}
+	MENU > LI {
+		font-weight: bold;
+	}
+	DIV.box P.menu-title {
+		margin: 0px 0px 0px 0px;
+		padding: 0px 0px 0px 0px;
+		font-weight: bold;
+	}
+
+DIV.section {
+	position: relative;
+	margin: 0.4em 0px 10px 0px;
+	padding: 0.5em 5px 0px 5px;
+	border: 1px solid black;
+}
+	DIV.section H1 {
+		position: absolute;
+		display: inline;
+		top: -0.7em;
+		margin: 0px 0px 0px 0px;
+		padding: 0px 2px 0px 0px;
+		background: white;
+		font-weight: bold;
+		font-size: 10pt;
+	}
+	DIV.section H2 {
+		position: relative;
+		display: block;
+		top: 0;
+		margin: 5px 0px 3px 0px;
+		padding: 0px 2px 0px 2px;
+		background: white;
+		font-weight: bold;
+		font-size: 10pt;
+		border-bottom: 1px solid black;
+	}
+	DIV.section P {
+		margin: 0px 0px 5px 0px;
+	}
+	DIV.section SPAN.controls {
+		font-size: 8pt;
+	}
+	DIV.section DIV.controls {
+		clear: both;
+		font-size: 8pt;
+		margin: 0px 0px 5px 0px;
+		text-align: right;
+	}
+	DIV.section > TEXTAREA {
+		width: 100%;
+		margin: 0px 0px 5px 0px;
+	}
+
+
+DIV.sectionurgent {
+	position: relative;
+	margin: 0.4em 0px 10px 0px;
+	padding: 0.5em 5px 0px 5px;
+	border: 4px solid red;
+}
+	DIV.sectionurgent H1 {
+		position: absolute;
+		display: inline;
+		top: -0.7em;
+		margin: 0px 0px 0px 0px;
+		padding: 0px 2px 0px 0px;
+		background: white;
+		font-weight: bold;
+		font-size: 12pt;
+	}
+	DIV.sectionurgent H2 {
+		position: relative;
+		display: block;
+		top: 0;
+		margin: 5px 0px 3px 0px;
+		padding: 0px 2px 0px 2px;
+		background: white;
+		font-weight: bold;
+		font-size: 10pt;
+		border-bottom: 1px solid black;
+	}
+	DIV.sectionurgent P {
+		margin: 0px 0px 5px 0px;
+		background: red;
+	}
+	DIV.sectionurgent SPAN.controls {
+		font-size: 8pt;
+	}
+	DIV.sectionurgent DIV.controls {
+		clear: both;
+		font-size: 8pt;
+		margin: 0px 0px 5px 0px;
+		text-align: right;
+	}
+	DIV.sectionurgent > TEXTAREA {
+		width: 100%;
+		margin: 0px 0px 5px 0px;
+	}
+
+DIV.controls {
+	text-align: right;
+	font-size: 8pt;
+}
+	DIV.controls P {
+		text-align: right;
+		margin-bottom: 10px;
+	}
+
+DIV.section DIV.issue_controls {
+   clear: both;
+   text-align: right;
+   margin: 0px 0px 5px 0px;
+   font-size: 8pt;
+}
+
+DIV.section DIV.issue_controls 
+INPUT[type="submit"] {
+   text-align: right;
+   width: 55px;
+   font-size: 8pt;
+}
+
+DIV.hidden {
+	display: none;
+}
+	DIV.hidden H1 {
+		position: relative;
+		display: block;
+		top: 0;
+		margin: -5px 0px 3px 0px;
+		padding: 0px 2px 0px 2px;
+		background: white;
+		font-weight: bold;
+		font-size: 10pt;
+		border-bottom: 1px solid black;
+	}
+
+TABLE.form {
+	margin: 0px 0px 5px 0px;
+	width: 100%;
+}
+	TABLE.form TD.label {
+		width: 1%;
+		padding: 4px 5px 2px 0px;
+		font-weight: bold;
+		text-align: right;
+		vertical-align: top;
+		white-space: nowrap;
+	}
+
+	TABLE.form TD.entrylabel {
+		width: 55px;
+		padding: 4px 5px 2px 0px;
+		font-weight: bold;
+		text-align: right;
+		vertical-align: top;
+		white-space: nowrap;
+	}
+
+	TABLE.form TD.issuepadding {
+		width: 115px;
+
+	}
+
+	TABLE.form TD.selecttitle {
+		font-weight: bold;
+		text-align: left;
+		
+	}
+
+	TABLE.form TD.select {	
+	}
+
+	TABLE.form TD.selectbuttons {
+		padding: 0px 10px 0px 10px;
+		font-weight: bold;
+		font-size: 8pt;
+	}
+
+	TABLE.form TD.selectbuttonstitle {
+		padding: 0px 10px 0px 10px;
+		font-weight: bold;
+		font-size: 6pt;
+	}
+
+	TABLE.form TD.spacer {
+		color: white;
+	}
+	TABLE.form TD.input {
+		padding: 2px 0px 2px 0px;
+	}
+		TD.input INPUT#searchstring { 
+		    padding: 0px 0px 0px 0px;
+		    width:98%; 
+		} 
+		
+		TD.input INPUT { width: 100%; }
+		TD.input TEXTAREA { width: 100%; }
+		TD.input P {
+			margin: 2px 0px 0px 0px;
+			padding: 0px 0px 0px 0px;
+		}
+		TD.input SELECT {
+			width: 150px;
+		}
+
+	TABLE.form TD.controls {
+		padding: 5px 0px 0px 0px;
+		font-size: 8pt;
+		text-align: right;
+	}
+
+
+		TABLE.form TD.controls P {
+			text-align: right;
+		}
+
+TABLE.entryform {
+	margin: 0px 0px 0px 0px;
+	width: 100%;
+}
+	TABLE.entryform TD.label {
+		width: 1%;
+		padding: 4px 5px 2px 0px;
+		font-weight: bold;
+		text-align: right;
+		vertical-align: top;
+		white-space: nowrap;
+	}
+
+TABLE.entryform TD.error {
+        padding: 10px 0px 10px 0px;
+        font-size: 8pt;
+        font-weight: bold;
+        color: red;
+        text-align: center;
+}
+
+	TABLE.entryform TD.entrylabel {
+		width: 54px;
+		padding: 4px 5px 2px 0px;
+		font-weight: bold;
+		text-align: right;
+		vertical-align: top;
+		white-space: nowrap;
+	}
+	TABLE.entryform TD.spacer {
+		color: white;
+	}
+
+	TABLE.entryform TD.input {
+		padding: 2px 0px 2px 0px;
+	}
+		TD.input INPUT { width: 25%; }
+		TD.input TEXTAREA { width: 25%; }
+		TD.input P {
+			margin: 2px 0px 0px 0px;
+			padding: 0px 0px 0px 0px;
+		}
+		TD.input SELECT {
+			width: 150px;
+		}
+
+	TABLE.entryform TD.inputname {
+		padding: 2px 0px 2px 0px;
+	}
+		TD.input INPUT { width: 25%; }
+		TD.input TEXTAREA { width: 25%; }
+		TD.input P {
+			margin: 2px 0px 0px 0px;
+			padding: 0px 0px 0px 0px;
+		}
+		TD.input SELECT {
+			width: 150px;
+		}
+
+	TABLE.entryform TD.controls {
+		padding: 5px 0px 0px 0px;
+		font-size: 8pt;
+		text-align: right;
+	}
+		TABLE.entryform TD.controls P {
+			text-align: right;
+		}
+
+TABLE.list {
+	width: 100%;
+	margin: 0px 0px 5px 0px;
+}
+	TABLE.list TR TD {
+		padding-top: 2px;
+		padding-bottom: 2px;
+	}
+	TABLE.list TR.header TD {
+		padding-top: 0px;
+		padding-bottom: 0px;
+		font-size: 8pt;
+		font-weight: bold;
+		border-bottom: 1px solid black;
+		white-space: nowrap;
+	}
+	TABLE.list A {
+		text-decoration: none;
+	}
+	TABLE.list TR.header A {
+		color: black;
+	}
+	TABLE.list TR.even {
+		background-color: #eeeeee;
+	}
+	TABLE.list TR.odd {
+		background-color: white;
+	}
+	TABLE.list TR:hover {
+		background-color: silver;
+	}
+	TABLE.list TR.header:hover {
+		background-color: white;
+	}
+
+
+.scriptlink {
+	color: blue;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+IMG.scriptlink {
+	border: 1px solid silver;
+}
+
+IMG.scriptlink:hover {
+	border: 1px solid blue;
+}
+
+DIV.notice {
+	margin: 0px 0px 10px 0px;
+	padding: 5px 5px 5px 5px;
+	background-color: silver;
+	border: 1px solid black;	
+}
+	DIV.notice H1 {
+		margin: 0px 0px 5px 0px;
+		padding: 0px 0px 0px 0px;
+		font-weight: bold;
+		font-size: 10pt;
+	}
+	DIV.notice P {
+		margin: 0px 0px 5px 0px;
+	}
+	DIV.notice CITE {
+		display: block;
+		margin: 0px 0px 0px 0px;
+		text-align: right;
+		font-size: 8pt;
+		font-style: italic;
+	}
+
+DIV.noedit {
+	margin: 0px 0px 0px 0px;
+	padding: 1px 1px 1px 1px;
+	border: 1px solid gray;
+	background-color: #eeeeee;
+	font-size: 10pt;
+}
+
+DIV.noedit A.red {
+   color: red;	
+}
+
+DIV.reference {
+	margin: 0px 0px 2px 0px;
+}
+
+DIV.recommendation {
+	margin: 0px 0px 5px 0px;
+	padding: 5px 5px 0px 5px;
+	border: 1px solid gray;
+	background-color: #eeeeee;
+		font-size: 10pt;
+}
+	DIV.recommendation > DIV.edit {
+		position: relative;
+		float: right;
+		top: -17px;
+		font-size: 8pt;
+
+	}
+
+	DIV.edit INPUT[type="checkbox"] {
+	    width: 15;
+	    padding: 0px 0px 0px 0px;
+	    margin: 0px 0px 0px 0px;	 
+	}
+
+DIV.left { clear: left; float: left; width: 48% }
+DIV.right { clear: right; float: right; width: 48% }
+DIV.hidden { display: none; }
+DIV.checkbox { margin-top: 2px;}
+/*
+ * List Tables
+ */
+/* TABLE.tasks */
+	
+
+	TABLE.tasks TD.code {
+		padding-right: 10px;
+	}
+	TABLE.tasks TD.description {
+		width: 70%;
+		padding-right: 10px;
+	}
+	TABLE.tasks TD.due {
+		width: 12%;
+		padding-right: 10px;
+	}
+	TABLE.tasks TD.status {
+	}
+
+/* TABLE.entries */
+	TABLE.entries TD.title {
+		padding-right: 10px;
+		width: 100%;
+	}
+	TABLE.entries TD.impact {
+		width: 1%;
+		padding-right: 10px;
+		text-align: center;
+	}
+	TABLE.entries TD.prob {
+		width: 1%;
+		padding-right: 10px;
+		text-align: center;
+	}
+	TABLE.entries TD.state {
+		width: 1%;
+		padding-right: 10px;
+		text-align: center;
+	}
+	TABLE.entries TD.rating {
+		width: 1%;
+		padding-right: 10px;
+		text-align: center;
+	}
+
+	TABLE.entries A.infolink {
+	        font-size: 8pt;
+	}
+
+
+/* TABLE.hosts */
+	TABLE.hosts TD.address {
+		padding-right: 10px;
+	}
+	TABLE.hosts TD.name {
+		padding-right: 10px;
+	}
+	TABLE.hosts TD.description {
+		padding-right: 10px;
+	}
+	TABLE.hosts TD.os {
+	}
+	TABLE.hosts TD.portlabel {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+/* TABLE.ports */
+	TABLE.ports TD.proto {
+		padding-right: 10px;
+		text-align: center;
+	}
+	TABLE.ports TD.port {
+		padding-right: 10px;
+	}
+	TABLE.ports TD.service {
+		padding-right: 10px;
+		white-space: nowrap;
+	}
+	TABLE.ports TD.details {
+		width: 100%;
+	}
+
+/* TABLE.import */
+	TABLE.import TR:hover {
+		background-color: white;
+	}
+	TABLE.import TD.file {
+		padding-top: 5px;
+		width: 100%;
+	}
+	TABLE.import TD.module {
+		padding-top: 5px;
+		padding-right: 10px;
+	}
+	TABLE.import TD.area {
+		padding-top: 5px;
+	}
+
+/* TABLE.filters */
+	TABLE.filters TD.module {
+		padding-right: 10px;
+	}
+	TABLE.filters TD.field {
+		padding-right: 10px;
+	}
+	TABLE.filters TD.action {
+		padding-right: 10px;
+	}
+	TABLE.filters TD.data {
+		width: 100%;
+	}
+/* TABLE.notices */
+	TABLE.notices TD.title {
+		padding-right: 10px;
+	}
+	TABLE.notices TD.date {
+		width: 1%;
+		white-space: nowrap;
+	}
+/* TABLE.reftypes */
+	TABLE.reftypes TD.title {
+		width: 25%;
+	}
+	TABLE.reftypes TD.description {
+		width: 75%;
+	}
+
+/* TABLE.references */
+	TABLE.references TD.type {
+		padding-right: 5px;
+		text-align: right;
+		font-weight: bold;
+	}
+	TABLE.references TD.details {
+	}
+	TABLE.references TD.notes {
+		padding-bottom: 5px;
+		color: gray;
+	}
+
+/* TABLE.issues */
+	TABLE.issues TD.icon {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	TABLE.issues TD.target {
+		padding-right: 10px; 
+	}
+	TABLE.issues TD.impact {
+		padding-right: 10px;
+		text-align: center;
+	}
+	TABLE.issues TD.prob {
+		padding-right: 10px;
+		text-align: center;
+	}
+	TABLE.issues TD.rating {
+		padding-right: 10px;
+		text-align: center;
+	}
+
+	TABLE.issues TD.title {
+		width: 100%;
+	}
+	
+	TABLE.issues TD.hosts_num {
+		text-align: center;
+	}
+
+/* TABLE.history */
+	TABLE.history TD.timestamp {
+		width: 1%;
+		white-space: nowrap;
+		padding-right: 10px;
+	}
+	TABLE.history TD.user {
+		width: 1%;
+		white-space: nowrap;
+		padding-right: 10px;
+	}
+	TABLE.history TD.action {
+	}
+
+/* TABLE.changepass */
+TABLE.changepass {
+	width: 50%;
+}
+	TABLE.changepass TD.message {
+		padding: 2px 0px 2px 0px;
+		border-bottom: 2px solid black;
+		color: red;
+		font-weight: bold;
+		text-align: center;
+	}
+
+ul {
+margin-left: 0;
+font-weight: bold;
+padding-left: 1.5em;
+}
+
+#cssnotice:first-child { display: none; }
