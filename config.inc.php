@@ -10,6 +10,13 @@
         exit;
     }
 
+    $DBAUDIT = DB::connect("mysql://pdnsaudit:tmZ2rkjL7tQ3@localhost/pdnsaudit");
+
+    if (DB::isError($DBAUDIT)) {
+        print $DBAUDIT->getMessage();
+        exit;
+    }
+
 
 $CONFIG = array(
 	# Application Title
