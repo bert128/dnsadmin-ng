@@ -14,7 +14,7 @@ function showdomains ($count, $page, $adminlist, $search) {
 /* do the database queries */
 	if ($adminlist==1) {
 		if (strlen($search) > 0) {		# admin doing a search
-			$domains = $DB->prepare("SELECT domains.id AS domain_id, min(zones.owner) ".
+			$domains = $DB->prepare("SELECT domains.id AS domain_id, domains.type AS type, min(zones.owner) ".
 				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id WHERE domains.name LIKE ? ".
 				"GROUP BY domainname, domain_id ORDER BY domainname LIMIT ? OFFSET ?");
 			$dbreturn = $DB->execute($domains, array($searchstr, (int) $count, (int) $offset));
@@ -24,7 +24,7 @@ function showdomains ($count, $page, $adminlist, $search) {
 				"GROUP BY domainname, domain_id");
 			$dbreturnall = $DB->execute($domsall, array($searchstr));
 		} else {		# no search
-			$domains = $DB->prepare("SELECT domains.id AS domain_id, min(zones.owner) ".
+			$domains = $DB->prepare("SELECT domains.id AS domain_id, domains.type AS type, min(zones.owner) ".
 				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id ".
 				"GROUP BY domainname, domain_id ORDER BY domainname LIMIT ? OFFSET ?");
 			$dbreturn = $DB->execute($domains, array((int) $count, (int) $offset));
@@ -36,7 +36,7 @@ function showdomains ($count, $page, $adminlist, $search) {
 		}
 	} else {
 		if (strlen($search) > 0) {		# non admin doing a search
-			$domains = $DB->prepare("SELECT domains.id AS domain_id, min(zones.owner) ".
+			$domains = $DB->prepare("SELECT domains.id AS domain_id, domains.type AS type, min(zones.owner) ".
 				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id WHERE zones.owner=? AND domains.name LIKE ? ".
 				"GROUP BY domainname, domain_id ORDER BY domainname LIMIT ? OFFSET ?");
 			$dbreturn = $DB->execute($domains, array((int) $user, $searchstr, (int) $count, (int) $offset));
@@ -46,7 +46,7 @@ function showdomains ($count, $page, $adminlist, $search) {
 				"GROUP BY domainname, domain_id");
 			$dbreturnall = $DB->execute($domsall, array((int) $user, $searchstr));
 		} else {		# no search
-			$domains = $DB->prepare("SELECT domains.id AS domain_id, min(zones.owner) ".
+			$domains = $DB->prepare("SELECT domains.id AS domain_id, domains.type AS type, min(zones.owner) ".
 				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id WHERE zones.owner=? ".
 				"GROUP BY domainname, domain_id ORDER BY domainname LIMIT ? OFFSET ?");
 			$dbreturn = $DB->execute($domains, array((int) $user, (int) $count, (int) $offset));
@@ -66,7 +66,7 @@ function showdomains ($count, $page, $adminlist, $search) {
 
 	if (PEAR::isError($dbreturnall)) {
 		print $dbreturn->getMessage();
-//		header('Location: error.php?error=dberror');
+		header('Location: error.php?error=dberror');
 	}
 
 	$total = $dbreturnall->numRows();
@@ -130,6 +130,7 @@ Show per page:
         <table class="list domains">
         <tr class="header">
                 <td class="domain">Domain name</td>
+                <td class="type">Type</td>
                 <td class="owner">Owner(s)</td>
                 <td class="actions">Actions</td>
         </tr>
@@ -143,6 +144,7 @@ Show per page:
 ?>
         <tr class="<?php print $row_classes[$count++ % 2]; ?>">
                 <td class="domain"><a href="editdomain.php?id=<?php print $row->domain_id; ?>"><?php print htmlentities($row->domainname); ?></a></td>
+		<td class="type"><?php print $row->type; ?></td>
                 <td class="owner">
 			<select name="owners"size="1">
 			<? domainowners($row->domain_id) ?>
