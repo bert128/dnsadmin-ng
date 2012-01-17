@@ -1,7 +1,7 @@
 <?php
-        include("config.inc.php");
-	include("util.inc.php");
-	include("userprefs.inc.php");
+        include_once("config.inc.php");
+	include_once("util.inc.php");
+	include_once("userprefs.inc.php");
 
         $username = $_POST["username"];
         $password = $_POST["password"];

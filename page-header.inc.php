@@ -50,6 +50,14 @@ if ($_SESSION['canadd']) { ?>
 	</div>
 <?php	}	?>
 
+        <div class="box">
+                <h1>Domain search</h1>
+                <form action="index.php" method="get">
+                <input type="text" name="search" value="<?= htmlentities($_GET["search"]) ?>">
+                <input type="submit" value="Search">
+                </form>
+        </div>
+
 <?php	print $page_navigation;	?>
 
 	</td>
