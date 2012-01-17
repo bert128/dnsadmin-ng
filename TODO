@@ -11,10 +11,19 @@ TODO
 		allow mass edits
 	edit existing records
 	create records
+	create domains if appropriate privilege is set (cancreate)
+	create subadmin support
 	user management
 	page to edit domains
 	subadmin users
 	perpage into session and store in userprefs
 	script to check for and flag bad domains
-	template domains
-
+	add template domain tables
+	add support for importing a template when adding new domain, or copying an existing domain
+	allow users to create their own templates
+	allow users to import bind zonefiles
+	support for updating dnssec information with rectify-zone
+	support for enabling/disabling dnssec in the gui
+	support for adjusting dnssec settings (eg enabling nsec3)
+	add support for adding slave mode domains
+	batch changes (eg change MX records on 10 domains at once)
