@@ -7,17 +7,17 @@
         }
 
 function needadmin() {
-	if ($_SESSION['level'] < 10) {
+	if ($_SESSION['admin'] != 1) {
 		redirect("error.php?error=unpriv");
 	}
 }
 
 # is user an admin
 function isadmin() {
-	if ($_SESSION['level'] < 10) {
-		return FALSE;
+	if ($_SESSION['admin']==1) {
+		return TRUE;
 	}
-	return TRUE;
+	return FALSE;
 }
 
 # has user permission to create domains

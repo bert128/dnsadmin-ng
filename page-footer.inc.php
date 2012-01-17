@@ -7,9 +7,9 @@
 <?php	if (count($content_footer) > 0) { ?>
 	<table id="content-footer">
 	<tr>
-		<td class="left"><?php print $content_footer["left"]; ?></td>
-		<td class="middle"><?php print $content_footer["middle"]; ?></td>
-		<td class="right"><?php print $content_footer["right"]; ?></td>
+		<td class="left"><?php if (isset($content_footer["left"])) { print $content_footer["left"]; } ?></td>
+		<td class="middle"><?php if (isset($content_footer["middle"])) { print $content_footer["middle"]; } ?></td>
+		<td class="right"><?php if (isset($content_footer["right"])) { print $content_footer["right"]; } ?></td>
 	</tr>
 	</table>
 <?php	}	?>

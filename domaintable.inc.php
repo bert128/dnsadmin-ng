@@ -14,9 +14,9 @@ function showdomains ($count, $page, $adminlist, $search) {
 /* do the database queries */
 	if ($adminlist==1) {
 		if (strlen($search) > 0) {		# admin doing a search
-			$domains = $DB->prepare("SELECT domains.id AS domain_id, min(zones.owner) 
-				AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id WHERE domains.name LIKE '%?%'
-				GROUP BY domainname, domain_id ORDER BY domainname LIMIT ? OFFSET ?");
+			$domains = $DB->prepare("SELECT domains.id AS domain_id, min(zones.owner) ".
+				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id WHERE domains.name LIKE ? ".
+				"GROUP BY domainname, domain_id ORDER BY domainname LIMIT ? OFFSET ?");
 			$dbreturn = $DB->execute($domains, array($searchstr, (int) $count, (int) $offset));
 
 			$domsall = $DB->prepare("SELECT domains.id AS domain_id, min(zones.owner) ".
@@ -24,10 +24,15 @@ function showdomains ($count, $page, $adminlist, $search) {
 				"GROUP BY domainname, domain_id");
 			$dbreturnall = $DB->execute($domsall, array($searchstr));
 		} else {		# no search
-			$domains = $DB->prepare("SELECT domains.id AS domain_id, min(zones.owner) 
-				AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id 
-				GROUP BY domainname, domain_id ORDER BY domainname LIMIT ? OFFSET ?");
+			$domains = $DB->prepare("SELECT domains.id AS domain_id, min(zones.owner) ".
+				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id ".
+				"GROUP BY domainname, domain_id ORDER BY domainname LIMIT ? OFFSET ?");
 			$dbreturn = $DB->execute($domains, array((int) $count, (int) $offset));
+
+			$domsall = $DB->prepare("SELECT domains.id AS domain_id, min(zones.owner) ".
+				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id ".
+				"GROUP BY domainname, domain_id");
+			$dbreturnall = $DB->execute($domsall, NULL);
 		}
 	} else {
 		if (strlen($search) > 0) {		# non admin doing a search
@@ -92,7 +97,18 @@ function showdomains ($count, $page, $adminlist, $search) {
 
 ?>
 <div class="section">
-	<h1>Domains for user <?php print htmlentities($_SESSION['username']); ?> Total (<?php print $total; ?>)</h1>
+<?php
+	if (strlen($search) > 0) {		?>
+			<h1>Search results: (<?php print $total; ?>)</h1>
+<?php	} else {
+		if ($adminlist==1) {		?>
+			<h1>Total domains in system: (<?php print $total; ?>)</h1>
+<?php		} else {			?>
+			<h1>Domains for user <?php print htmlentities($_SESSION['username']); ?> Total (<?php print $total; ?>)</h1>
+<?php		}
+	}					?>
+
+
 	<div class="controls">
 
 <form action="<?php print $thisfile; ?>" method="get">
@@ -132,8 +148,7 @@ Show per page:
 			<? domainowners($row->domain_id) ?>
 			</select>
 		</td>
-		<td class="actions">
-		</td>
+		<td class="actions">[ <a href="domain-delete.php?id=<?php print $row->domain_id; ?>">Delete</a> | <a href="editdomain.php?id=<?php print $row->domain_id; ?>">Edit</a> ]</td>
         </tr>
 <?	
 #          }

@@ -45,6 +45,8 @@
 
 				$_SESSION['backlink'] = array();
 				$_SESSION['canadd'] = getflag($row->id, "add");
+				$_SESSION['admin'] = getflag($row->id, "admin");
+				$_SESSION['subadmin'] = getflag($row->id, "subadmin");
 
 
 				load_userprefs($row->id);

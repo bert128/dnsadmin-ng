@@ -1,20 +1,9 @@
-userprefs table:
+DONE:
+	display list of domains
 
-CREATE TABLE `userprefs` (
-  `id` int(11) NOT NULL auto_increment,
-  `user` int(11) NOT NULL REFERENCES users ON DELETE CASCADE,
-  `keyword` varchar(16) NOT NULL default '',
-  `value` int(11),
-  `valuestr` TEXT,
-  PRIMARY KEY  (`id`)
-);
-
-user flags (ie privileges);
-
-CREATE TABLE `userflags` (
-  `id` int(11) NOT NULL auto_increment,
-  `uid` int(11) NOT NULL REFERENCES users ON DELETE CASCADE,
-  `keyword` varchar(16) NOT NULL default '',
-  `value` int(11),
-  PRIMARY KEY  (`id`)
-);
+TODO
+	admin interface list of domains
+	user management
+	page to edit domains
+	subadmin users
+	perpage into session and store in userprefs

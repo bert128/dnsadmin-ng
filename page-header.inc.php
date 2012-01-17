@@ -40,7 +40,7 @@ if ($_SESSION['canadd']) { ?>
 		</ul>
 	</div>
 
-<?php	if ($_SESSION['level'] >= 10) { ?>
+<?php	if (isadmin()) { ?>
 	<div class="box">
 		<h1>Administration</h1>
 		<ul>
@@ -52,8 +52,8 @@ if ($_SESSION['canadd']) { ?>
 
         <div class="box">
                 <h1>Domain search</h1>
-                <form action="index.php" method="get">
-                <input type="text" name="search" value="<?= htmlentities($_GET["search"]) ?>">
+                <form action="<?php if (isadmin()) { print "domainadmin.php"; } else { print "index.php"; } ?>" method="get">
+                <input type="text" name="search" value="<?php if (isset($_GET["search"])) { print htmlentities($_GET["search"]); } ?>">
                 <input type="submit" value="Search">
                 </form>
         </div>
