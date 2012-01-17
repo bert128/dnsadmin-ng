@@ -1,9 +1,20 @@
 DONE:
 	display list of domains
+	admin interface list of domains
 
 TODO
-	admin interface list of domains
+	display dns records in domain
+		include search
+		include paged view
+		include sort by
+		include filter
+		allow mass edits
+	edit existing records
+	create records
 	user management
 	page to edit domains
 	subadmin users
 	perpage into session and store in userprefs
+	script to check for and flag bad domains
+	template domains
+
