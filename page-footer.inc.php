@@ -21,7 +21,7 @@
 		<table id="page-footer">
 		<tr>
 			<td class="left"><?php print htmlentities($page_footer["left"]); ?></td>
-			<td class="right"><?php print $page_footer["right"]; ?></td>
+			<td class="right"><?php if (isset($page_footer["right"])) { print $page_footer["right"]; } ?></td>
 		</tr>
 	</table>
 	</td>
