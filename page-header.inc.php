@@ -24,7 +24,7 @@ This application requires a modern browser to function correctly, and is unlikel
 		<h1>Main Menu</h1>
 		<ul class="MENU">
 			<li><a href="index.php" accesskey="H">Home</a></li>
-			<li><a href="domains.php" accesskey="H">My Domains</a></li>
+			<li><a href="index.php" accesskey="H">My Domains</a></li>
 <?php
 if ($_SESSION['canadd']) { ?>
 			<li><a href="createdomain.php" accesskey="A">Add Domain</a></li>

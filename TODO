@@ -1,16 +1,20 @@
 DONE:
 	display list of domains
 	admin interface list of domains
-
-TODO
 	display dns records in domain
 		include search
 		include paged view
+
+TODO
+	display dns records in domain
+		include search by
 		include sort by
 		include filter
 		allow mass edits
-	edit existing records
-	create records
+	edit existing records (editrecord.php)
+	delete domains
+	delete records
+	create records 
 	create domains if appropriate privilege is set (cancreate)
 	create subadmin support
 	user management
@@ -27,3 +31,6 @@ TODO
 	support for adjusting dnssec settings (eg enabling nsec3)
 	add support for adding slave mode domains
 	batch changes (eg change MX records on 10 domains at once)
+
+dynamic ui / jquery:
+	show/hide elements when creating domains depending on domain type

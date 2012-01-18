@@ -28,5 +28,17 @@ function cancreate() {
 	return TRUE;
 }
 
+function is_owner($domainid, $userid) {
+	global $DB;
+
+	$query = $DB->prepare("SELECT domain_id, owner FROM zones WHERE domain_id=? AND owner=?");
+	$dbreturn = $DB->execute($query, array((int)$domainid, (int) $userid));
+
+	if ($dbreturn->numRows() >= 1) {
+		return TRUE;
+	}
+
+	return FALSE;
+}
 
 ?>

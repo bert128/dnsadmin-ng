@@ -91,4 +91,40 @@
 		return FALSE;
 	}
 
+function domain_id2name($domainid) {
+        global $DB;
+
+        $query = $DB->prepare("SELECT name FROM domains WHERE id=?");
+        $dbreturn = $DB->execute($query, array((int) $domainid));
+
+
+        if ($dbreturn->numRows() != 1) {
+                return FALSE;
+        }
+	$row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT);
+
+	return $row->name;
+}
+
+function show_numberset($thisfile, $page, $search, $id)
+{
+?>
+<form action="<?php print $thisfile; ?>" method="get">
+Show per page:
+<select name="items" size="1">
+<option value="10">10</option>
+<option value="20">20</option>
+<option value="50">50</option>
+<option value="100">100</option>
+</select>
+<?php if (isset($page)) { print "<input type=\"hidden\" name=\"page\" value=\"".$page."\">\n"; } ?>
+<?php if (isset($id)) { print "<input type=\"hidden\" name=\"id\" value=\"$id\">\n"; } ?>
+<?php if (isset($search)) { print "<input type=\"hidden\" name=\"search\" value=\"$search\">\n"; } ?>
+<input type="text" name="itemsx">
+
+<input type="submit" name="set" value="set" title="Set per page display">
+
+</form>
+<?php
+}
 ?>

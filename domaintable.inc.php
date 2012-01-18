@@ -60,12 +60,12 @@ function showdomains ($count, $page, $adminlist, $search) {
 	}
 
 	if (PEAR::isError($dbreturn)) {
-		print $dbreturn->getMessage();
+		writelog($_SESSION['username'], $_SESSION['userid'], 5, $dbreturn->getMessage());
 		header('Location: error.php?error=dberror');
 	}
 
 	if (PEAR::isError($dbreturnall)) {
-		print $dbreturn->getMessage();
+		writelog($_SESSION['username'], $_SESSION['userid'], 5, $dbreturnall->getMessage());
 		header('Location: error.php?error=dberror');
 	}
 
@@ -83,7 +83,7 @@ function showdomains ($count, $page, $adminlist, $search) {
 	} else {
 
 		$thisfile = $_SERVER['PHP_SELF'];
-
+		$thisargs = $_SERVER['argv'];
        
 		if ($page > 1) {
 			$content_footer["left"] = "<a href=\"". $thisfile ."?page=". ($page-1) ."\">&#171 Previous Page</a>";
@@ -110,22 +110,8 @@ function showdomains ($count, $page, $adminlist, $search) {
 
 
 	<div class="controls">
-
-<form action="<?php print $thisfile; ?>" method="get">
-Show per page:
-<select name="items" size="1"> 
-<option value="10">10</option>
-<option value="20">20</option>
-<option value="50">50</option>
-<option value="100">100</option>
-</select>
-<input type="hidden" name="page" value="<?php print htmlentities($page); ?>">
-<input type="text" name="itemsx">
-
-<input type="submit" name="set" value="set" title="Set per page display">
-
-</form>
-    </div>
+<?php show_numberset($thisfile, $page, $search); ?>
+        </div>
 
         <table class="list domains">
         <tr class="header">
@@ -197,5 +183,128 @@ function id2user ($userid) {
 
         return $row->username;
 }
+
+function showdomain ($domainid, $count, $page, $adminlist, $search) {
+	global $DB, $row_classes, $content_footer;
+
+	$user = $_SESSION["userid"];
+
+	if (!(is_owner($domainid, $user)) && !(isadmin())) {
+		redirect("error.php?error=perm");
+	}
+
+	if ($count==0) { $count = 100; }
+	if ($page==0) { $page = 1; }
+
+
+	$searchstr = "%".$search."%";
+	$offset = $count * ($page - 1);
+
+/* do the database queries */
+		if (strlen($search) > 0) {		# doing a search
+			$domainq = $DB->prepare("SELECT * FROM records WHERE domain_id=? AND content LIKE ? OR name LIKE ? ORDER BY name LIMIT ? OFFSET ?");
+			$dbreturn = $DB->execute($domainq, array((int) $domainid, $searchstr, $searchstr, (int) $count, (int) $offset));
+
+			$domsall = $DB->prepare("SELECT * FROM records WHERE domain_id=? AND content LIKE ? OR name LIKE ? ORDER BY name");
+			$dbreturnall = $DB->execute($domsall, array((int) $domainid, $searchstr, $searchstr));
+		} else {		# no search
+			$domainq = $DB->prepare("SELECT * FROM records WHERE domain_id=? ORDER BY name LIMIT ? OFFSET ?");
+			$dbreturn = $DB->execute($domainq, array((int) $domainid, (int) $count, (int) $offset));
+
+			$domsall = $DB->prepare("SELECT * FROM records WHERE domain_id=? ORDER BY name");
+			$dbreturnall = $DB->execute($domsall, array((int) $domainid));
+		}
+
+	if (PEAR::isError($dbreturn)) {
+		print $dbreturn->getMessage();
+		header('Location: error.php?error=dberror');
+	}
+
+	if (PEAR::isError($dbreturnall)) {
+		writelog($_SESSION['username'], $_SESSION['userid'], 5, $dbreturnall->getMessage());
+		print $dbreturnall->getMessage();
+//		header('Location: error.php?error=dberror');
+	}
+
+	$total = $dbreturnall->numRows();
+	$num_pages = ceil($dbreturnall->numRows() / $count);
+
+	if ($page > $num_pages) { $page = $num_pages; }
+
+  	if (!$dbreturn->numRows() >= 1) {
+		if (strlen($search) > 0) {
+			echo "No records matched your search query.";
+		} else {
+			echo "No records available.";
+		}
+	} else {
+
+		$thisfile = $_SERVER['PHP_SELF'];
+		$thisfile = $_SERVER['REQUEST_URI'];
+		$thisargs = $_SERVER['argv'];
+       
+		if ($page > 1) {
+			$content_footer["left"] = "<a href=\"". $thisfile ."?page=". ($page-1) ."\">&#171 Previous Page</a>";
+		}
+
+                $content_footer["middle"] = "Page $page of $num_pages";
+
+		if ($page < $num_pages) {
+			$content_footer["right"] = "<a href=\"". $thisfile ."?page=". ($page+1) ."\">Next Page &#187</a>";
+		}
+
+?>
+<div class="section">
+<?php
+	if (strlen($search) > 0) {		?>
+			<h1>Search results: (<?php print $total; ?>)</h1>
+<?php	} else {
+		if ($adminlist==1) {		?>
+			<h1>Total domains in system: (<?php print $total; ?>)</h1>
+<?php		} else {			?>
+			<h1>Domains for user <?php print htmlentities($_SESSION['username']); ?> Total (<?php print $total; ?>)</h1>
+<?php		}
+	}					?>
+
+
+	<div class="controls">
+<?php show_numberset($thisfile, $page, $search, $domainid); ?>
+        </div>
+
+        <table class="list records">
+        <tr class="header">
+                <td class="name">Record name</td>
+                <td class="type">Type</td>
+                <td class="content">Content</td>
+                <td class="ttl">TTL</td>
+                <td class="priority">Priority</td>
+                <td class="actions">Actions</td>
+        </tr>
+<?php
+	while ($row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT)) {
+                    if (DB::isError($row)) {
+                        header('Location: error.php?error=dberror');
+                    }
+#if (($adminlist == 1) || (isowner($row->id))) { # only if we own the domain or are admin
+
+?>
+        <tr class="<?php print $row_classes[$count++ % 2]; ?>">
+                <td class="name"><a href="editrecord.php?id=<?php print $row->id; ?>"><?php print htmlentities($row->name); ?></a></td>
+		<td class="type"><?php print $row->type; ?></td>
+		<td class="content"><?php print $row->content; ?></td>
+		<td class="ttl"><?php print $row->ttl; ?></td>
+		<td class="priority"><?php print $row->priority; ?></td>
+		<td class="actions">[ <a href="record-delete.php?id=<?php print $row->id; ?>">Delete</a> | <a href="editrecord.php?id=<?php print $row->id; ?>">Edit</a> ]</td>
+        </tr>
+<?	
+#          }
+	}
+?>        </table>
+</div>
+<?
+
+  }
+}
+
 
 ?>
