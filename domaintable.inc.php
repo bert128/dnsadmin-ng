@@ -110,7 +110,7 @@ function showdomains ($count, $page, $adminlist, $search) {
 
 
 	<div class="controls">
-<?php show_numberset($thisfile, $page, $search); ?>
+<?php show_numberset($thisfile, $page, $search, 0); ?>
         </div>
 
         <table class="list domains">
