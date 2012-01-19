@@ -81,6 +81,22 @@ INPUT, TEXTAREA {
 		border: 1px solid blue;
 	}
 
+INPUT.ttl {
+	width: 60px;
+}
+
+INPUT.name {
+	width: 200px;
+}
+
+INPUT.contents {
+	width: 200px;
+}
+
+INPUT.priority {
+	width: 40px;
+}
+
 BUTTON {
     background-color: #bbbbbb;
     border: 1px solid black;
@@ -92,6 +108,22 @@ SELECT {
 	margin: 0px 0px 1px 0px;
 	background-color: #eeeeee;
 	font-size: 9pt;
+}
+
+TABLE#addrecord {
+	width: 100%
+}
+
+TABLE.addrecord TD {
+	padding: 5px 5px 0px 0px;
+}
+
+TABLE.addrecord TD.name {
+	width 200px;
+}
+
+TABLE.addrecord TD.content {
+	width 20px;
 }
 
 TABLE#main {

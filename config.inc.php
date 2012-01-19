@@ -23,6 +23,8 @@ $CONFIG = array(
 	"AppTitle" => 'DNSAdmin-NG'
 );
 
+$rectypes = array('A', 'AAAA', 'CNAME', 'HINFO', 'MX', 'NAPTR', 'NS', 'PTR', 'SOA', 'TXT');
+
 $SESSION_NAME = "DNSAdmin";
 
 session_name($SESSION_NAME);

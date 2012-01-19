@@ -1,7 +1,8 @@
 <?php
 	include_once("logging.inc.php");
 
-function int_read_pref($userid, $name) {
+/* read a preferences value from database, if record not found or invalid then use default specified in arg 3 */
+function int_read_pref($userid, $name, $default) {
 	global $DB;
 
 	$query = $DB->prepare("SELECT value FROM userprefs WHERE user=? AND keyword=?");
@@ -15,7 +16,7 @@ function int_read_pref($userid, $name) {
         }
 
         if ($return->numRows() != 1) {
-		return 0;
+		return $default;
 	}
 
 	$row = $return->fetchRow(DB_FETCHMODE_OBJECT);
@@ -35,21 +36,29 @@ function wipe_pref($userid, $name) {
 function int_write_pref($userid, $name, $value) {
 	global $DB;
 
-	wipe_pref($userid, $name);
+	$query = $DB->prepare("SELECT * FROM userprefs WHERE user=? AND keyword=?");
+	$response = $DB->execute($query, array((int) $userid, $name));
 
-	$query = $DB->prepare("INSERT INTO userprefs (user, keyword, value) VALUES (?, ?, ?)");
-	$return = $DB->execute($query, array((int) $userid, $name, (int) $value));
+	if ($response->numRows() != 1) {					/* not one record present */
+		wipe_pref($userid, $name);
+		$query = $DB->prepare("INSERT INTO userprefs (user, keyword, value) VALUES (?, ?, ?)");
+		$return = $DB->execute($query, array((int) $userid, $name, (int) $value));
+	} else {
+		$row = $response->fetchRow(DB_FETCHMODE_OBJECT);
+		$query = $DB->prepare("UPDATE userprefs SET value=? WHERE id=?");
+		$return = $DB->execute($query, array((int) $value, (int) $row->id));
+	}
 }
 
 function load_userprefs ($userid) {
-
-	$_SESSION['items'] = int_read_pref($userid, "perpage");
-	$_SESSION['savelogout'] = int_read_pref($userid, "savelogout");
-
+	$_SESSION['items'] = int_read_pref($userid, "perpage", 20);
+	$_SESSION['savelogout'] = int_read_pref($userid, "savelogout", 1);
+	$_SESSION['defttl'] = int_read_pref($userid, "defttl", 86400);
 }
 
 function save_userprefs ($userid) {
 	int_write_pref($userid, "perpage", $_SESSION['items']);
+	int_write_pref($userid, "defttl", $_SESSION['defttl']);
 	int_write_pref($userid, "savelogout", $_SESSION['savelogout']);
 }
 

@@ -28,6 +28,7 @@ save_userprefs($_SESSION['userid']);
 
 
 showdomain($domainid, $perpage, $page, 0, $search);
+addform($domainid);
 
 /* put ajax controls here */
 

@@ -36,6 +36,7 @@ if ($_SESSION['canadd']) { ?>
                 <h1>User Controls</h1>
                 <ul>
 			<li><a href="changepassword.php">Change Password</a></li>
+        		<li><a href="editprefs.php">Preferences</a></li>
         		<li><a href="saveprefs.php">Save Prefs</a></li>
         		<li><a href="logout.php">Logout</a></li>
 		</ul>

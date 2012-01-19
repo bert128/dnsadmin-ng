@@ -7,6 +7,7 @@ DONE:
 	implement login support for new hash type
 
 TODO
+	create records - addrecord.php script to parse function addform()
 	implement password change
 	implement new hash type support when setting passwords (force migration away from old dnsadmin)
 	page to edit all preferences
@@ -18,7 +19,6 @@ TODO
 	edit existing records (editrecord.php)
 	delete domains
 	delete records
-	create records 
 	create domains if appropriate privilege is set (cancreate)
 	create subadmin support
 	user management
@@ -36,6 +36,7 @@ TODO
 	add support for adding slave mode domains
 	batch changes (eg change MX records on 10 domains at once)
 	validate records
+	prefs - instead of deleting and recreating, update if exists and valid, otherwise delete and add
 
 dynamic ui / jquery:
 	show/hide elements when creating domains depending on domain type
