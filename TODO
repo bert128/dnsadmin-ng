@@ -6,6 +6,7 @@ DONE:
 		include paged view
 
 TODO
+	page to edit all preferences
 	display dns records in domain
 		include search by
 		include sort by

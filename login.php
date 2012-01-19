@@ -1,12 +1,13 @@
 <?php
         include_once("config.inc.php");
-	include_once("util.inc.php");
+	include_once("flags.inc.php");
 	include_once("userprefs.inc.php");
+	include_once("logging.inc.php");
 
-        $username = $_POST["username"];
-        $password = $_POST["password"];
+        if (isset($_POST["username"])) { $username = $_POST["username"]; }
+        if (isset($_POST["username"])) { $password = $_POST["password"]; }
 
-        if ($username && $password) {
+        if (isset($username) && isset($password)) {
 
 		$seluser = $DB->prepare("SELECT * FROM users WHERE username = ? AND active=1");
 
@@ -62,7 +63,7 @@
 
 		}
 	}
-if ($_GET["error"]) {
+if (isset($_GET["error"])) {
 	if ($_GET["error"] == "dberror") {
 		$error_msg = "Database Error";
 	} else if ($_GET["error"] == "notfound") {
@@ -122,7 +123,7 @@ window.onload = setFocus;
         </td>
 </tr>
 <tr>
-        <td colspan="2" class="error"><?php print htmlentities($error_msg); ?></td>
+        <td colspan="2" class="error"><?php if (isset($error_msg)) { print htmlentities($error_msg); } ?></td>
 </tr>
 <tr>
         <td colspan="2" class="controls">

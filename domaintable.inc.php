@@ -1,4 +1,5 @@
 <?php
+	include_once("logging.inc.php");
 
 function showdomains ($count, $page, $adminlist, $search) {
 	global $DB, $row_classes, $content_footer;
@@ -10,6 +11,8 @@ function showdomains ($count, $page, $adminlist, $search) {
 
 	$searchstr = "%".$search."%";
 	$offset = $count * ($page - 1);
+
+	set_items($count);
 
 /* do the database queries */
 	if ($adminlist==1) {

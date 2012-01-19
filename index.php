@@ -4,18 +4,9 @@
 	include_once('util.inc.php');
 	include_once('userprefs.inc.php');
 	include_once('domaintable.inc.php');
+	include_once('pages.inc.php');
 
 page_header("Your Domains");
-
-if (isset($_GET['items'])) { $perpage = $_GET['items']; } else { $perpage = $_SESSION['items']; };
-if (isset($_GET['page'])) { $page = $_GET['page']; } else { $page = 0; };
-
-
-if (isset($_GET['itemsx'])) {
-        if (is_numeric($_GET['itemsx'])) {
-                $perpage = $_GET['itemsx'];
-        }
-}
 
 if (isset($_GET['search'])) {
 	$search = $_GET['search'];
@@ -29,7 +20,6 @@ save_userprefs($_SESSION['userid']);
 
 
 showdomains($perpage, $page, 0, $search);
-
 
 page_footer();
 

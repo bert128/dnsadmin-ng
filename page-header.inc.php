@@ -36,6 +36,7 @@ if ($_SESSION['canadd']) { ?>
                 <h1>User Controls</h1>
                 <ul>
 			<li><a href="changepassword.php">Change Password</a></li>
+        		<li><a href="saveprefs.php">Save Prefs</a></li>
         		<li><a href="logout.php">Logout</a></li>
 		</ul>
 	</div>
@@ -63,5 +64,17 @@ if ($_SESSION['canadd']) { ?>
 	</td>
 
 	<td id="content">
+
+<?php
+if (isset($_SESSION['errornotice'])) {
+?>
+        <div class="sectionurgent">
+                <h1>ALERT</h1>
+		<?php print htmlentities($_SESSION['errornotice']); ?>
+        </div>
+<?php 
+unset ($_SESSION['errornotice']);
+}
+?>
 
 <!-- BEGIN CONTENT -->
