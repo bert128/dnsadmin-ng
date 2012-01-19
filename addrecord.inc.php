@@ -6,7 +6,7 @@
 function list_types($domain) {
 global $rectypes;
 
-print "<select name=\"items\" size=\"1\">\n";
+print "<select id=ddtype name=\"items\" size=\"1\">\n";
 
 foreach ($rectypes as $c) {
 	$add = "";
@@ -25,6 +25,8 @@ print "</select>\n";
 function addform($domainid) {
 $domain = domain_id2name($domainid);
 ?>
+
+<script type="text/javascript" src="js/addrecord.js"></script>
 
 <div class="section">
 <h1>Add Record</h1>
@@ -55,6 +57,71 @@ $domain = domain_id2name($domainid);
 	</tr>
 </form>
 </table>
+</div>
+
+<div class="section help" id="help-a">
+<h1>A Records</h1>
+This is where the help text for A records goes.
+</div>
+
+<div class="section help" id="help-aaaa">
+<h1>AAAA Records</h1>
+This is where the help text for AAAA records goes.
+</div>
+
+<div class="section help" id="help-cname">
+<h1>CNAME Records</h1>
+This is where the help text for CNAME records goes.
+</div>
+
+<div class="section help" id="help-hinfo">
+<h1>HINFO Records</h1>
+This is where the help text for HINFO records goes.
+</div>
+
+<div class="section help" id="help-mx">
+<h1>MX Records</h1>
+This is where the help text for MX records goes.
+</div>
+
+<div class="section help" id="help-mboxfw">
+<h1>MBOXFW Records</h1>
+This is where the help text for MBOXFW records goes.
+</div>
+
+<div class="section help" id="help-naptr">
+<h1>NAPTR Records</h1>
+This is where the help text for NAPTR records goes.
+</div>
+
+<div class="section help" id="help-ns">
+<h1>NS Records</h1>
+This is where the help text for NS records goes.
+</div>
+
+<div class="section help" id="help-ptr">
+<h1>PTR Records</h1>
+This is where the help text for PTR records goes.
+</div>
+
+<div class="section help" id="help-soa">
+<h1>SOA Records</h1>
+This is where the help text for SOA records goes.
+</div>
+
+<div class="section help" id="help-srv">
+<h1>SRV Records</h1>
+This is where the help text for SRV records goes.
+</div>
+
+<div class="section help" id="help-txt">
+<h1>TXT Records</h1>
+This is where the help text for TXT records goes.
+</div>
+
+<div class="section help" id="help-url">
+<h1>URL Records</h1>
+This is where the help text for URL records goes.
 </div>
 
 <?php
