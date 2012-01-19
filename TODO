@@ -35,6 +35,7 @@ TODO
 	support for adjusting dnssec settings (eg enabling nsec3)
 	add support for adding slave mode domains
 	batch changes (eg change MX records on 10 domains at once)
+	validate records
 
 dynamic ui / jquery:
 	show/hide elements when creating domains depending on domain type
