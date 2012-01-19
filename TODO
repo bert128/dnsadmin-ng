@@ -5,9 +5,22 @@ DONE:
 		include search
 		include paged view
 	implement login support for new hash type
+	prefs - instead of deleting and recreating, update if exists and valid, otherwise delete and add
+	function to load user preferences when logging in
+	function to save user preferences
+		call this function on logout if appropriate preference is set
+		implement saveprefs.php to save prefs immediately
+	preferences - implement default values when user doesnt have a pref set
+	preferences - store in session
+		perpage - number of rows to display per page
+		defttl - default ttl when creating a record
+		savelogout - save preferences on logout
+	function to display add record form
+		implement jquery to show/hide help depending on record type, reuse this for the edit form too
 
 TODO
 	create records - addrecord.php script to parse function addform()
+	edit existing records (editrecord.php)
 	implement password change
 	implement new hash type support when setting passwords (force migration away from old dnsadmin)
 	page to edit all preferences
@@ -16,7 +29,6 @@ TODO
 		include sort by
 		include filter
 		allow mass edits
-	edit existing records (editrecord.php)
 	delete domains
 	delete records
 	create domains if appropriate privilege is set (cancreate)
@@ -36,7 +48,5 @@ TODO
 	add support for adding slave mode domains
 	batch changes (eg change MX records on 10 domains at once)
 	validate records
-	prefs - instead of deleting and recreating, update if exists and valid, otherwise delete and add
 
 dynamic ui / jquery:
-	show/hide elements when creating domains depending on domain type
