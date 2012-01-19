@@ -241,13 +241,13 @@ function showdomain ($domainid, $count, $page, $adminlist, $search) {
 		$thisfile = $_SERVER['PHP_SELF'];
        
 		if ($page > 1) {
-			$content_footer["left"] = "<a href=\"". $thisfile ."?page=". ($page-1) ."&search=". htmlentities($search) .\">&#171 Previous Page</a>";
+			$content_footer["left"] = "<a href=\"". $thisfile ."?page=". ($page-1) ."&search=". htmlentities($search) ."\">&#171 Previous Page</a>";
 		}
 
                 $content_footer["middle"] = "Page $page of $num_pages";
 
 		if ($page < $num_pages) {
-			$content_footer["right"] = "<a href=\"". $thisfile ."?page=". ($page+1) ."&search=". htmlentities($search) .\">Next Page &#187</a>";
+			$content_footer["right"] = "<a href=\"". $thisfile ."?page=". ($page+1) ."&search=". htmlentities($search) ."\">Next Page &#187</a>";
 		}
 
 ?>
