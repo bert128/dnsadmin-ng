@@ -4,8 +4,11 @@ DONE:
 	display dns records in domain
 		include search
 		include paged view
+	implement login support for new hash type
 
 TODO
+	implement password change
+	implement new hash type support when setting passwords (force migration away from old dnsadmin)
 	page to edit all preferences
 	display dns records in domain
 		include search by

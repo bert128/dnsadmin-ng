@@ -30,8 +30,12 @@
 			header('Location: login.php?error=dberror');
 		    }
 
-//		$cryptpass = crypt($password, $row->password);
-		$cryptpass = md5($password);
+		$firstchar = substr($row->password, 0, 1);
+		if ($firstchar=='$') {						/* new style pass */
+			$cryptpass = crypt($password, $row->password);
+		} else {							/* old style pass */
+			$cryptpass = md5($password);
+		}
 
 			if ($cryptpass == $row->password) {	# auth successful
         			session_start();
