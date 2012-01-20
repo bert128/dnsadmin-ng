@@ -110,8 +110,9 @@ SELECT {
 	font-size: 9pt;
 }
 
-TABLE#addrecord {
-	width: 100%
+TABLE.addrecord {
+	padding: 1px 1px 1px 1px;
+	border-bottom: 2px solid white;
 }
 
 TABLE.addrecord TD {
@@ -119,11 +120,11 @@ TABLE.addrecord TD {
 }
 
 TABLE.addrecord TD.name {
-	width 200px;
+	width 250px;
 }
 
 TABLE.addrecord TD.content {
-	width 20px;
+	width 250px;
 }
 
 TABLE#main {
