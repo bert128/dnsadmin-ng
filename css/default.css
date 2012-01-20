@@ -112,7 +112,7 @@ SELECT {
 
 TABLE.addrecord {
 	padding: 1px 1px 1px 1px;
-	border-bottom: 2px solid white;
+	border-bottom: 4px solid white;
 }
 
 TABLE.addrecord TD {
