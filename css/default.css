@@ -127,6 +127,23 @@ TABLE.addrecord TD.content {
 	width 250px;
 }
 
+TABLE.controls {
+	width: 100%;
+	padding: 1px 1px 1px 1px;
+}
+
+TABLE.controls TD {
+	padding: 5px 5px 0px 0px;
+}
+
+TABLE.controls TD.left {
+	text-align: left;
+}
+
+TABLE.controls TD.right {
+	text-align: right;
+}
+
 TABLE#main {
 	width: 100%
 }
@@ -285,6 +302,12 @@ DIV.section {
 		margin: 0px 0px 5px 0px;
 		text-align: right;
 	}
+	DIV.section DIV.controlsleft {
+		clear: both;
+		font-size: 8pt;
+		margin: 0px 0px 5px 0px;
+		text-align: left;
+	}
 	DIV.section > TEXTAREA {
 		width: 100%;
 		margin: 0px 0px 5px 0px;
@@ -345,23 +368,10 @@ DIV.controls {
 		margin-bottom: 10px;
 	}
 
-DIV.section DIV.issue_controls {
-   clear: both;
-   text-align: right;
-   margin: 0px 0px 5px 0px;
-   font-size: 8pt;
-}
-
-DIV.section DIV.issue_controls 
-INPUT[type="submit"] {
-   text-align: right;
-   width: 55px;
-   font-size: 8pt;
-}
-
 DIV.hidden {
 	display: none;
 }
+
 	DIV.hidden H1 {
 		position: relative;
 		display: block;
@@ -529,6 +539,8 @@ TABLE.list {
 	TABLE.list TR TD {
 		padding-top: 2px;
 		padding-bottom: 2px;
+		padding-right: 2px;
+		padding-left: 2px;
 	}
 	TABLE.list TR.header TD {
 		padding-top: 0px;

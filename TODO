@@ -17,8 +17,12 @@ DONE:
 		savelogout - save preferences on logout
 	function to display add record form
 		implement jquery to show/hide help depending on record type, reuse this for the edit form too
+	create templates table
+	create tprecords table
 
 TODO
+	On domain edit page, control to edit domain properties
+	Page to edit domain properties (domainprop.php)
 	create records - addrecord.php script to parse function addform()
 	edit existing records (editrecord.php)
 	implement password change
@@ -48,5 +52,16 @@ TODO
 	add support for adding slave mode domains
 	batch changes (eg change MX records on 10 domains at once)
 	validate records
+	support to create templates
+	support for public templates
+		support for semi public - shared with downstream users
+	permission flag to choose if user can create/edit public templates
+	preference to choose default template
+	template selector - select template or existing domain (add a prefix to the form value to choose which?)
+	multi domain selector, add it to domaintable()
+	bulk edits
+		copy mx/ns records from template or other domain
+		modify a given hostname (eg www) in multiple domains
+	create or modify a host - including v4/v6 at the same time
 
 dynamic ui / jquery:

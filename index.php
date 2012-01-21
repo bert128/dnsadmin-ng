@@ -3,6 +3,7 @@
         include_once('auth.inc.php');
 	include_once('util.inc.php');
 	include_once('userprefs.inc.php');
+	include_once('users.inc.php');
 	include_once('domaintable.inc.php');
 	include_once('pages.inc.php');
 

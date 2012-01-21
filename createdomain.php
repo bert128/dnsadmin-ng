@@ -5,7 +5,6 @@
 	include_once('userprefs.inc.php');
 	include_once('domaintable.inc.php');
 	include_once('addrecord.inc.php');
-	include_once('pages.inc.php');
 
 if (!isset($_GET['id'])) {
 	redirect("index.php");
@@ -17,20 +16,18 @@ $user = $_SESSION["userid"];
 
 checkperm($user, $domainid);
 
-page_header("Records for domain $domain");
+page_header("Create New Domain");
+?>
+<div class="section">
+Placeholders:<br>
 
-if (isset($_GET['search'])) {
-	$search = $_GET['search'];
-} else {
-	$search = "";
-}
+Display number of records</br>
+Display list of owners</br>
+Provide option to turn dnssec on/off</br>
+If admin, provide options to add/remove owners</br>
 
-$_SESSION['items'] = $perpage;
-
-save_userprefs($user);
-
-showdomain($domainid, $perpage, $page, 0, $search);
-addform($domainid);
+</div>
+<?php
 
 /* put ajax controls here */
 

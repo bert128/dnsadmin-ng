@@ -41,4 +41,12 @@ function is_owner($domainid, $userid) {
 	return FALSE;
 }
 
+/* Is the currently logged in user allowed to access this domain */
+/* TODO: sub admin support */
+function checkperm($userid, $domainid) {
+	if (!(is_owner($domainid, $user)) && !(isadmin())) {
+	        redirect("error.php?error=perm");
+	}
+}
+
 ?>

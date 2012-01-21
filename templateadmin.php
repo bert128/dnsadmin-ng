@@ -3,13 +3,12 @@
         include_once('auth.inc.php');
 	include_once('util.inc.php');
 	include_once('userprefs.inc.php');
+	include_once('templatetable.inc.php');
 	include_once('users.inc.php');
-	include_once('domaintable.inc.php');
 	include_once('pages.inc.php');
 
-	needadmin();	# this page requires admin privileges
-
-page_header("All Domains");
+	needadmin();    # this page requires admin privileges
+page_header("Template administration");
 
 if (isset($_GET['search'])) {
 	$search = $_GET['search'];
@@ -22,8 +21,7 @@ $_SESSION['items'] = $perpage;
 save_userprefs($_SESSION['userid']);
 
 
-showdomains($perpage, $page, 1, $search);
-
+showtemplates($perpage, $page, 1, $search, 0); /* All templates */
 
 page_footer();
 
