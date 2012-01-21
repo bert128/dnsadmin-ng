@@ -4,6 +4,26 @@
 
 /* form for adding or editing a user */
 
+function add_user ($username, $fullname, $email, $descr, $password, $flags) {
+	global $DB;
+
+	$cryptpass = md5($password);
+
+	$query = $DB->prepare("INSERT INTO users (username, password, fullname, email, description, active) VALUES (?, ?, ?, ?, ?, 1)");
+	$dbreturn = $DB->execute($query, array($username, $cryptpass, $fullname, $email, $descr));
+
+	if (PEAR::isError($dbreturn)) {
+		redirect("error.php");
+		exit();
+	}
+
+	$uid = user_name2id($username);
+	setflag($uid, "admin", $flags['admin']);
+	setflag($uid, "add", $flags['add']);
+	$_SESSION['infonotice']="Successfully added user";
+	redirect("useradmin.php");
+}
+
 function userform ($userid) {
 	global $DB;
 
@@ -218,5 +238,50 @@ function showusers ($count, $page, $adminlist, $search, $public) {
 <?
 }
 
+function setflag($userid, $name, $value) {
+        global $DB;
+
+        $query = $DB->prepare("SELECT * FROM userflags WHERE uid=? AND keyword=?");
+        $response = $DB->execute($query, array((int) $userid, $name));
+
+        if (PEAR::isError($response)) {
+                $error = $response->getMessage();
+		redirect("error.php");
+                exit();
+        }
+
+        if ($response->numRows() != 1) {                                        /* not one record present */
+                wipe_pref($userid, $name);
+                $query = $DB->prepare("INSERT INTO userflags (uid, keyword, value) VALUES (?, ?, ?)");
+                $return = $DB->execute($query, array((int) $userid, $name, (int) $value));
+        } else {
+                $row = $response->fetchRow(DB_FETCHMODE_OBJECT);
+                $query = $DB->prepare("UPDATE userflags SET value=? WHERE id=?");
+                $return = $DB->execute($query, array((int) $value, (int) $row->id));
+        }
+}
+
+function wipe_flag($userid, $name) {
+        global $DB;
+
+        $wipeold = $DB->prepare("DELETE FROM userflags WHERE user=? AND keyword=?");
+        $return = $DB->execute($wipeold, array((int) $userid, $name));
+        return 0;
+}
+
+function user_name2id($username) {
+        global $DB;
+
+        $query = $DB->prepare("SELECT id FROM users WHERE username=?");
+        $dbreturn = $DB->execute($query, array($username));
+
+
+        if ($dbreturn->numRows() != 1) {
+                return FALSE;
+        }
+        $row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT);
+
+        return $row->id;
+}
 
 ?>

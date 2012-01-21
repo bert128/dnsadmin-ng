@@ -48,7 +48,8 @@ if ($_SESSION['canadd']) { ?>
 	<div class="box">
 		<h1>Administration</h1>
 		<ul>
-			<li><a href="useradmin.php">User Admin</a></li>
+			<li><a href="edituser.php">Add User</a></li>
+			<li><a href="useradmin.php">User List</a></li>
 			<li><a href="domainadmin.php">Domain Admin</a></li>
 			<li><a href="templateadmin.php">Template Admin</a></li>
 		</ul>
@@ -78,6 +79,16 @@ if (isset($_SESSION['errornotice'])) {
         </div>
 <?php 
 unset ($_SESSION['errornotice']);
+}
+
+if (isset($_SESSION['infonotice'])) {
+?>
+        <div class="sectioninfo">
+                <h1>Information</h1>
+                <?php print htmlentities($_SESSION['infonotice']); ?>
+        </div>
+<?php 
+unset ($_SESSION['infonotice']);
 }
 ?>
 

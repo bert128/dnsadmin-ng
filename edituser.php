@@ -11,6 +11,32 @@
 
 	needadmin();    # this page requires admin privileges
 
+if (isset($_POST['save'])) {
+
+	if (isset($_POST['id'])) { $userid = $_POST['id']; } else { $userid=0; }
+	if (isset($_POST['username'])) { $username = $_POST['username']; } else { redirect("error.php?error=2"); }
+	if (isset($_POST['fullname'])) { $fullname = $_POST['fullname']; } else { redirect("error.php?error=3"); }
+	if (isset($_POST['email'])) { $email = $_POST['email']; } else { redirect("error.php"); }
+	if (isset($_POST['descr'])) { $descr = $_POST['descr']; } else { redirect("error.php"); }
+	if (isset($_POST['password'])) { $password = $_POST['password']; } else { $password = ""; }
+
+	if (isset($_POST['admin'])) { $flags['admin'] = $_POST['admin']; } else { $flags['admin'] = 'f'; }
+	if (isset($_POST['add'])) { $flags['add'] = $_POST['add']; } else { $flags['add'] = 'f'; }
+
+/* more validation */
+	if ($userid==0) {
+		if (userexists($username)) {
+			redirect("error.php?error=userexists");
+			exit();
+		}
+		add_user ($username, $fullname, $email, $descr, $password, $flags);
+	} else {
+		print "Updating user";
+		exit();
+	}
+	redirect("useradmin.php");
+}
+
 if (isset($_GET['id'])) {
 	$userid = $_GET['id'];
 	$username = id2user($userid);

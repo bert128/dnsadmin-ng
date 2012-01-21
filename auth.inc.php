@@ -62,4 +62,17 @@ function checkflag ($userid, $flag) {
         return FALSE;
 }
 
+function userexists ($username) {
+        global $DB;
+
+        $query = $DB->prepare("SELECT id FROM users WHERE username=?");
+        $dbreturn = $DB->execute($query, array($username));
+
+        if ($dbreturn->numRows() >= 1) {
+                return TRUE;
+        }
+
+        return FALSE;
+}
+
 ?>
