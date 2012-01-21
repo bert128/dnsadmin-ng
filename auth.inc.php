@@ -49,4 +49,17 @@ function checkperm($userid, $domainid) {
 	}
 }
 
+function checkflag ($userid, $flag) {
+        global $DB;
+
+        $query = $DB->prepare("SELECT * FROM userflags WHERE uid=? AND keyword=?");
+        $dbreturn = $DB->execute($query, array((int) $userid, $flag));
+
+        if ($dbreturn->numRows() >= 1) {
+                return TRUE;
+        }
+
+        return FALSE;
+}
+
 ?>

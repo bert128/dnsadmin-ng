@@ -245,7 +245,7 @@ DIV.box {
 	}
 	DIV.box INPUT[type="text"] {
 		margin: 0px 0px 5px 0px;
-		width: 100%;
+		width: 200px;
 	}
 	DIV.box SELECT {
 		width: 100%;
@@ -386,7 +386,7 @@ DIV.hidden {
 
 TABLE.form {
 	margin: 0px 0px 5px 0px;
-	width: 100%;
+	width: 400px;
 }
 	TABLE.form TD.label {
 		width: 1%;
@@ -443,15 +443,6 @@ TABLE.form {
 		    width:98%; 
 		} 
 		
-		TD.input INPUT { width: 100%; }
-		TD.input TEXTAREA { width: 100%; }
-		TD.input P {
-			margin: 2px 0px 0px 0px;
-			padding: 0px 0px 0px 0px;
-		}
-		TD.input SELECT {
-			width: 150px;
-		}
 
 	TABLE.form TD.controls {
 		padding: 5px 0px 0px 0px;
@@ -500,21 +491,8 @@ TABLE.entryform TD.error {
 	TABLE.entryform TD.input {
 		padding: 2px 0px 2px 0px;
 	}
-		TD.input INPUT { width: 25%; }
-		TD.input TEXTAREA { width: 25%; }
-		TD.input P {
-			margin: 2px 0px 0px 0px;
-			padding: 0px 0px 0px 0px;
-		}
-		TD.input SELECT {
-			width: 150px;
-		}
-
-	TABLE.entryform TD.inputname {
-		padding: 2px 0px 2px 0px;
-	}
-		TD.input INPUT { width: 25%; }
-		TD.input TEXTAREA { width: 25%; }
+		TD.input INPUT { width: 100%; }
+		TD.input TEXTAREA { width: 100%; }
 		TD.input P {
 			margin: 2px 0px 0px 0px;
 			padding: 0px 0px 0px 0px;

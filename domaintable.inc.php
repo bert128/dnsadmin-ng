@@ -1,13 +1,11 @@
 <?php
 	include_once("logging.inc.php");
 
-function showdomains ($count, $page, $adminlist, $search) {
+function showdomains ($count, $page, $adminlist, $search, $user) {
 	global $DB, $row_classes, $content_footer;
 
 	if ($count==0) { $count = 100; }
 	if ($page==0) { $page = 1; }
-
-	$user = $_SESSION["userid"];
 
 	$searchstr = "%".$search."%";
 	$offset = $count * ($page - 1);
@@ -86,7 +84,6 @@ function showdomains ($count, $page, $adminlist, $search) {
 	} else {
 
 		$thisfile = $_SERVER['PHP_SELF'];
-       
 		if ($page > 1) {
 			$content_footer["left"] = "<a href=\"". $thisfile ."?page=". ($page-1) ."&search=". htmlentities($search) ."\">&#171 Previous Page</a>";
 		}
@@ -106,7 +103,7 @@ function showdomains ($count, $page, $adminlist, $search) {
 		if ($adminlist==1) {		?>
 			<h1>Total domains in system: (<?php print $total; ?>)</h1>
 <?php		} else {			?>
-			<h1>Domains for user <?php print htmlentities($_SESSION['username']); ?> Total (<?php print $total; ?>)</h1>
+			<h1>Domains for user: <?php print htmlentities($_SESSION['username']); ?>, Total: (<?php print $total; ?>)</h1>
 <?php		}
 	}					?>
 

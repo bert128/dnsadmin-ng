@@ -145,7 +145,7 @@ function showtemplates ($count, $page, $adminlist, $search, $public) {
 
 ?>
         <tr class="<?php print $row_classes[$count++ % 2]; ?>">
-                <td class="tpname"><?php print htmlentities($row->name); ?></a></td>
+                <td class="tpname"><?php print htmlentities($row->name); ?></td>
                 <td class="owner"><?php print htmlentities(id2user($row->owner)); ?></td>
 <?php 	if ($public==0) { 	?>
 		<td class="type"><?php if ($row->public==0) { print "private"; } else { print "public"; } ?></td>
