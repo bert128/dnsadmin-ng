@@ -3,6 +3,7 @@
 <head>
 	<title><?php print $CONFIG["AppTitle"]; ?>: <?php print $title; ?></title>
 	<link rel="stylesheet" type="text/css" href="css/default.css" media="screen" />
+	<script type="text/javascript" src="js/util.js"></script>
 	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 </head>
 <body>

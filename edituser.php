@@ -11,9 +11,30 @@
 
 	needadmin();    # this page requires admin privileges
 
+if (isset($_POST['delete_user'])) {
+	if (isset($_POST['userid'])) { $userid = $_POST['userid']; } else { $_SESSION['errornotice']="Delete called without userid"; redirect("index.php"); }
+
+	$username = id2user($userid);
+	$query = $DB->prepare("DELETE FROM users WHERE id=?");
+	$dbreturn = $DB->execute($query, array($userid));
+
+	$query = $DB->prepare("DELETE FROM userprefs WHERE user=?");
+	$dbreturn = $DB->execute($query, array($userid));
+
+	$query = $DB->prepare("DELETE FROM userflags WHERE uid=?");
+	$dbreturn = $DB->execute($query, array($userid));
+
+	$query = $DB->prepare("DELETE FROM zones WHERE owner=?");
+	$dbreturn = $DB->execute($query, array($userid));
+
+	$_SESSION['infonotice']="Successfully deleted user $username";
+	redirect("useradmin.php");
+	exit();
+}
+
 if (isset($_POST['save'])) {
 
-	if (isset($_POST['id'])) { $userid = $_POST['id']; } else { $userid=0; }
+	if (isset($_POST['userid'])) { $userid = $_POST['userid']; } else { $userid=0; }
 	if (isset($_POST['username'])) { $username = $_POST['username']; } else { redirect("error.php?error=2"); }
 	if (isset($_POST['fullname'])) { $fullname = $_POST['fullname']; } else { redirect("error.php?error=3"); }
 	if (isset($_POST['email'])) { $email = $_POST['email']; } else { redirect("error.php"); }
