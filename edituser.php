@@ -41,8 +41,8 @@ if (isset($_POST['save'])) {
 	if (isset($_POST['descr'])) { $descr = $_POST['descr']; } else { redirect("error.php"); }
 	if (isset($_POST['password'])) { $password = $_POST['password']; } else { $password = ""; }
 
-	if (isset($_POST['admin'])) { $flags['admin'] = $_POST['admin']; } else { $flags['admin'] = 'f'; }
-	if (isset($_POST['add'])) { $flags['add'] = $_POST['add']; } else { $flags['add'] = 'f'; }
+	if (isset($_POST['admin'])) { $flags['admin'] = $_POST['admin']; } else { $flags['admin'] = 0; }
+	if (isset($_POST['add'])) { $flags['add'] = $_POST['add']; } else { $flags['add'] = 0; }
 
 /* more validation */
 	if ($userid==0) {
@@ -52,8 +52,19 @@ if (isset($_POST['save'])) {
 		}
 		add_user ($username, $fullname, $email, $descr, $password, $flags);
 	} else {
-		print "Updating user";
-		exit();
+		if (userexists($username)) {	/* special logic to allow username changes */
+			$existing = user_name2id($username);
+			if ($existing==$userid) {
+				modify_user ($userid, $username, $fullname, $email, $descr, $flags);
+				$_SESSION['infonotice']="Successfully updated user $username";
+				if (strlen($password) > 0) {
+					changepass ($userid, $password);
+					$_SESSION['infonotice']="Successfully updated user $username and changed password";
+				}
+			} else {
+				$_SESSION['errornotice']="Username already exists";
+			}
+		}
 	}
 	redirect("useradmin.php");
 }

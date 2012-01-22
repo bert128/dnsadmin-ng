@@ -5,7 +5,7 @@ function tickbox ($name, $srcvar, $title) {
         <tr> 
                 <td class="entrylabel"><?php print htmlentities($title); ?></td>
                 <td class="none">
-                        <?php  if ($srcvar == 't') { ?>
+                        <?php  if ($srcvar == 1) { ?>
                 <input type="checkbox" name="<?php print htmlentities($name); ?>" value="1" CHECKED>
                         <?php  } else { ?>
                 <input type="checkbox" name="<?php print htmlentities($name); ?>" value="1">

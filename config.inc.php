@@ -20,7 +20,10 @@
 
 $CONFIG = array(
 	# Application Title
-	"AppTitle" => 'DNSAdmin-NG'
+	"AppTitle" => 'DNSAdmin-NG',
+
+	# new crypto
+	"crypto" => 1
 );
 
 $rectypes = array('A', 'AAAA', 'CNAME', 'HINFO', 'MBOXFW', 'MX', 'NAPTR', 'NS', 'PTR', 'SOA', 'SRV', 'TXT', 'URL');

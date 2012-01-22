@@ -3,20 +3,45 @@
 /* user related functions */
 
 function changepass($userid, $newpass) {
+	global $DB, $CONFIG;
 
+	if ($CONFIG["crypto"] > 0) {		/* using new salted crypt */
+		print "Using new encryption type";
+		$password = crypt($newpass, '$1$38jdhH$');		/* add proper random salt here later */
+	} else {
+		$password = md5($newpass);
+	}
+
+	$query = $DB->prepare("UPDATE users SET password=? WHERE id=?");
+	$dbreturn = $DB->execute($query, array($password, (int) $userid));
+
+	if (PEAR::isError($dbreturn)) {
+
+                redirect("error.php");
+                exit();
+        }
+	return 0;
 }
 
-function modify_user ($username, $fullname, $email, $descr, $flags) {
+function modify_user ($userid, $username, $fullname, $email, $descr, $flags) {
+	global $DB;
 
+	$query = $DB->prepare("UPDATE users SET username=?, fullname=?, email=?, description=? WHERE id=?");
+	$dbreturn = $DB->execute($query, array($username, $fullname, $email, $descr, $userid));
+	if (PEAR::isError($dbreturn)) {
+		redirect("error.php");
+		exit();
+	}
+	setflag($userid, "admin", $flags['admin']);
+	setflag($userid, "add", $flags['add']);
+	return 0;
 }
 
 function add_user ($username, $fullname, $email, $descr, $password, $flags) {
 	global $DB;
 
-	$cryptpass = md5($password);
-
-	$query = $DB->prepare("INSERT INTO users (username, password, fullname, email, description, active) VALUES (?, ?, ?, ?, ?, 1)");
-	$dbreturn = $DB->execute($query, array($username, $cryptpass, $fullname, $email, $descr));
+	$query = $DB->prepare("INSERT INTO users (username, fullname, email, description, active) VALUES (?, ?, ?, ?, ?, 1)");
+	$dbreturn = $DB->execute($query, array($username, $fullname, $email, $descr));
 
 	if (PEAR::isError($dbreturn)) {
 		redirect("error.php");
@@ -24,6 +49,7 @@ function add_user ($username, $fullname, $email, $descr, $password, $flags) {
 	}
 
 	$uid = user_name2id($username);
+	changepass($uid, $password);
 	setflag($uid, "admin", $flags['admin']);
 	setflag($uid, "add", $flags['add']);
 	$_SESSION['infonotice']="Successfully added user";
@@ -51,8 +77,8 @@ function userform ($userid) {
 		} else {
 			$row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT);
 		}
-		if (checkflag($userid, 'admin')) { $flag_admin='t'; }
-		if (checkflag($userid, 'add')) { $flag_add='t'; }
+		if (checkflag($userid, 'admin')) { $flag_admin=1; }
+		if (checkflag($userid, 'add')) { $flag_add=1; }
 	}
 ?>
 <div class="section">

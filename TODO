@@ -65,3 +65,4 @@ TODO
 	create or modify a host - including v4/v6 at the same time
 
 dynamic ui / jquery:
+	on user list, pop up user description when hovering over name

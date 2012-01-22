@@ -56,7 +56,10 @@ function checkflag ($userid, $flag) {
         $dbreturn = $DB->execute($query, array((int) $userid, $flag));
 
         if ($dbreturn->numRows() >= 1) {
-                return TRUE;
+		$row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT);
+		if ($row->value==1) {
+			return TRUE;
+		}
         }
 
         return FALSE;
