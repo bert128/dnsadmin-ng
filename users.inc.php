@@ -2,7 +2,13 @@
 
 /* user related functions */
 
-/* form for adding or editing a user */
+function changepass($userid, $newpass) {
+
+}
+
+function modify_user ($username, $fullname, $email, $descr, $flags) {
+
+}
 
 function add_user ($username, $fullname, $email, $descr, $password, $flags) {
 	global $DB;
@@ -24,6 +30,7 @@ function add_user ($username, $fullname, $email, $descr, $password, $flags) {
 	redirect("useradmin.php");
 }
 
+/* form for adding or editing a user */
 function userform ($userid) {
 	global $DB;
 
