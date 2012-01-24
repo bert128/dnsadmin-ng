@@ -165,12 +165,12 @@ function showtemplates ($count, $page, $adminlist, $search, $public) {
 }
 
 
-function showtemplate ($domainid, $count, $page, $adminlist, $search) {
+function showtemplate ($tpid, $count, $page, $adminlist, $search) {
 	global $DB, $row_classes, $content_footer;
 
 	$user = $_SESSION["userid"];
 
-	if (!(is_owner($domainid, $user)) && !(isadmin())) {
+	if (!(is_owner_tp($tpid, $user)) && !(isadmin())) {
 		redirect("error.php?error=perm");
 	}
 
@@ -183,17 +183,17 @@ function showtemplate ($domainid, $count, $page, $adminlist, $search) {
 
 /* do the database queries */
 		if (strlen($search) > 0) {		# doing a search
-			$domainq = $DB->prepare("SELECT * FROM records WHERE domain_id=? AND content LIKE ? OR name LIKE ? ORDER BY name LIMIT ? OFFSET ?");
-			$dbreturn = $DB->execute($domainq, array((int) $domainid, $searchstr, $searchstr, (int) $count, (int) $offset));
+			$domainq = $DB->prepare("SELECT * FROM tprecords WHERE domain_id=? AND content LIKE ? OR name LIKE ? ORDER BY name LIMIT ? OFFSET ?");
+			$dbreturn = $DB->execute($domainq, array((int) $tpid, $searchstr, $searchstr, (int) $count, (int) $offset));
 
-			$domsall = $DB->prepare("SELECT * FROM records WHERE domain_id=? AND content LIKE ? OR name LIKE ? ORDER BY name");
-			$dbreturnall = $DB->execute($domsall, array((int) $domainid, $searchstr, $searchstr));
+			$domsall = $DB->prepare("SELECT * FROM tprecords WHERE domain_id=? AND content LIKE ? OR name LIKE ? ORDER BY name");
+			$dbreturnall = $DB->execute($domsall, array((int) $tpid, $searchstr, $searchstr));
 		} else {		# no search
-			$domainq = $DB->prepare("SELECT * FROM records WHERE domain_id=? ORDER BY name LIMIT ? OFFSET ?");
-			$dbreturn = $DB->execute($domainq, array((int) $domainid, (int) $count, (int) $offset));
+			$domainq = $DB->prepare("SELECT * FROM tprecords WHERE domain_id=? ORDER BY name LIMIT ? OFFSET ?");
+			$dbreturn = $DB->execute($domainq, array((int) $tpid, (int) $count, (int) $offset));
 
-			$domsall = $DB->prepare("SELECT * FROM records WHERE domain_id=? ORDER BY name");
-			$dbreturnall = $DB->execute($domsall, array((int) $domainid));
+			$domsall = $DB->prepare("SELECT * FROM tprecords WHERE domain_id=? ORDER BY name");
+			$dbreturnall = $DB->execute($domsall, array((int) $tpid));
 		}
 
 	if (PEAR::isError($dbreturn)) {
@@ -251,18 +251,18 @@ function showtemplate ($domainid, $count, $page, $adminlist, $search) {
 			<tr class="controls">
 				<td class="left">
 					<form action="domainproperties.php" method="get">
-						<input type="hidden" name="id" value="<?php print htmlentities($domainid); ?>">
+						<input type="hidden" name="id" value="<?php print htmlentities($tpid); ?>">
 						<input type="submit" name="set" value="Properties" title="properties">
 					</form>
 				</td>
-				<td class="right"><?php show_numberset($thisfile, $page, $search, $domainid); ?></td>
+				<td class="right"><?php show_numberset($thisfile, $page, $search, $tpid); ?></td>
 			</tr>
 		</table>
         </div>
 
         <table class="list records">
         <tr class="header">
-                <td class="name">Record name</td>
+                <td class="name">Host name</td>
                 <td class="type">Type</td>
                 <td class="content">Content</td>
                 <td class="ttl">TTL</td>
@@ -278,15 +278,14 @@ function showtemplate ($domainid, $count, $page, $adminlist, $search) {
 
 ?>
         <tr class="<?php print $row_classes[$count++ % 2]; ?>">
-                <td class="name"><a href="editrecord.php?id=<?php print $row->id; ?>"><?php print htmlentities($row->name); ?></a></td>
+                <td class="name"><a href="editrecord.php?type=1&id=<?php print $row->id; ?>"><?php print htmlentities($row->name); ?></a></td>
 		<td class="type"><?php print $row->type; ?></td>
 		<td class="content"><?php print $row->content; ?></td>
 		<td class="ttl"><?php print $row->ttl; ?></td>
 		<td class="priority"><?php print $row->prio; ?></td>
-		<td class="actions">[<a href="record-delete.php?id=<?php print $row->id; ?>">Delete</a> | <a href="editrecord.php?id=<?php print $row->id; ?>">Edit</a>]</td>
+		<td class="actions">[<a href="record-delete.php?type=1&id=<?php print $row->id; ?>">Delete</a> | <a href="editrecord.php?id=<?php print $row->id; ?>">Edit</a>]</td>
         </tr>
-<?	
-#          }
+<?
 	}
 ?>        </table>
 </div>

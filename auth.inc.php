@@ -41,10 +41,29 @@ function is_owner($domainid, $userid) {
 	return FALSE;
 }
 
+function is_owner_tp($tpid, $userid) {
+	global $DB;
+
+	$query = $DB->prepare("SELECT id FROM templates WHERE id=? AND owner=?");
+	$dbreturn = $DB->execute($query, array((int)$userid, (int) $tpid));
+
+	if ($dbreturn->numRows() >= 1) {
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 /* Is the currently logged in user allowed to access this domain */
 /* TODO: sub admin support */
 function checkperm($userid, $domainid) {
-	if (!(is_owner($domainid, $user)) && !(isadmin())) {
+	if (!(is_owner($domainid, $userid)) && !(isadmin())) {
+	        redirect("error.php?error=perm");
+	}
+}
+
+function checkpermtp($userid, $tpid) {
+	if (!(is_owner_tp($tpid, $userid)) && !(isadmin())) {
 	        redirect("error.php?error=perm");
 	}
 }

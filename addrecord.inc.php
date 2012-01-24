@@ -6,7 +6,7 @@
 function list_types($domain) {
 global $rectypes;
 
-print "<select id=ddtype name=\"items\" size=\"1\">\n";
+print "<select id=ddtype name=\"type\" size=\"1\">\n";
 
 foreach ($rectypes as $c) {
 	$add = "";
@@ -22,8 +22,15 @@ print "</select>\n";
 }
 
 /* Display a form allowing user to insert a record */
-function addform($domainid) {
-$domain = domain_id2name($domainid);
+function addform($domainid, $type) {
+if ($type==0) {			/* domain */
+	$domain = domain_id2name($domainid);
+} else if ($type==1) {
+	$domain = template_id2name($domainid);
+} else {
+	redirect("error.php");
+	exit();
+}
 ?>
 
 <script type="text/javascript" src="js/addrecord.js"></script>
@@ -32,6 +39,9 @@ $domain = domain_id2name($domainid);
 <h1>Add Record</h1>
 <table class="addrecord">
 <form action="addrecord.php" method="post">
+<input type="hidden" name="domainid" value="<?php print $domainid; ?>">
+<input type="hidden" name="proc" value="<?php print $type; ?>">
+
         <tr class="header">
                 <td class="name">Record name</td>
                 <td class="type">Type</td>
@@ -49,7 +59,7 @@ $domain = domain_id2name($domainid);
 		<td class="ttl"><input type="text" class="ttl" name="ttl" value="<?php print htmlentities($_SESSION['defttl']); ?>"></td>
 	</tr>
 	<tr>
-		<td class="controls"><input type="submit" name="submit" value="submit" title="Submit"></td>
+		<td class="controls"><input type="submit" name="add" value="add" title="Submit"></td>
                 <td class="type"></td>
                 <td class="priority"></td>
                 <td class="content"></td>

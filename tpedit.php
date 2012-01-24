@@ -6,18 +6,20 @@
 	include_once('domaintable.inc.php');
 	include_once('addrecord.inc.php');
 	include_once('pages.inc.php');
+	include_once('templates.inc.php');
+	include_once('templatetable.inc.php');
 
 if (!isset($_GET['id'])) {
 	redirect("index.php");
-}	
+}
 
-$domainid = $_GET['id'];
-$domain = domain_id2name($domainid);
+$tpid = $_GET['id'];
+$template = template_id2name($tpid);
 $user = $_SESSION["userid"];
 
-checkperm($user, $domainid);
+checkpermtp($user, $template);
 
-page_header("Records for domain $domain");
+page_header("Editing template $template");
 
 if (isset($_GET['search'])) {
 	$search = $_GET['search'];
@@ -29,8 +31,8 @@ $_SESSION['items'] = $perpage;
 
 save_userprefs($user);
 
-showdomain($domainid, $perpage, $page, 0, $search);
-addform($domainid, 0);
+showtemplate($tpid, $perpage, $page, 0, $search);
+addform($tpid, 1);
 
 /* put ajax controls here */
 

@@ -19,9 +19,10 @@ DONE:
 		implement jquery to show/hide help depending on record type, reuse this for the edit form too
 	create templates table
 	create tprecords table
+	add template domain tables
+	On domain edit page, control to edit domain properties
 
 TODO
-	On domain edit page, control to edit domain properties
 	Page to edit domain properties (domainprop.php)
 	create records - addrecord.php script to parse function addform()
 	edit existing records (editrecord.php)
@@ -42,7 +43,6 @@ TODO
 	subadmin users
 	perpage into session and store in userprefs
 	script to check for and flag bad domains
-	add template domain tables
 	add support for importing a template when adding new domain, or copying an existing domain
 	allow users to create their own templates
 	allow users to import bind zonefiles
@@ -63,6 +63,8 @@ TODO
 		copy mx/ns records from template or other domain
 		modify a given hostname (eg www) in multiple domains
 	create or modify a host - including v4/v6 at the same time
+	automatically create forwards and reverse dns
+	Write the help texts
 
 dynamic ui / jquery:
 	on user list, pop up user description when hovering over name

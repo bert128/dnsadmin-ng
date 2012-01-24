@@ -5,10 +5,12 @@
 	include_once('userprefs.inc.php');
 	include_once('domaintable.inc.php');
 	include_once('addrecord.inc.php');
+	include_once('records.inc.php');
+	include_once('domain.inc.php');
 
 if (!isset($_GET['id'])) {
 	redirect("index.php");
-}	
+}
 
 $domainid = $_GET['id'];
 $domain = domain_id2name($domainid);
@@ -19,16 +21,31 @@ checkperm($user, $domainid);
 page_header("Properties for domain $domain");
 ?>
 <div class="section">
-Placeholders:<br>
-
-Display number of records</br>
-Display list of owners</br>
-Provide option to turn dnssec on/off</br>
-If admin, provide options to add/remove owners</br>
+<table class="domaininfo">
+<tr>
+	<td>Domain type:</td>
+	<td><?php print domain_type($domainid); ?></td>
+</tr>
+<tr>
+	<td>Total records:</td>
+	<td><?php print domain_records($domainid, ""); ?></td>
+</tr>
+<tr>
+	<td>Total IPv4 hosts:</td>
+	<td><?php print domain_records($domainid, "A"); ?></td>
+</tr>
+	<td>Total IPv6 hosts:</td>
+	<td><?php print domain_records($domainid, "AAAA"); ?></td>
+</tr>
+</tr>
+	<td>Total PTR records:</td>
+	<td><?php print domain_records($domainid, "PTR"); ?></td>
+</tr>
+</table>
 
 </div>
 <?php
-addform($domainid);
+addform($domainid, 0);
 
 /* put ajax controls here */
 
