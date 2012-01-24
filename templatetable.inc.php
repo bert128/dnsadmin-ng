@@ -239,9 +239,9 @@ function showtemplate ($tpid, $count, $page, $adminlist, $search) {
 			<h1>Search results: (<?php print $total; ?>)</h1>
 <?php	} else {
 		if ($adminlist==1) {		?>
-			<h1>Total domains in system: (<?php print $total; ?>)</h1>
+			<h1>Total templates in system: (<?php print $total; ?>)</h1>
 <?php		} else {			?>
-			<h1>Domains for user <?php print htmlentities($_SESSION['username']); ?> Total (<?php print $total; ?>)</h1>
+			<h1>Templates for user: <?php print htmlentities($_SESSION['username']); ?>, Total: (<?php print $total; ?>)</h1>
 <?php		}
 	}					?>
 
@@ -250,7 +250,7 @@ function showtemplate ($tpid, $count, $page, $adminlist, $search) {
 		<table class="controls">
 			<tr class="controls">
 				<td class="left">
-					<form action="domainproperties.php" method="get">
+					<form action="tproperties.php" method="get">
 						<input type="hidden" name="id" value="<?php print htmlentities($tpid); ?>">
 						<input type="submit" name="set" value="Properties" title="properties">
 					</form>

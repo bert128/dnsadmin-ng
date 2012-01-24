@@ -11,6 +11,7 @@
 	include_once('error.inc.php');
 	include_once('validate.inc.php');
 	include_once('templates.inc.php');
+	include_once('addrecord.inc.php');
 
 	$user = $_SESSION["userid"];
 
@@ -25,8 +26,16 @@ if (isset($_POST['add'])) {
 	if (isset($_POST['ttl'])) { $ttl = $_POST['ttl']; } else { $ttl=3600; }
 
 /* validate  */
+	if (!validate_record($domainid, $proc, $name, $type, $priority, $content, $ttl)) {
+		error("Record validation failed");
+	}
+
 	if ($proc==0) {			/* domain record */
-		error("Not implemented yet");
+		if (!(is_owner($domainid, $user)) && !(isadmin())) {
+			error("Non admin user attempting to add record");
+		}
+		add_record($domainid, $proc, $name, $type, $priority, $content, $ttl);
+		redirect("editdomain.php?id=$domainid");
 	} else if ($proc==1) {		/* template record */
 		if (!(is_owner_tp($domainid, $user)) && !(isadmin())) {
 			error("Non admin user attempting to add record");
@@ -39,8 +48,6 @@ if (isset($_POST['add'])) {
 	} else {
 		error("Invalid record type");
 	}
-
-	redirect("useradmin.php");
 }
 
 if (isset($_GET['id'])) {

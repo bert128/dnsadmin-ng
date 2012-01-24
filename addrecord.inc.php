@@ -3,6 +3,21 @@
  * functions for adding records
  */
 
+function add_record($domainid, $proc, $name, $type, $priority, $content, $ttl) {
+        global $DB;
+
+	error("add_record function not implemented");
+
+        $query = $DB->prepare("INSERT INTO tprecords (domain_id, name, type, content, ttl, prio) VALUES (?, ?, ?, ?, ?, ?)");
+        $dbreturn = $DB->execute($query, array($domainid, $name, $type, $content, $ttl, $priority));
+
+        if (PEAR::isError($dbreturn)) {
+                error("Database error when inserting template record");
+        }
+
+        redirect("tpedit.php?id=$domainid");
+}
+
 function list_types($domain) {
 global $rectypes;
 

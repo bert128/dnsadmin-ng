@@ -21,12 +21,17 @@ DONE:
 	create tprecords table
 	add template domain tables
 	On domain edit page, control to edit domain properties
+	Page to edit domain properties (domainproperties.php)
+	create template records
 
 TODO
-	Page to edit domain properties (domainprop.php)
-	create records - addrecord.php script to parse function addform()
+
+BASIC
+	create template
+	edit existing template record (tproperties.php)
 	edit existing records (editrecord.php)
 	implement password change
+
 	implement new hash type support when setting passwords (force migration away from old dnsadmin)
 	page to edit all preferences
 	display dns records in domain
@@ -52,6 +57,7 @@ TODO
 	add support for adding slave mode domains
 	batch changes (eg change MX records on 10 domains at once)
 	validate records
+		stub functions created, now need to do actual validation
 	support to create templates
 	support for public templates
 		support for semi public - shared with downstream users
@@ -65,6 +71,7 @@ TODO
 	create or modify a host - including v4/v6 at the same time
 	automatically create forwards and reverse dns
 	Write the help texts
+
 
 dynamic ui / jquery:
 	on user list, pop up user description when hovering over name
