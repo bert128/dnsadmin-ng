@@ -11,18 +11,12 @@
 
 $user = $_SESSION["userid"];
 
+if (!cancreate()) {
+	error("Insufficient privilege to create new domains");
+}
+
 page_header("Create New Domain");
-?>
-<div class="section">
-Placeholders:<br>
 
-Display number of records</br>
-Display list of owners</br>
-Provide option to turn dnssec on/off</br>
-If admin, provide options to add/remove owners</br>
-
-</div>
-<?php
 domain_addform();
 
 /* put ajax controls here */
