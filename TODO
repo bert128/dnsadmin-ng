@@ -71,7 +71,7 @@ BASIC
 	create or modify a host - including v4/v6 at the same time
 	automatically create forwards and reverse dns
 	Write the help texts
-
+	add user preference section to choose default template
 
 dynamic ui / jquery:
 	on user list, pop up user description when hovering over name

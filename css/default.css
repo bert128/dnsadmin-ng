@@ -633,6 +633,7 @@ DIV.left { clear: left; float: left; width: 48% }
 DIV.right { clear: right; float: right; width: 48% }
 DIV.hidden { display: none; }
 DIV.checkbox { margin-top: 2px;}
+TR.hidden { display: none; }
 /*
  * List Tables
  */

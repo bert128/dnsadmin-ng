@@ -63,4 +63,66 @@ function add_template($name, $owner, $public) {
 	redirect("templates.php");
 }
 
+
+function select_templates () {
+        global $DB;
+
+	select_templates_public();
+	select_templates_own();
+
+}
+function select_templates_public () {
+        global $DB;
+
+        $pubquery = $DB->prepare("SELECT id, name FROM templates WHERE public=1");
+        $dbreturn = $DB->execute($pubquery, NULL);
+
+print "<option value=\"0\"> --- System Templates ---</option>";
+
+        if ($dbreturn->numRows() < 1) {
+                return;
+        }
+
+        while ($row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT)) {
+                    if (DB::isError($row)) {
+			error("Database error");
+                    }
+		if ($row->name=='Default') {
+	                $add = " SELECTED";
+		} else {
+			$add="";
+		}
+                print "<option value=\"". $row->id ."\"". $add .">". htmlentities($row->name) ."</option>";
+        }
+return;
+}
+
+function select_templates_own () {
+        global $DB;
+	$user = $_SESSION['userid'];
+
+        $pubquery = $DB->prepare("SELECT id, name FROM templates WHERE owner=? AND public=0");
+        $dbreturn = $DB->execute($pubquery, array($user));
+
+print "<option value=\"0\"> --- User Defined Private Templates ---</option>";
+
+        if ($dbreturn->numRows() < 1) {
+                return;
+        }
+
+        while ($row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT)) {
+                    if (DB::isError($row)) {
+			error("Database error");
+                    }
+		if ($row->name=='Default') {
+	                $add = " SELECTED";
+		} else {
+			$add="";
+		}
+                print "<option value=\"". $row->id ."\"". $add .">". htmlentities($row->name) ."</option>";
+        }
+
+
+}
+
 ?>

@@ -86,4 +86,49 @@ function tp_addform() {
 <?php
 }
 
+/* form allowing creation of a domain */
+function domain_addform() {
+?>
+<script type="text/javascript" src="js/adddomain.js"></script>
+
+<div class="section">
+<h1>Create Domain</h1>
+<table class="addrecord">
+<form action="createdom.php" method="post">
+<?php
+	inputline("Domain Name", "name", "");
+
+?>
+	<tr class="type">
+		<td class="type">Domain Type</td>
+		<td class="type">
+			<select name="type" size="1" id="domaintype">
+				<option value="0" SELECTED>Native</option>
+				<option value="1">Slave</option>
+			</select>
+		</td>
+	</tr>
+	<tr class="hidden" id="masterip">
+		<td class="master">Master Server</td>
+		<td class="master"><input type="text" name="master" value=""></td>
+	</tr>
+	<tr class="template" id="template">
+		<td class="template">Domain Template</td>
+		<td class="template">
+			<select name="template" size="1" id="domaintemplate">
+<?php	select_templates();	?>
+			</select>
+		</td>
+	</tr>
+
+
+        <tr>
+                <td class="controls"><input type="submit" name="add" value="add" title="Submit"></td>
+        </tr>
+</form>
+</table>
+</div>
+<?php
+}
+
 ?>
