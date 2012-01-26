@@ -40,11 +40,11 @@ function modify_user ($userid, $username, $fullname, $email, $descr, $flags) {
 function add_user ($username, $fullname, $email, $descr, $password, $flags) {
 	global $DB;
 
-	$query = $DB->prepare("INSERT INTO users (username, fullname, email, description, active) VALUES (?, ?, ?, ?, ?, 1)");
+	$query = $DB->prepare("INSERT INTO users (username, fullname, email, description, active) VALUES (?, ?, ?, ?, 1)");
 	$dbreturn = $DB->execute($query, array($username, $fullname, $email, $descr));
 
 	if (PEAR::isError($dbreturn)) {
-		redirect("error.php");
+		error($dbreturn->getMessage());
 		exit();
 	}
 
@@ -315,6 +315,43 @@ function user_name2id($username) {
         $row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT);
 
         return $row->id;
+}
+
+/* create a selection list for usernames */
+function select_userid() {
+        global $DB;
+	$user = $_SESSION['userid'];
+
+        $query = $DB->prepare("SELECT id, username FROM users");
+
+        $dbreturn = $DB->execute($query, NULL);
+
+	print "<tr class=\"owner\">\n";
+	print "<td class=\"owner\">Owner</td>\n";
+	print "<td class=\"owner\">\n";
+	print "<select name=\"owner\" size=\"1\">\n";
+
+        if ($dbreturn->numRows() < 1) {
+                print "<option value=\"10\">System</option>";
+		print "</select>\n";
+		print "</td>\n";
+                return;
+        }
+
+        while ($row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT)) {
+                    if (DB::isError($row)) {
+                        header('Location: error.php?error=dberror');
+                    }
+                print "<option value=\"". $row->id ."\"";
+		if ($row->id==$user) {
+			print " SELECTED";
+		}
+		print ">". htmlentities(id2user($row->id)) ."</option>\n";
+        }
+
+	print "</select>\n";
+	print "</td>\n";
+
 }
 
 ?>

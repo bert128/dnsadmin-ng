@@ -8,6 +8,7 @@
 	include_once('forms.inc.php');
 	include_once('pages.inc.php');
 	include_once('search.inc.php');
+	include_once('error.inc.php');
 
 	needadmin();    # this page requires admin privileges
 
@@ -33,12 +34,11 @@ if (isset($_POST['delete_user'])) {
 }
 
 if (isset($_POST['save'])) {
-
 	if (isset($_POST['userid'])) { $userid = $_POST['userid']; } else { $userid=0; }
 	if (isset($_POST['username'])) { $username = $_POST['username']; } else { redirect("error.php?error=2"); }
 	if (isset($_POST['fullname'])) { $fullname = $_POST['fullname']; } else { redirect("error.php?error=3"); }
-	if (isset($_POST['email'])) { $email = $_POST['email']; } else { redirect("error.php"); }
-	if (isset($_POST['descr'])) { $descr = $_POST['descr']; } else { redirect("error.php"); }
+	if (isset($_POST['email'])) { $email = $_POST['email']; } else { error("Invalid Email"); }
+	if (isset($_POST['descr'])) { $descr = $_POST['descr']; } else { error("Invalid User Description"); }
 	if (isset($_POST['password'])) { $password = $_POST['password']; } else { $password = ""; }
 
 	if (isset($_POST['admin'])) { $flags['admin'] = $_POST['admin']; } else { $flags['admin'] = 0; }

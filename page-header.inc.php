@@ -28,6 +28,7 @@ This application requires a modern browser to function correctly, and is unlikel
 			<li><a href="index.php" accesskey="H">Home</a></li>
 			<li><a href="index.php" accesskey="H">My Domains</a></li>
 			<li><a href="templates.php" accesskey="H">Templates</a></li>
+			<li><a href="create_template.php" accesskey="H">Add Template</a></li>
 <?php
 if ($_SESSION['canadd']) { ?>
 			<li><a href="createdomain.php" accesskey="A">Add Domain</a></li>

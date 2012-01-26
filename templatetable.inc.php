@@ -241,7 +241,7 @@ function showtemplate ($tpid, $count, $page, $adminlist, $search) {
 		if ($adminlist==1) {		?>
 			<h1>Total templates in system: (<?php print $total; ?>)</h1>
 <?php		} else {			?>
-			<h1>Templates for user: <?php print htmlentities($_SESSION['username']); ?>, Total: (<?php print $total; ?>)</h1>
+			<h1>Records for template: <?php print htmlentities(template_id2name($tpid)); ?>, Total: (<?php print $total; ?>)</h1>
 <?php		}
 	}					?>
 

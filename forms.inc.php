@@ -2,7 +2,7 @@
 
 function tickbox ($name, $srcvar, $title) {
 ?>
-        <tr> 
+        <tr>
                 <td class="entrylabel"><?php print htmlentities($title); ?></td>
                 <td class="none">
                         <?php  if ($srcvar == 1) { ?>
@@ -58,6 +58,31 @@ global $edit;
                         <input type="text" name="<?php print htmlentities($name); ?>" value="<?php print htmlentities($default); ?>">
                 </td>
         </tr>
+<?php
+}
+
+/* form allowing creation of a template */
+function tp_addform() {
+?>
+
+<div class="section">
+<h1>Create Template</h1>
+<table class="addrecord">
+<form action="addtp.php" method="post">
+<?php
+	inputline("Template Name", "name", "");
+	tickbox("public", "", "Public");
+
+	if (isadmin()) {	/* show list of users here */
+		select_userid();
+	}
+?>
+        <tr>
+                <td class="controls"><input type="submit" name="add" value="add" title="Submit"></td>
+        </tr>
+</form>
+</table>
+</div>
 <?php
 }
 
