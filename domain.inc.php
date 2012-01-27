@@ -82,8 +82,77 @@ function add_domain_slave($name, $masterip, $owner) {
 }
 
 function add_domain_native($name, $template, $owner) {
+	global $DB;
 
-error("add_domain_native function not implemented");
+	checkpermtp($owner, $template);			/* perform perm check */
+
+	$query = $DB->prepare("INSERT INTO domains (name, type) VALUES (?, 'NATIVE')");
+	$dbreturn = $DB->execute($query, array($name));
+
+	if (PEAR::isError($dbreturn)) {
+		writelog($_SESSION['username'], $_SESSION['userid'], 5, $dbreturn->getMessage());
+		error("Failed to add domain");
+	}
+
+	$domainid = get_domain_id($name);
+
+	apply_template($template, $domainid);
+
+	$query = $DB->prepare("INSERT INTO zones (domain_id, owner) VALUES (?, ?)");
+	$dbreturn = $DB->execute($query, array((int) $domainid, (int) $owner));
+
+	if (PEAR::isError($dbreturn)) {
+		writelog($_SESSION['username'], $_SESSION['userid'], 5, $dbreturn->getMessage());
+		error("Cannot update domain owner");
+	}
+
+	$_SESSION['infonotice']="Successfully created domain: $name";
+}
+
+function generate_ordername($zoneid, $name)
+{
+        global $DB;
+        $domain = domain_id2name($zoneid);
+
+        $newname = str_replace($domain, "", $name);
+        $tokens = explode('.', $newname);
+
+        $items = count($tokens);
+        $items -= 2;    /* strip the blank entries */
+
+        while ($items>=0) {
+            $sendname .= "$tokens[$items] ";
+            $items--;
+        }
+
+        $sendname = trim($sendname);
+
+        return $sendname;
+}
+
+function apply_template($template, $domain) {
+	global $DB;
+
+	$query = $DB->prepare("SELECT * FROM tprecords WHERE domain_id=?");
+	$dbreturn = $DB->execute($query, array($template));
+
+	if (PEAR::isError($dbreturn)) {
+		writelog($_SESSION['username'], $_SESSION['userid'], 5, $dbreturn->getMessage());
+		error("Cannot select template records");
+	}
+
+	$dname = domain_id2name($domain);
+
+	while ($row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT)) {
+		$wrquery = $DB->prepare("INSERT INTO records (domain_id, name, type, content, ttl, prio, ordername) VALUES (?, ?, ?, ?, ?, ?, ?)");
+		$name = $row->name .".". $dname;
+		$ordername = generate_ordername($domain, $name);
+		$dbreturn2 = $DB->execute($wrquery, array((int) $domain, $name, $row->type, $row->content, (int) $row->ttl, (int) $row->prio, $ordername));
+		if (PEAR::isError($dbreturn2)) {
+			writelog($_SESSION['username'], $_SESSION['userid'], 5, $dbreturn->getMessage());
+			error("Cannot apply domain template");
+		}
+	}
 
 }
 ?>

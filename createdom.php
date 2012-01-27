@@ -48,6 +48,6 @@ if (isset($_POST['add'])) {
 	}
 }
 
-redirect("templates.php");
+redirect("index.php");
 
 ?>

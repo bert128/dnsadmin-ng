@@ -27,7 +27,7 @@ function add_template_record($domainid, $proc, $name, $type, $priority, $content
 		error("Database error when inserting template record");
 	}
 
-	$_SESSION['infonotice']="Successfully created template: $name";
+	$_SESSION['infonotice']="Successfully created template record: $name";
 	redirect("tpedit.php?id=$domainid");
 }
 
