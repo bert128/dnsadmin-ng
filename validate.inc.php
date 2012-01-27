@@ -98,4 +98,8 @@ function validate_url() {
 return TRUE;
 }
 
+function validate_ip($ip) {
+return TRUE;
+}
+
 ?>

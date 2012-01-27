@@ -72,6 +72,8 @@ BASIC
 	automatically create forwards and reverse dns
 	Write the help texts
 	add user preference section to choose default template
+	add user preference section to choose default masterip
+	domaintable - add master server column
 
 dynamic ui / jquery:
 	on user list, pop up user description when hovering over name

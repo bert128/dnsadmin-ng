@@ -120,7 +120,11 @@ function domain_addform() {
 			</select>
 		</td>
 	</tr>
-
+<?php
+        if (isadmin()) {        /* show list of users here */
+                select_userid();
+        }
+?>
 
         <tr>
                 <td class="controls"><input type="submit" name="add" value="add" title="Submit"></td>

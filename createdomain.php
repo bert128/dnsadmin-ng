@@ -8,6 +8,7 @@
 	include_once('forms.inc.php');
 	include_once('error.inc.php');
 	include_once('templates.inc.php');
+	include_once('users.inc.php');
 
 $user = $_SESSION["userid"];
 
