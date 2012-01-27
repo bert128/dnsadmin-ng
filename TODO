@@ -23,11 +23,16 @@ DONE:
 	On domain edit page, control to edit domain properties
 	Page to edit domain properties (domainproperties.php)
 	create template records
+	create template
+	support to create templates
+	support for public templates
 
 TODO
 
+ASAP
+	editrecord.php (edit records)
+
 BASIC
-	create template
 	edit existing template record (tproperties.php)
 	edit existing records (editrecord.php)
 	implement password change
@@ -58,9 +63,7 @@ BASIC
 	batch changes (eg change MX records on 10 domains at once)
 	validate records
 		stub functions created, now need to do actual validation
-	support to create templates
-	support for public templates
-		support for semi public - shared with downstream users
+	support for semi public - shared with downstream users
 	permission flag to choose if user can create/edit public templates
 	preference to choose default template
 	template selector - select template or existing domain (add a prefix to the form value to choose which?)

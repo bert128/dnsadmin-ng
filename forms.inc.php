@@ -135,4 +135,9 @@ function domain_addform() {
 <?php
 }
 
+function record_editform($type, $record) {
+	global $DB;
+
+}
+
 ?>

@@ -17,6 +17,11 @@ function template_id2name($tpid) {
         return $row->name;
 }
 
+function modify_template_record($record, $domainid, $proc, $name, $type, $priority, $content, $ttl) {
+	print "Function modify_template_record not implemented";
+	exit();
+}
+
 function add_template_record($domainid, $proc, $name, $type, $priority, $content, $ttl) {
 	global $DB;
 

@@ -177,6 +177,8 @@ function showdomain ($domainid, $count, $page, $adminlist, $search) {
 		redirect("error.php?error=perm");
 	}
 
+	$dname = domain_id2name($domainid);
+
 	if ($count==0) { $count = 100; }
 	if ($page==0) { $page = 1; }
 
@@ -244,7 +246,7 @@ function showdomain ($domainid, $count, $page, $adminlist, $search) {
 		if ($adminlist==1) {		?>
 			<h1>Total domains in system: (<?php print $total; ?>)</h1>
 <?php		} else {			?>
-			<h1>Domains for user <?php print htmlentities($_SESSION['username']); ?> Total (<?php print $total; ?>)</h1>
+			<h1>Records for domain <?php print htmlentities($dname); ?> Total (<?php print $total; ?>)</h1>
 <?php		}
 	}					?>
 

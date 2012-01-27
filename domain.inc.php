@@ -23,6 +23,26 @@ function domain_type($domainid) {
 	return "ERROR";
 }
 
+function record2domain($type, $edit) {
+	global $DB;
+
+	if ($type==0) {		/* domain */
+		$query = $DB->prepare("SELECT domain_id FROM records WHERE id=?");
+	} else if ($type==1) {
+		$query = $DB->prepare("SELECT domain_id FROM tprecords WHERE id=?");
+	}
+
+	$dbreturn = $DB->execute($query, array($edit));
+
+	if ($dbreturn->numRows() != 1) {
+		error("Invalid record lookup");
+	}
+
+	$row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT);
+
+	return $row->domain_id;
+}
+
 /* check if domain exists by name */
 function domain_exists($name) {
 	global $DB;
@@ -130,6 +150,15 @@ function generate_ordername($zoneid, $name)
         return $sendname;
 }
 
+function strip_domain($zoneid, $name)
+{
+        global $DB;
+        $domain = domain_id2name($zoneid);
+
+        $newname = str_replace(".". $domain, "", $name);
+        return $newname;
+}
+
 function apply_template($template, $domain) {
 	global $DB;
 
@@ -159,4 +188,5 @@ function apply_template($template, $domain) {
 	}
 
 }
+
 ?>

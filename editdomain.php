@@ -30,7 +30,7 @@ $_SESSION['items'] = $perpage;
 save_userprefs($user);
 
 showdomain($domainid, $perpage, $page, 0, $search);
-addform($domainid, 0);
+addform($domainid, 0, 0, NULL);
 
 /* put ajax controls here */
 

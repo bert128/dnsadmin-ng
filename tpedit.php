@@ -32,7 +32,7 @@ $_SESSION['items'] = $perpage;
 save_userprefs($user);
 
 showtemplate($tpid, $perpage, $page, 0, $search);
-addform($tpid, 1);
+addform($tpid, 1, 0, NULL);
 
 /* put ajax controls here */
 
