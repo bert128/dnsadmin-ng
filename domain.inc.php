@@ -145,7 +145,11 @@ function apply_template($template, $domain) {
 
 	while ($row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT)) {
 		$wrquery = $DB->prepare("INSERT INTO records (domain_id, name, type, content, ttl, prio, ordername) VALUES (?, ?, ?, ?, ?, ?, ?)");
-		$name = $row->name .".". $dname;
+		if (strlen($row->name) > 0) {
+			$name = $row->name .".". $dname;
+		} else {
+			$name = $dname;
+		}
 		$ordername = generate_ordername($domain, $name);
 		$dbreturn2 = $DB->execute($wrquery, array((int) $domain, $name, $row->type, $row->content, (int) $row->ttl, (int) $row->prio, $ordername));
 		if (PEAR::isError($dbreturn2)) {
