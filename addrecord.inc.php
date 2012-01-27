@@ -3,9 +3,25 @@
  * functions for adding records
  */
 
-function modify_record($record, $domainid, $proc, $name, $type, $priority, $content, $ttl) {
-	print "Function modify_record not implemented";
-	exit();
+function modify_record($record, $proc, $name, $type, $priority, $content, $ttl) {
+	global $DB;
+
+	$domainid = record2domain(0, $record);
+	$domain = domain_id2name($domainid);
+
+	$query = $DB->prepare("UPDATE records SET name=?, type=?, content=?, ttl=?, prio=?, ordername=? WHERE id=?");
+
+	$insname = $name .".". $domain;
+	$ordername = generate_ordername($domain, $insname);
+	$dbreturn = $DB->execute($query, array($name, $type, $content, (int) $ttl, (int) $priority, $ordername, (int) $record));
+
+        if (PEAR::isError($dbreturn)) {
+		error($dbreturn->getMessage());
+                error("Database error when modifying record");
+        }
+	$_SESSION['infonotice']="Successfully modified record";
+        redirect("editdomain.php?id=$domainid");
+
 }
 
 function add_record($domainid, $proc, $name, $type, $priority, $content, $ttl) {
@@ -20,7 +36,6 @@ function add_record($domainid, $proc, $name, $type, $priority, $content, $ttl) {
         $dbreturn = $DB->execute($query, array((int) $domainid, $insname, $type, $content, (int) $ttl, (int) $priority, $ordername));
 
         if (PEAR::isError($dbreturn)) {
-		error($dbreturn->getMessage());
                 error("Database error when inserting template record");
         }
 	$_SESSION['infonotice']="Successfully created record";

@@ -36,7 +36,7 @@ if (isset($_POST['modify'])) {
 		if (!(is_owner($domainid, $user)) && !(isadmin())) {
 			error("Non admin user attempting to modify record");
 		}
-		modify_record($edit, $domainid, $proc, $name, $type, $priority, $content, $ttl);
+		modify_record($edit, $proc, $name, $type, $priority, $content, $ttl);
 		redirect("editdomain.php?id=$domainid");
 	} else if ($proc==1) {		/* template record */
 		if (!(is_owner_tp($domainid, $user)) && !(isadmin())) {
