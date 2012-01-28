@@ -135,7 +135,7 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 			<? domainowners($row->domain_id) ?>
 			</select>
 		</td>
-		<td class="actions">[ <a href="domain-delete.php?id=<?php print $row->domain_id; ?>">Delete</a> | <a href="editdomain.php?id=<?php print $row->domain_id; ?>">Edit</a> ]</td>
+		<td class="actions">[ <a href="domain-delete.php?id=<?php print $row->domain_id; ?>" onClick="return confirmAction('Delete this domain?')">Delete</a> | <a href="editdomain.php?id=<?php print $row->domain_id; ?>">Edit</a> ]</td>
         </tr>
 <?	
 #          }

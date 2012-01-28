@@ -154,7 +154,7 @@ function showtemplates ($count, $page, $adminlist, $search, $public) {
 		if ($public==1) {
 			print "[<a href=\"createdomain.php?template=$row->id\">Use</a>]";
 		} else {
-			print "[<a href=\"createdomain.php?template=$row->id\">Use</a>|<a href=\"tpedit.php?type=1&id=$row->id\">Edit</a>|<a href=\"tpdelete.php?id=$row->id\">Delete</a>]";
+			print "[<a href=\"createdomain.php?template=$row->id\">Use</a>|<a href=\"tpedit.php?type=1&id=$row->id\">Edit</a>|<a href=\"tpdelete.php?id=$row->id\" onClick="return confirmAction('Delete this template?')">Delete</a>]";
 		}
 		?></td>
         </tr>
