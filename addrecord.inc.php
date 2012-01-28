@@ -28,7 +28,7 @@ function add_record($domainid, $proc, $name, $type, $priority, $content, $ttl) {
         global $DB;
 	$domain = domain_id2name($domainid);
 
-        $query = $DB->prepare("INSERT INTO records (domain_id, name, type, content, ttl, prio, ordername) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $query = $DB->prepare("INSERT INTO records (domain_id, name, type, content, ttl, prio, ordername, auth) VALUES (?, ?, ?, ?, ?, ?, ?, 1)");
 
 	$insname = $name .".". $domain;
 

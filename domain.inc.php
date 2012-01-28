@@ -129,12 +129,12 @@ function add_domain_native($name, $template, $owner) {
 	$_SESSION['infonotice']="Successfully created domain: $name";
 }
 
-function generate_ordername($zoneid, $name)
+function generate_ordername($domain, $name)
 {
         global $DB;
-        $domain = domain_id2name($zoneid);
 
         $newname = str_replace($domain, "", $name);
+
         $tokens = explode('.', $newname);
 
         $items = count($tokens);
