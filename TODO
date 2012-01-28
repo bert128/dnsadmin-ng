@@ -29,6 +29,7 @@ DONE:
 	editrecord.php (edit records)
 	page to edit all preferences
 	perpage into session and store in userprefs
+	enforce password policy when changing password
 
 TODO
 
@@ -36,7 +37,6 @@ ASAP
 	implement password change
 
 BASIC
-	enforce password policy when changing password
 	edit existing template record (tproperties.php)
 	edit existing records (editrecord.php)
 

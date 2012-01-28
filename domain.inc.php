@@ -173,7 +173,7 @@ function apply_template($template, $domain) {
 	$dname = domain_id2name($domain);
 
 	while ($row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT)) {
-		$wrquery = $DB->prepare("INSERT INTO records (domain_id, name, type, content, ttl, prio, ordername) VALUES (?, ?, ?, ?, ?, ?, ?)");
+		$wrquery = $DB->prepare("INSERT INTO records (domain_id, name, type, content, ttl, prio, ordername, auth) VALUES (?, ?, ?, ?, ?, ?, ?, 1)");
 		if (strlen($row->name) > 0) {
 			$name = $row->name .".". $dname;
 		} else {
