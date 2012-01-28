@@ -8,7 +8,7 @@
 	include_once('pages.inc.php');
 
 	needadmin();    # this page requires admin privileges
-page_header("Template administration");
+page_header("User Administration");
 
 if (isset($_GET['search'])) {
 	$search = $_GET['search'];

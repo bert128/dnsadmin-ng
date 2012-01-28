@@ -6,6 +6,7 @@
 	include_once('users.inc.php');
 	include_once('domaintable.inc.php');
 	include_once('pages.inc.php');
+	include_once('error.inc.php');
 
 	needadmin();	# this page requires admin privileges
 

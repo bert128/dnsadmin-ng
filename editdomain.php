@@ -6,10 +6,11 @@
 	include_once('domaintable.inc.php');
 	include_once('addrecord.inc.php');
 	include_once('pages.inc.php');
+	include_once('error.inc.php');
 
 if (!isset($_GET['id'])) {
 	redirect("index.php");
-}	
+}
 
 $domainid = $_GET['id'];
 $domain = domain_id2name($domainid);

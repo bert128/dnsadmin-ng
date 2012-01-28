@@ -8,7 +8,7 @@
 
 function needadmin() {
 	if ($_SESSION['admin'] != 1) {
-		redirect("error.php?error=unpriv");
+		error("This function requires admin privileges");
 	}
 }
 
@@ -58,7 +58,7 @@ function is_owner_tp($tpid, $userid) {
 /* TODO: sub admin support */
 function checkperm($userid, $domainid) {
 	if (!(is_owner($domainid, $userid)) && !(isadmin())) {
-	        redirect("error.php?error=perm");
+	        error("Insufficient privileges for requested function");
 	}
 }
 
