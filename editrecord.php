@@ -10,6 +10,7 @@
 	include_once('error.inc.php');
 	include_once('addrecord.inc.php');
 	include_once('domain.inc.php');
+	include_once('templates.inc.php');
 
 $user = $_SESSION['userid'];
 

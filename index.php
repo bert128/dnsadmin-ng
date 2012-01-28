@@ -17,9 +17,6 @@ if (isset($_GET['search'])) {
 
 $_SESSION['items'] = $perpage;
 
-save_userprefs($_SESSION['userid']);
-
-
 showdomains($perpage, $page, 0, $search, $_SESSION['userid']);
 
 page_footer();

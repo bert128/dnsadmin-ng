@@ -18,8 +18,22 @@ function template_id2name($tpid) {
 }
 
 function modify_template_record($record, $domainid, $proc, $name, $type, $priority, $content, $ttl) {
-	print "Function modify_template_record not implemented";
-	exit();
+        global $DB;
+
+        $domainid = record2domain(1, $record);
+        $domain = template_id2name($domainid);
+
+        $query = $DB->prepare("UPDATE tprecords SET name=?, type=?, content=?, ttl=?, prio=? WHERE id=?");
+
+        $dbreturn = $DB->execute($query, array($name, $type, $content, (int) $ttl, (int) $priority, (int) $record));
+
+        if (PEAR::isError($dbreturn)) {
+		error($dbreturn->getMessage());
+                error("Database error when modifying template record");
+        }
+        $_SESSION['infonotice']="Successfully modified record";
+        redirect("tpedit.php?id=$domainid");
+
 }
 
 function add_template_record($domainid, $proc, $name, $type, $priority, $content, $ttl) {
@@ -33,7 +47,7 @@ function add_template_record($domainid, $proc, $name, $type, $priority, $content
 	}
 
 	$_SESSION['infonotice']="Successfully created template record: $name";
-	redirect("tpedit.php?id=$domainid");
+	redirect("tpedit.php?id=$domainid&type=1");
 }
 
 function delete_template($tpid) {

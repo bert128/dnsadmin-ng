@@ -18,6 +18,7 @@ if ((isset($_POST['apply'])) || (isset($_POST['save']))) {
 	if (isset($_POST['template'])) { $_SESSION['deftp'] = $_POST['template']; }
 	if (isset($_POST['savelogout'])) { $_SESSION['savelogout'] = $_POST['savelogout']; }
 	if (isset($_POST['defttl'])) { $_SESSION['defttl'] = $_POST['defttl']; }
+	if (isset($_POST['masterip'])) { $_SESSION['masterip'] = $_POST['masterip']; }
 
 	$_SESSION['infonotice']="Preferences updated";
 }

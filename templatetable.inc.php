@@ -154,7 +154,7 @@ function showtemplates ($count, $page, $adminlist, $search, $public) {
 		if ($public==1) {
 			print "[<a href=\"createdomain.php?template=$row->id\">Use</a>]";
 		} else {
-			print "[<a href=\"createdomain.php?template=$row->id\">Use</a>|<a href=\"tpedit.php?id=$row->id\">Edit</a>|<a href=\"tpdelete.php?id=$row->id\">Delete</a>]";
+			print "[<a href=\"createdomain.php?template=$row->id\">Use</a>|<a href=\"tpedit.php?type=1&id=$row->id\">Edit</a>|<a href=\"tpdelete.php?id=$row->id\">Delete</a>]";
 		}
 		?></td>
         </tr>
@@ -283,7 +283,7 @@ function showtemplate ($tpid, $count, $page, $adminlist, $search) {
 		<td class="content"><?php print $row->content; ?></td>
 		<td class="ttl"><?php print $row->ttl; ?></td>
 		<td class="priority"><?php print $row->prio; ?></td>
-		<td class="actions">[<a href="record-delete.php?type=1&id=<?php print $row->id; ?>">Delete</a> | <a href="editrecord.php?id=<?php print $row->id; ?>">Edit</a>]</td>
+		<td class="actions">[<a href="record-delete.php?type=1&id=<?php print $row->id; ?>">Delete</a> | <a href="editrecord.php?type=1&id=<?php print $row->id; ?>">Edit</a>]</td>
         </tr>
 <?
 	}

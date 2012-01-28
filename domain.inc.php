@@ -133,6 +133,7 @@ function generate_ordername($domain, $name)
 {
         global $DB;
 
+	$sendname="";
         $newname = str_replace($domain, "", $name);
 
         $tokens = explode('.', $newname);

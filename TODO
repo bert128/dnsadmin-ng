@@ -30,15 +30,19 @@ DONE:
 	page to edit all preferences
 	perpage into session and store in userprefs
 	enforce password policy when changing password
+	implement password change
+	edit existing records (editrecord.php)
+	create domains if appropriate privilege is set (cancreate)
+	add support for adding slave mode domains
+	user management
+	add user preference section to choose default template
+	edit existing template record (tproperties.php)
 
 TODO
 
 ASAP
-	implement password change
-
+	implement user timeout function
 BASIC
-	edit existing template record (tproperties.php)
-	edit existing records (editrecord.php)
 
 	implement new hash type support when setting passwords (force migration away from old dnsadmin)
 	display dns records in domain
@@ -48,9 +52,7 @@ BASIC
 		allow mass edits
 	delete domains
 	delete records
-	create domains if appropriate privilege is set (cancreate)
 	create subadmin support
-	user management
 	page to edit domains
 	subadmin users
 	script to check for and flag bad domains
@@ -60,7 +62,6 @@ BASIC
 	support for updating dnssec information with rectify-zone
 	support for enabling/disabling dnssec in the gui
 	support for adjusting dnssec settings (eg enabling nsec3)
-	add support for adding slave mode domains
 	batch changes (eg change MX records on 10 domains at once)
 	validate records
 		stub functions created, now need to do actual validation
@@ -75,7 +76,6 @@ BASIC
 	create or modify a host - including v4/v6 at the same time
 	automatically create forwards and reverse dns
 	Write the help texts
-	add user preference section to choose default template
 	add user preference section to choose default masterip
 	domaintable - add master server column
 

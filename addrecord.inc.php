@@ -13,7 +13,7 @@ function modify_record($record, $proc, $name, $type, $priority, $content, $ttl) 
 
 	$insname = $name .".". $domain;
 	$ordername = generate_ordername($domain, $insname);
-	$dbreturn = $DB->execute($query, array($name, $type, $content, (int) $ttl, (int) $priority, $ordername, (int) $record));
+	$dbreturn = $DB->execute($query, array($insname, $type, $content, (int) $ttl, (int) $priority, $ordername, (int) $record));
 
         if (PEAR::isError($dbreturn)) {
 		error($dbreturn->getMessage());

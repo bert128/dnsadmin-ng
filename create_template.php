@@ -18,9 +18,6 @@ if (isset($_GET['search'])) {
 
 $_SESSION['items'] = $perpage;
 
-save_userprefs($_SESSION['userid']);
-
-
 showtemplates($perpage, $page, 0, $search, 1); 		/* public templates */
 
 showtemplates($perpage, $page, 0, $search, 0); 		/* user's templates */
