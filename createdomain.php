@@ -12,7 +12,7 @@
 
 $user = $_SESSION["userid"];
 
-if (isset($_GET['template'])) { $deftemplate = $_GET['template']; } else { $deftemplate=1; }
+if (isset($_GET['template'])) { $deftemplate = $_GET['template']; } else { $deftemplate=$_SESSION['deftp']; }
 
 if (!cancreate()) {
 	error("Insufficient privilege to create new domains");

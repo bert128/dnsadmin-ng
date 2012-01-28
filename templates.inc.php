@@ -102,7 +102,7 @@ print "<option value=\"0\"> --- System Templates ---</option>";
 return;
 }
 
-function select_templates_own (Â$def) {
+function select_templates_own ($def) {
         global $DB;
 	$user = $_SESSION['userid'];
 
