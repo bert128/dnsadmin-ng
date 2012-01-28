@@ -69,4 +69,42 @@ function set_items($items) {
 
 }
 
+/* display a form for editing preferences */
+/* stage 2, allow admins to edit other users prefs */
+function prefsform($user) {
+	global $DB;
+
+?>
+<div class="section">
+<h1>Edit Preferences</h1>
+<form action="editprefs.php" method="post">
+        <table class="form">
+
+<?php           /* form elements here */
+	inputline("Display items per page", "perpage", $_SESSION['items']);
+	inputline("Default TTL", "defttl", $_SESSION['defttl']);
+?>
+        <tr>
+                <td class="entrylabel">Default Template</td>
+                <td class="template">
+                        <select name="template" size="1" id="domaintemplate">
+<?php   select_templates($_SESSION['deftp']); ?>
+                        </select>
+                </td>
+        </tr>
+<?php
+	tickbox("savelogout", $_SESSION['savelogout'], "Save settings on logout");
+
+?>
+        <tr><td class="controls" colspan="2">
+                <input type="submit" name="save" value="Save" title="Save changes">
+		<input type="submit" name="apply" value="Apply" title="Apply changes">
+                <input type="submit" name="cancel" value="Cancel" title="Abandon changes">
+        </tr>
+</table>
+</form>
+</div>
+<?php
+}
+
 ?>
