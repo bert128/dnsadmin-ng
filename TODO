@@ -26,19 +26,21 @@ DONE:
 	create template
 	support to create templates
 	support for public templates
+	editrecord.php (edit records)
+	page to edit all preferences
+	perpage into session and store in userprefs
 
 TODO
 
 ASAP
-	editrecord.php (edit records)
-
-BASIC
-	edit existing template record (tproperties.php)
-	edit existing records (editrecord.php)
 	implement password change
 
+BASIC
+	enforce password policy when changing password
+	edit existing template record (tproperties.php)
+	edit existing records (editrecord.php)
+
 	implement new hash type support when setting passwords (force migration away from old dnsadmin)
-	page to edit all preferences
 	display dns records in domain
 		include search by
 		include sort by
@@ -51,7 +53,6 @@ BASIC
 	user management
 	page to edit domains
 	subadmin users
-	perpage into session and store in userprefs
 	script to check for and flag bad domains
 	add support for importing a template when adding new domain, or copying an existing domain
 	allow users to create their own templates

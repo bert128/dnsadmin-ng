@@ -140,4 +140,29 @@ function record_editform($type, $record) {
 
 }
 
+function passwdform($user) {
+        global $DB;
+
+?>
+<div class="section">
+<h1>Change Password</h1>
+<form action="changepass.php" method="post">
+        <table class="form">
+
+<?php           /* form elements here */
+	inputline("Old Password", "oldpass", "");
+	inputline("New Password", "newpass1", "");
+	inputline("Confirm New Password", "newpass2", "");
+
+?>
+        <tr><td class="controls" colspan="2">
+                <input type="submit" name="change" value="Change" title="Change Password">
+                <input type="submit" name="cancel" value="Cancel" title="Abandon changes">
+        </tr>
+</table>
+</form>
+</div>
+<?php
+}
+
 ?>

@@ -5,7 +5,7 @@
 
        $row_classes = array("even", "odd");
 
-       $page_footer["left"] = "Currently logged in as ${_SESSION['username']} with privilege ${_SESSION['level']}";
+       $page_footer["left"] = "Currently logged in as ${_SESSION['username']}";
 
        if (strpos($_SERVER["HTTP_USER_AGENT"], 'MSIE') == true) {
                 $page_footer["right"] = "Stop using Internet Explorer you idiot!";

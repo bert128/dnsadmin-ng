@@ -110,7 +110,7 @@ function userform ($userid) {
 ?>
         <tr><td class="controls" colspan="2">
 		<input type="submit" name="save" value="<?php if ($userid != 0) { print "Save"; } else { print "Add"; } ?>" title="Save changes">
-		<input type="submit" name="delete_user" value="Delete" onClick="return confirmAction('Delete this entry?')" <?php if ($userid==0) echo " disabled" ?> title="Delete current entry and return to previous screen">
+		<input type="submit" name="delete_user" value="Delete" onClick="return confirmAction('Delete this user?')" <?php if ($userid==0) echo " disabled" ?> title="Delete current entry and return to previous screen">
 		<input type="submit" name="cancel" value="Cancel" title="Abandon changes">
 	</tr>
 </table>
