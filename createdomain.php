@@ -12,13 +12,15 @@
 
 $user = $_SESSION["userid"];
 
+if (isset($_GET['template'])) { $deftemplate = $_GET['template']; } else { $deftemplate=1; }
+
 if (!cancreate()) {
 	error("Insufficient privilege to create new domains");
 }
 
 page_header("Create New Domain");
 
-domain_addform();
+domain_addform($deftemplate);
 
 /* put ajax controls here */
 

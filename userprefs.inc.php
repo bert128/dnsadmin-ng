@@ -54,12 +54,14 @@ function load_userprefs ($userid) {
 	$_SESSION['items'] = int_read_pref($userid, "perpage", 20);
 	$_SESSION['savelogout'] = int_read_pref($userid, "savelogout", 1);
 	$_SESSION['defttl'] = int_read_pref($userid, "defttl", 86400);
+	$_SESSION['deftp'] = int_read_pref($userid, "deftp", 1);
 }
 
 function save_userprefs ($userid) {
 	int_write_pref($userid, "perpage", $_SESSION['items']);
 	int_write_pref($userid, "defttl", $_SESSION['defttl']);
 	int_write_pref($userid, "savelogout", $_SESSION['savelogout']);
+	int_write_pref($userid, "deftp", $_SESSION['deftp']);
 }
 
 /* set how many items per page */

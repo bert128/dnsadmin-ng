@@ -87,7 +87,7 @@ function tp_addform() {
 }
 
 /* form allowing creation of a domain */
-function domain_addform() {
+function domain_addform($deftemplate) {
 ?>
 <script type="text/javascript" src="js/adddomain.js"></script>
 
@@ -116,7 +116,7 @@ function domain_addform() {
 		<td class="template">Domain Template</td>
 		<td class="template">
 			<select name="template" size="1" id="domaintemplate">
-<?php	select_templates();	?>
+<?php	select_templates($deftemplate);	?>
 			</select>
 		</td>
 	</tr>

@@ -69,14 +69,14 @@ function add_template($name, $owner, $public) {
 }
 
 
-function select_templates () {
+function select_templates ($def) {
         global $DB;
 
-	select_templates_public();
-	select_templates_own();
+	select_templates_public($def);
+	select_templates_own($def);
 
 }
-function select_templates_public () {
+function select_templates_public ($def) {
         global $DB;
 
         $pubquery = $DB->prepare("SELECT id, name FROM templates WHERE public=1");
@@ -92,7 +92,7 @@ print "<option value=\"0\"> --- System Templates ---</option>";
                     if (DB::isError($row)) {
 			error("Database error");
                     }
-		if ($row->name=='Default') {
+		if ($row->id==$def) {
 	                $add = " SELECTED";
 		} else {
 			$add="";
@@ -102,7 +102,7 @@ print "<option value=\"0\"> --- System Templates ---</option>";
 return;
 }
 
-function select_templates_own () {
+function select_templates_own (Â$def) {
         global $DB;
 	$user = $_SESSION['userid'];
 
@@ -119,7 +119,7 @@ print "<option value=\"0\"> --- User Defined Private Templates ---</option>";
                     if (DB::isError($row)) {
 			error("Database error");
                     }
-		if ($row->name=='Default') {
+		if ($row->name==$def) {
 	                $add = " SELECTED";
 		} else {
 			$add="";
