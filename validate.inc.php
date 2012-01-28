@@ -5,6 +5,9 @@
 /* is the record being added a valid record type */
 function validate_record($domainid, $proc, $name, $type, $priority, $content, $ttl) {
 
+/* validate $name separately? */
+if(preg_match('/[^0-9aA-zZ.\-_]/', $name)) { error("Invalid Hostname"); }
+
         switch ($type) {
                 case "A":
                         return validate_a($domainid, $proc, $name, $type, $priority, $content, $ttl);
@@ -50,16 +53,16 @@ function validate_record($domainid, $proc, $name, $type, $priority, $content, $t
         }
 
 
-$rectypes = array('A', 'AAAA', 'CNAME', 'HINFO', 'MBOXFW', 'MX', 'NAPTR', 'NS', 'PTR', 'SOA', 'SRV', 'TXT', 'URL');
-
 
 }
 
-function validate_a() {
+function validate_a($domainid, $proc, $name, $type, $priority, $content, $ttl) {
+	if (!filter_var($content, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) { error("Invalid IP Address"); }
 return TRUE;
 }
 
-function validate_aaaa() {
+function validate_aaaa($domainid, $proc, $name, $type, $priority, $content, $ttl) {
+	if (!filter_var($content, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) { error("Invalid IPv6 Address"); }
 return TRUE;
 }
 

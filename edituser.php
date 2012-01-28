@@ -45,6 +45,8 @@ if (isset($_POST['save'])) {
 	if (isset($_POST['add'])) { $flags['add'] = $_POST['add']; } else { $flags['add'] = 0; }
 
 /* more validation */
+	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { error("Invalid Email"); }
+
 	if ($userid==0) {
 		if (userexists($username)) {
 			redirect("error.php?error=userexists");
