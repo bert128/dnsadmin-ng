@@ -288,10 +288,9 @@ function showdomain ($domainid, $count, $page, $adminlist, $search) {
 		<td class="content"><?php print $row->content; ?></td>
 		<td class="ttl"><?php print $row->ttl; ?></td>
 		<td class="priority"><?php print $row->prio; ?></td>
-		<td class="actions">[<a href="record-delete.php?type=0&id=<?php print $row->id; ?>">Delete</a> | <a href="editrecord.php?id=<?php print $row->id; ?>">Edit</a>]</td>
+		<td class="actions">[<a href="record-delete.php?type=0&id=<?php print $row->id; ?>">Delete</a> | <a href="editrecord.php?type=0&id=<?php print $row->id; ?>">Edit</a>]</td>
         </tr>
-<?	
-#          }
+<?
 	}
 ?>        </table>
 </div>

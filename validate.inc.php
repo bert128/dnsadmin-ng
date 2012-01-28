@@ -6,7 +6,7 @@
 function validate_record($domainid, $proc, $name, $type, $priority, $content, $ttl) {
 
 /* validate $name separately? */
-if(preg_match('/[^0-9aA-zZ.\-_]/', $name)) { error("Invalid Hostname"); }
+validate_hostname($name);
 
         switch ($type) {
                 case "A":
@@ -56,6 +56,11 @@ if(preg_match('/[^0-9aA-zZ.\-_]/', $name)) { error("Invalid Hostname"); }
 
 }
 
+function validate_hostname($name) {
+	if(preg_match('/[^0-9aA-zZ.\-_]/', $name)) { error("Invalid Hostname"); }
+	return TRUE;
+}
+
 function validate_a($domainid, $proc, $name, $type, $priority, $content, $ttl) {
 	if (!filter_var($content, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) { error("Invalid IP Address"); }
 return TRUE;
@@ -76,16 +81,19 @@ return TRUE;
 function validate_mboxfw() {
 return TRUE;
 }
-function validate_mx() {
+function validate_mx($domainid, $proc, $name, $type, $priority, $content, $ttl) {
+	validate_hostname($content);
 return TRUE;
 }
 function validate_naptr() {
 return TRUE;
 }
 function validate_ns() {
+	validate_hostname($content);
 return TRUE;
 }
 function validate_ptr() {
+	validate_hostname($content);
 return TRUE;
 }
 function validate_soa() {
@@ -102,6 +110,7 @@ return TRUE;
 }
 
 function validate_ip($ip) {
+	if (!filter_var($content, FILTER_VALIDATE_IP)) { error("Invalid IP Address"); }
 return TRUE;
 }
 

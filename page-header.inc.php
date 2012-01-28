@@ -85,7 +85,7 @@ unset ($_SESSION['errornotice']);
 
 if (isset($_SESSION['infonotice'])) {
 ?>
-        <div class="sectioninfo">
+        <div class="section sectioninfo">
                 <h1>Information</h1>
                 <?php print htmlentities($_SESSION['infonotice']); ?>
         </div>
