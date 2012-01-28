@@ -41,19 +41,20 @@ DONE:
 TODO
 
 ASAP
+	implement function to delete domain
 	implement user timeout function
+
 BASIC
 
+	create feature to copy existing domain into a template
 	implement new hash type support when setting passwords (force migration away from old dnsadmin)
 	display dns records in domain
 		include search by
 		include sort by
 		include filter
 		allow mass edits
-	delete domains
-	delete records
+	function to find domains without owners
 	create subadmin support
-	page to edit domains
 	subadmin users
 	script to check for and flag bad domains
 	add support for importing a template when adding new domain, or copying an existing domain
@@ -68,7 +69,6 @@ BASIC
 	support for semi public - shared with downstream users
 	permission flag to choose if user can create/edit public templates
 	preference to choose default template
-	template selector - select template or existing domain (add a prefix to the form value to choose which?)
 	multi domain selector, add it to domaintable()
 	bulk edits
 		copy mx/ns records from template or other domain

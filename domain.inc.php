@@ -190,4 +190,27 @@ function apply_template($template, $domain) {
 
 }
 
+function delete_domain($id) {
+        global $DB;
+
+        $user = $_SESSION['userid'];
+        $name = domain_id2name($id);
+
+        if (!(is_owner($id, $user)) && !(isadmin())) {
+                error("Permission error");
+        } else {
+                $query = $DB->prepare("DELETE FROM domains WHERE id=?");
+                $dbreturn = $DB->execute($query, array((int) $id));
+
+                $query = $DB->prepare("DELETE FROM records WHERE domain_id=?");
+                $dbreturn = $DB->execute($query, array((int) $id));
+
+                $query = $DB->prepare("DELETE FROM zones WHERE domain_id=?");
+                $dbreturn = $DB->execute($query, array((int) $id));
+
+
+                $_SESSION['infonotice']="Successfully deleted domain: $name";
+                redirect("index.php");
+        }
+}
 ?>
