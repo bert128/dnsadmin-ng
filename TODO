@@ -1,4 +1,5 @@
 DONE:
+	domaintable - add master server column
 	display list of domains
 	admin interface list of domains
 	display dns records in domain
@@ -46,7 +47,9 @@ ASAP
 
 BASIC
 
+	save current page before redirecting back after an edit
 	create feature to copy existing domain into a template
+	automatically create forwards and reverse dns	- when adding reverse, calculate forwards automatically...
 	implement new hash type support when setting passwords (force migration away from old dnsadmin)
 	display dns records in domain
 		include search by
@@ -74,10 +77,8 @@ BASIC
 		copy mx/ns records from template or other domain
 		modify a given hostname (eg www) in multiple domains
 	create or modify a host - including v4/v6 at the same time
-	automatically create forwards and reverse dns
 	Write the help texts
 	add user preference section to choose default masterip
-	domaintable - add master server column
 
 dynamic ui / jquery:
 	on user list, pop up user description when hovering over name
