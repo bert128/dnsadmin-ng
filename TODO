@@ -47,7 +47,7 @@ ASAP
 
 BASIC
 
-	save current page before redirecting back after an edit
+	save current page before redirecting back after an edit, use a session variable as default if nothing else is specified
 	create feature to copy existing domain into a template
 	automatically create forwards and reverse dns	- when adding reverse, calculate forwards automatically...
 	implement new hash type support when setting passwords (force migration away from old dnsadmin)
