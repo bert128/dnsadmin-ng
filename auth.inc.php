@@ -54,6 +54,19 @@ function is_owner_tp($tpid, $userid) {
 	return FALSE;
 }
 
+function is_public_tp($tpid) {
+	global $DB;
+
+	$query = $DB->prepare("SELECT id FROM templates WHERE id=? AND public=1");
+	$dbreturn = $DB->execute($query, array((int) $tpid));
+
+	if ($dbreturn->numRows() >= 1) {
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 /* Is the currently logged in user allowed to access this domain */
 /* TODO: sub admin support */
 function checkperm($userid, $domainid) {
@@ -63,7 +76,7 @@ function checkperm($userid, $domainid) {
 }
 
 function checkpermtp($userid, $tpid) {
-	if (!(is_owner_tp($tpid, $userid)) && !(isadmin())) {
+	if (!(is_owner_tp($tpid, $userid)) && !(isadmin()) && !(is_public_tp($tpid))) {
 	        redirect("error.php?error=perm");
 	}
 }

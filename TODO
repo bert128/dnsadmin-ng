@@ -38,19 +38,23 @@ DONE:
 	user management
 	add user preference section to choose default template
 	edit existing template record (tproperties.php)
+	implement function to delete domain
 
 TODO
 
 ASAP
-	implement function to delete domain
 	implement user timeout function
 
 BASIC
 
 	save current page before redirecting back after an edit, use a session variable as default if nothing else is specified
 	create feature to copy existing domain into a template
+	create feature to copy existing template to another template
 	automatically create forwards and reverse dns	- when adding reverse, calculate forwards automatically...
 	implement new hash type support when setting passwords (force migration away from old dnsadmin)
+	new form for creating SRV records
+	macros for creating SPF records
+	store last login time&ip for users
 	display dns records in domain
 		include search by
 		include sort by

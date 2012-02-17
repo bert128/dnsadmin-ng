@@ -26,7 +26,6 @@ if (isset($_POST['add'])) {
 	if (isset($_POST['master'])) { $master = $_POST['master']; } else { $master=""; }
 	if (isset($_POST['template'])) { $template = $_POST['template']; } else { $template=0; }	/* default template */
 
-
 	if (isadmin()) {		/* only admin can set the owner field */
 		if (isset($_POST['owner'])) { $owner = $_POST['owner']; } else { $owner=$_SESSION['userid']; }
 	} else {
