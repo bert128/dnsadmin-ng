@@ -30,7 +30,11 @@ function add_record($domainid, $proc, $name, $type, $priority, $content, $ttl) {
 
         $query = $DB->prepare("INSERT INTO records (domain_id, name, type, content, ttl, prio, ordername, auth) VALUES (?, ?, ?, ?, ?, ?, ?, 1)");
 
-	$insname = $name .".". $domain;
+	if (strlen($name) > 0) {
+		$insname = $name .".". $domain;
+	} else {
+		$insname = $domain;
+	}
 
 	$ordername = generate_ordername($domain, $insname);
         $dbreturn = $DB->execute($query, array((int) $domainid, $insname, $type, $content, (int) $ttl, (int) $priority, $ordername));
