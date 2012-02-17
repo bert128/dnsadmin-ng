@@ -1,10 +1,39 @@
 <?php
+	include_once('flags.inc.php');
 
         session_start();
         if (!isset($_SESSION['username'])) {
                 header('Location: login.php');
                 exit;
         }
+
+/* check validity of the current session */
+                $seluser = $DB->prepare("SELECT * FROM users WHERE username = ? AND active=1");
+
+                $return = $DB->execute($seluser, array($_SESSION['username']));
+
+                if (DB::isError($return)) {
+                        print $DB->getMessage();
+                        header('Location: login.php?error=dberror');
+                }
+
+                if ($return->numRows() != 1) {
+                        $logmsg = "Attempted login for invalid user: ". $username ." from ". $_SERVER['REMOTE_ADDR'] ." at ". gmdate("D, d M Y H:i:s") ." ";
+                        writelog(0, 0, 2, $logmsg);
+                        header('Location: login.php?error=notfound');
+                }
+
+                while ($row = $return->fetchRow(DB_FETCHMODE_OBJECT)) {
+
+                    if (DB::isError($row)) {
+                        header('Location: login.php?error=dberror');
+                    }
+
+                                $_SESSION['canadd'] = getflag($row->id, "add");
+                                $_SESSION['admin'] = getflag($row->id, "admin");
+                                $_SESSION['subadmin'] = getflag($row->id, "subadmin");
+
+		}
 
 function needadmin() {
 	if ($_SESSION['admin'] != 1) {
