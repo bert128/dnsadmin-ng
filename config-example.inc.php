@@ -3,8 +3,8 @@
 
     include_once('DB.php');
 
-//    $DB = DB::connect("mysql://pdns:tmZ2rkjL7tQ3@localhost/pdns");
-    $DB = DB::connect("mysql://pdns:tmZ2rkjL7tQ3@localhost/pdns2");
+    $DB = DB::connect("mysql://pdns:tmZ2rkjL7tQ3@localhost/pdns");
+//    $DB = DB::connect("mysql://pdns:tmZ2rkjL7tQ3@localhost/pdns2");
 
     if (DB::isError($DB)) {
         print $DB->getMessage();
