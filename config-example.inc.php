@@ -3,15 +3,14 @@
 
     include_once('DB.php');
 
-    $DB = DB::connect("mysql://pdns:tmZ2rkjL7tQ3@localhost/pdns");
-//    $DB = DB::connect("mysql://pdns:tmZ2rkjL7tQ3@localhost/pdns2");
+    $DB = DB::connect("mysql://pdns:dnspassword@localhost/pdns");
 
     if (DB::isError($DB)) {
         print $DB->getMessage();
         exit;
     }
 
-    $DBAUDIT = DB::connect("mysql://pdnsaudit:tmZ2rkjL7tQ3@localhost/pdnsaudit");
+    $DBAUDIT = DB::connect("mysql://pdnsaudit:pdnsaudit@localhost/pdnsaudit");
 
     if (DB::isError($DBAUDIT)) {
         print $DBAUDIT->getMessage();
