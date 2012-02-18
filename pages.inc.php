@@ -1,4 +1,5 @@
 <?php
+	include_once("error.inc.php");
 
 /* code to handle paging
  */
@@ -16,6 +17,7 @@ if (isset($_GET['page'])) { $page = $_GET['page']; } else { $page = 0; };
 
 if (isset($_GET['itemsx'])) {
         if (is_numeric($_GET['itemsx'])) {
+		if ($_GET['itemsx'] <= 0) { error("Invalid items per page value"); }
                 $perpage = $_GET['itemsx'];
         }
 }
