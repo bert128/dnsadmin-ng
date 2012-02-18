@@ -3,8 +3,9 @@
 /* code to handle paging
  */
 
-        
 if (isset($_GET['items'])) {
+	if (!is_numeric($_GET['items'])) { error("Invalid items per page value"); }
+	if ($_GET['items'] <= 0) { error("Invalid items per page value"); }
 	$perpage = $_GET['items'];
 } else {
 	$perpage = $_SESSION['items'];

@@ -14,7 +14,11 @@ $user = $_SESSION["userid"];
 
 if ((isset($_POST['apply'])) || (isset($_POST['save']))) {
 /* apply preferences */
-	if (isset($_POST['perpage'])) { $_SESSION['items'] = $_POST['perpage']; }
+	if (isset($_POST['perpage'])) {
+		if (!is_numeric($_POST['perpage'])) { error("Invalid input"); }
+		if ($_POST['perpage'] <= 0) { error("Invalid input"); }
+		$_SESSION['items'] = $_POST['perpage'];
+	}
 	if (isset($_POST['template'])) { $_SESSION['deftp'] = $_POST['template']; }
 	if (isset($_POST['savelogout'])) { $_SESSION['savelogout'] = $_POST['savelogout']; }
 	if (isset($_POST['defttl'])) { $_SESSION['defttl'] = $_POST['defttl']; }

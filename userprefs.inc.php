@@ -91,6 +91,7 @@ function str_write_pref($userid, $name, $value) {
 
 function load_userprefs ($userid) {
 	$_SESSION['items'] = int_read_pref($userid, "perpage", 20);
+		if ($_SESSION['items'] >= 0) { $_SESSION['items']=10; }
 	$_SESSION['savelogout'] = int_read_pref($userid, "savelogout", 1);
 	$_SESSION['defttl'] = int_read_pref($userid, "defttl", 86400);
 	$_SESSION['deftp'] = int_read_pref($userid, "deftp", 1);
