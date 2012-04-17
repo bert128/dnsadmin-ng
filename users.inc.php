@@ -2,12 +2,21 @@
 
 /* user related functions */
 
+function makesalt($algo, $len) {
+    static $seed = "./ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    $salt = '';
+    for ($i = 0; $i < $len; $i++) {
+        $salt .= substr($seed, mt_rand(0, 63), 1);
+    }
+    return $algo . $salt;
+}
+
 function changepass($userid, $newpass) {
 	global $DB, $CONFIG;
 
 	if ($CONFIG["crypto"] > 0) {		/* using new salted crypt */
-		print "Using new encryption type";
-		$password = crypt($newpass, '$1$38jdhH$');		/* add proper random salt here later */
+		$salt = makesalt('$6$', 16);
+		$password = crypt($newpass, $salt);
 	} else {
 		$password = md5($newpass);
 	}
