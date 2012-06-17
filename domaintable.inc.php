@@ -186,18 +186,20 @@ function showdomain ($domainid, $count, $page, $adminlist, $search) {
 	$searchstr = "%".$search."%";
 	$offset = $count * ($page - 1);
 
+/* order nicely */
+/* select name, type, content, CASE type WHEN 'SOA' THEN 1 WHEN 'NS' THEN 2 WHEN 'MX' THEN 3 WHEN 'TXT' THEN 4 WHEN 'A' THEN 5 WHEN 'AAAA' THEN 5 ELSE 6 END AS ordering FROM records WHERE domain_id=20 ORDER BY ordering limit 50; */
 /* do the database queries */
 		if (strlen($search) > 0) {		# doing a search
-			$domainq = $DB->prepare("SELECT * FROM records WHERE domain_id=? AND content LIKE ? OR name LIKE ? ORDER BY name LIMIT ? OFFSET ?");
+			$domainq = $DB->prepare("SELECT *, CASE type WHEN 'SOA' THEN 1 WHEN 'NS' THEN 2 WHEN 'MX' THEN 3 WHEN 'TXT' THEN 4 WHEN 'A' THEN 5 WHEN 'AAAA' THEN 5 ELSE 6 END AS ordering  FROM records WHERE domain_id=? AND content LIKE ? OR name LIKE ? ORDER BY ordering LIMIT ? OFFSET ?");
 			$dbreturn = $DB->execute($domainq, array((int) $domainid, $searchstr, $searchstr, (int) $count, (int) $offset));
 
-			$domsall = $DB->prepare("SELECT * FROM records WHERE domain_id=? AND content LIKE ? OR name LIKE ? ORDER BY name");
+			$domsall = $DB->prepare("SELECT *, CASE type WHEN 'SOA' THEN 1 WHEN 'NS' THEN 2 WHEN 'MX' THEN 3 WHEN 'TXT' THEN 4 WHEN 'A' THEN 5 WHEN 'AAAA' THEN 5 ELSE 6 END AS ordering FROM records WHERE domain_id=? AND content LIKE ? OR name LIKE ? ORDER BY ordering");
 			$dbreturnall = $DB->execute($domsall, array((int) $domainid, $searchstr, $searchstr));
 		} else {		# no search
-			$domainq = $DB->prepare("SELECT * FROM records WHERE domain_id=? ORDER BY name LIMIT ? OFFSET ?");
+			$domainq = $DB->prepare("SELECT *, CASE type WHEN 'SOA' THEN 1 WHEN 'NS' THEN 2 WHEN 'MX' THEN 3 WHEN 'TXT' THEN 4 WHEN 'A' THEN 5 WHEN 'AAAA' THEN 5 ELSE 6 END AS ordering FROM records WHERE domain_id=? ORDER BY ordering LIMIT ? OFFSET ?");
 			$dbreturn = $DB->execute($domainq, array((int) $domainid, (int) $count, (int) $offset));
 
-			$domsall = $DB->prepare("SELECT * FROM records WHERE domain_id=? ORDER BY name");
+			$domsall = $DB->prepare("SELECT *, CASE type WHEN 'SOA' THEN 1 WHEN 'NS' THEN 2 WHEN 'MX' THEN 3 WHEN 'TXT' THEN 4 WHEN 'A' THEN 5 WHEN 'AAAA' THEN 5 ELSE 6 END AS ordering FROM records WHERE domain_id=? ORDER BY ordering");
 			$dbreturnall = $DB->execute($domsall, array((int) $domainid));
 		}
 
