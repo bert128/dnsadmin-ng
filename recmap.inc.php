@@ -55,10 +55,11 @@ function showmappedrecords ($count, $page, $adminlist, $search, $user) {
         <table class="list domains">
         <tr class="header">
                 <td class="hostname">Hostname</td>
-                <td class="content">Content</td>
                 <td class="type">Type</td>
                 <td class="ttl">TTL</td>
                 <td class="priority">Priority</td>
+                <td class="content">Content</td>
+                <td class="controls">Controls</td>
         </tr>
 <?php  #select user, record_id, recmap.id AS recmap_id, records.name, records.id AS recid, records.type, records.ttl, records.prio, records.content from recmap LEFT JOIN records ON records.id=record_id WHERE user=?
 	while ($row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT)) {
@@ -68,13 +69,18 @@ function showmappedrecords ($count, $page, $adminlist, $search, $user) {
 #if (($adminlist == 1) || (isowner($row->id))) { # only if we own the domain or are admin
 
 ?>
+<form action="updmap.php" method="post">
+<input type="hidden" name="id" value="<?php print htmlentities($row->recmap_id); ?>">
+
         <tr class="<?php print $row_classes[$count++ % 2]; ?>">
-                <td class="hostname"><a href="editmapped.php?id=<?php print $row->recmap_id; ?>"><?php print htmlentities($row->name); ?></a></td>
-		<td class="content"><?php print htmlentities($row->content); ?></td>
+                <td class="hostname"><?php print htmlentities($row->name); ?></td>
 		<td class="type"><?php print htmlentities($row->type); ?></td>
 		<td class="ttl"><?php print htmlentities($row->ttl); ?></td>
 		<td class="priority"><?php print htmlentities($row->prio); ?></td>
+		<td class="content"><input type="text" name="value" class="contents" value="<?php print htmlentities($row->content); ?>"></td>
+		<td class="controls"><input type="submit" name="update" value="Update"></td>
         </tr>
+</form>
 <?
 #          }
 	}
@@ -82,6 +88,21 @@ function showmappedrecords ($count, $page, $adminlist, $search, $user) {
 </div>
 <?
 
+}
+
+
+function get_recid_recmap($id)
+{
+	global $DB;
+
+	$query = $DB->prepare("SELECT * FROM recmap WHERE id=?");
+	$dbreturn = $DB->execute($query, array((int) $id));
+
+        if ($dbreturn->numRows() == 1) {
+                $row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT);
+		return $row->record_id;
+        }
+	error("Data", "Invalid record map id");
 }
 
 ?>

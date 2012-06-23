@@ -83,6 +83,19 @@ function is_owner_tp($tpid, $userid) {
 	return FALSE;
 }
 
+function is_owner_recmap($recmap, $userid) {
+	global $DB;
+
+	$query = $DB->prepare("SELECT * FROM recmap WHERE user=? AND id=?");
+	$dbreturn = $DB->execute($query, array((int)$userid, (int) $recmap));
+
+	if ($dbreturn->numRows() >= 1) {
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 function is_public_tp($tpid) {
 	global $DB;
 
