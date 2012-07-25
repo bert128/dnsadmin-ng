@@ -11,7 +11,11 @@ function modify_record($record, $proc, $name, $type, $priority, $content, $ttl) 
 
 	$query = $DB->prepare("UPDATE records SET name=?, type=?, content=?, ttl=?, prio=?, ordername=? WHERE id=?");
 
-	$insname = $name .".". $domain;
+	if ($name!="") {
+		$insname = $name .".". $domain;
+	} else {
+		$insname = $domain;
+	}
 	$ordername = generate_ordername($domain, $insname);
 	$dbreturn = $DB->execute($query, array($insname, $type, $content, (int) $ttl, (int) $priority, $ordername, (int) $record));
 
@@ -99,7 +103,7 @@ if ($type==0) {			/* domain */
 		<td class="ttl">TTL</td>
         </tr>
 	<tr class="input">
-                <td class="name"><input type="text" class="name" name="name" value="<?php if (isset($data->name)) { print htmlentities(strip_domain($data->domain_id, $data->name)); } ?>"></td>
+                <td class="name"><input type="text" class="name" name="name" value="<?php if (isset($data->name)) { print htmlentities(strip_domain($domainid, $data->name)); } ?>">.<?php print htmlentities($domain) ?></td>
                 <td class="type">
 <?php if (isset($data->type)) { list_types($domain, $data->type); } else { list_types($domain, NULL); } ?>
 		</td>

@@ -156,6 +156,10 @@ function strip_domain($zoneid, $name)
         global $DB;
         $domain = domain_id2name($zoneid);
 
+	if ($name==$domain) { /* special case for no subdomain */
+		return "";
+	}
+
         $newname = str_replace(".". $domain, "", $name);
         return $newname;
 }
