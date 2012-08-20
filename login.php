@@ -102,14 +102,12 @@ This application requires a modern browser to function correctly, and is unlikel
         }
 window.onload = setFocus;
 </script>
-        
 
 <table class="vcenter"><tr><td>
-                
 <form action="login.php" method="post">
 <table class="login">
 <tr>
-        <td colspan="2" class="logo"><img src="images/ev6logo.png"></td>
+        <td colspan="2" class="logo"><img src="<?php print $CONFIG["LoginLogo"]; ?>"></td>
 </tr>
 <tr>
         <td colspan="2" class="title"><?php print $CONFIG["AppTitle"]; ?> Login</td>
