@@ -31,6 +31,7 @@ function showmappedrecords ($count, $page, $adminlist, $search, $user) {
 			echo "No mapped records matching your search query.";
 		} else {
 			echo "No mapped records available.";
+			return;
 		}
 	}
 
