@@ -19,6 +19,8 @@
 
 
 $CONFIG = array(
+	# main logo displayed on login page
+        "LoginLogo" => 'images/ev6logo.png',
 	# Application Title
 	"AppTitle" => 'DNSAdmin-NG',
 
