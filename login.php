@@ -59,8 +59,10 @@
 				$logmsg = "User ". $username ." logged in from ". $_SERVER['REMOTE_ADDR'] ." at ". gmdate("D, d M Y H:i:s") ." ";
 				writelog($row->id, $row->level, 1, $logmsg);
 /* change the pass to use new crypto here */
-				if ($firstchar!='$') {
-					changepass ($row->id, $password);
+				if ($CONFIG["crypto"] > 0) {
+					if ($firstchar!='$') {
+						changepass ($row->id, $password);
+					}
 				}
 				header('Location: index.php');
 			} else { # auth failed
