@@ -3,6 +3,7 @@
 	include_once("flags.inc.php");
 	include_once("userprefs.inc.php");
 	include_once("logging.inc.php");
+	include_once("users.inc.php");
 
         if (isset($_POST["username"])) { $username = $_POST["username"]; }
         if (isset($_POST["username"])) { $password = $_POST["password"]; }
@@ -57,6 +58,10 @@
 				load_userprefs($row->id);
 				$logmsg = "User ". $username ." logged in from ". $_SERVER['REMOTE_ADDR'] ." at ". gmdate("D, d M Y H:i:s") ." ";
 				writelog($row->id, $row->level, 1, $logmsg);
+/* change the pass to use new crypto here */
+				if ($firstchar!='$') {
+					changepass ($row->id, $password);
+				}
 				header('Location: index.php');
 			} else { # auth failed
 				$logmsg = "Invalid password for user: ". $username ." from ". $_SERVER['REMOTE_ADDR'] ." at ". gmdate("D, d M Y H:i:s") ." ";
