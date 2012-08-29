@@ -4,6 +4,7 @@
 	include_once("userprefs.inc.php");
 	include_once("logging.inc.php");
 	include_once("users.inc.php");
+	include_once("pound.inc.php");
 
         if (isset($_POST["username"])) { $username = $_POST["username"]; }
         if (isset($_POST["username"])) { $password = $_POST["password"]; }
@@ -20,7 +21,7 @@
 		}
 
 		if ($return->numRows() != 1) {
-			$logmsg = "Attempted login for invalid user: ". $username ." from ". $_SERVER['REMOTE_ADDR'] ." at ". gmdate("D, d M Y H:i:s") ." ";
+			$logmsg = "Attempted login for invalid user: ". $username ." from ". $hostname ." at ". gmdate("D, d M Y H:i:s") ." ";
 			writelog(0, 0, 2, $logmsg);
 			header('Location: login.php?error=notfound');
 		}
@@ -56,7 +57,7 @@
 
 
 				load_userprefs($row->id);
-				$logmsg = "User ". $username ." logged in from ". $_SERVER['REMOTE_ADDR'] ." at ". gmdate("D, d M Y H:i:s") ." ";
+				$logmsg = "User ". $username ." logged in from ". $hostname ." at ". gmdate("D, d M Y H:i:s") ." ";
 				writelog($row->id, $row->level, 1, $logmsg);
 /* change the pass to use new crypto here */
 				if ($CONFIG["crypto"] > 0) {
@@ -66,7 +67,7 @@
 				}
 				header('Location: index.php');
 			} else { # auth failed
-				$logmsg = "Invalid password for user: ". $username ." from ". $_SERVER['REMOTE_ADDR'] ." at ". gmdate("D, d M Y H:i:s") ." ";
+				$logmsg = "Invalid password for user: ". $username ." from ". $hostname ." at ". gmdate("D, d M Y H:i:s") ." ";
 				writelog(0, 0, 3, $logmsg);
 
 

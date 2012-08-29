@@ -1,5 +1,6 @@
 <?php
 	include_once('flags.inc.php');
+	include_once('pound.inc.php');
 
         session_start();
         if (!isset($_SESSION['username'])) {
@@ -18,7 +19,7 @@
                 }
 
                 if ($return->numRows() != 1) {
-                        $logmsg = "Attempted login for invalid user: ". $username ." from ". $_SERVER['REMOTE_ADDR'] ." at ". gmdate("D, d M Y H:i:s") ." ";
+                        $logmsg = "Attempted login for invalid user: ". $username ." from ". $hostname ." at ". gmdate("D, d M Y H:i:s") ." ";
                         writelog(0, 0, 2, $logmsg);
                         header('Location: login.php?error=notfound');
                 }
