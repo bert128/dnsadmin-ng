@@ -5,6 +5,7 @@
 	include_once("logging.inc.php");
 	include_once("users.inc.php");
 	include_once("pound.inc.php");
+	include_once("error.inc.php");
 
         if (isset($_POST["username"])) { $username = $_POST["username"]; }
         if (isset($_POST["username"])) { $password = $_POST["password"]; }
@@ -23,7 +24,7 @@
 		if ($return->numRows() != 1) {
 			$logmsg = "Attempted login for invalid user: ". $username ." from ". $hostname ." at ". gmdate("D, d M Y H:i:s") ." ";
 			writelog(0, 0, 2, $logmsg);
-			header('Location: login.php?error=notfound');
+			header('Location: login.php?error=failed');
 		}
 
 		while ($row = $return->fetchRow(DB_FETCHMODE_OBJECT)) {
@@ -69,21 +70,11 @@
 			} else { # auth failed
 				$logmsg = "Invalid password for user: ". $username ." from ". $hostname ." at ". gmdate("D, d M Y H:i:s") ." ";
 				writelog(0, 0, 3, $logmsg);
-
-
+				header('Location: login.php?error=failed');
 			}
 
 		}
 	}
-if (isset($_GET["error"])) {
-	if ($_GET["error"] == "dberror") {
-		$error_msg = "Database Error";
-	} else if ($_GET["error"] == "notfound") {
-		$error_msg = "User not found";
-	} else {
-		$error_msg = "Unknown Error";
-	}
-}
 
 ?>
 
