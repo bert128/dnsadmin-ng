@@ -57,7 +57,7 @@ validate_hostname($name);
 }
 
 function validate_hostname($name) {
-	if(preg_match('/[^0-9aA-zZ.\-_]/', $name)) { error("Invalid Hostname"); }
+	if(preg_match('/[^0-9aA-zZ.\-_*]/', $name)) { error("Invalid Hostname"); }
 	return TRUE;
 }
 
