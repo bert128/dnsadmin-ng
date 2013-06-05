@@ -277,7 +277,7 @@ function showusers ($count, $page, $adminlist, $search, $public) {
 <?php	}	?>
         </table>
 </div>
-<?
+<?php
 }
 
 function setflag($userid, $name, $value) {
