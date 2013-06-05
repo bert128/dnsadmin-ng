@@ -82,12 +82,11 @@ function showmappedrecords ($count, $page, $adminlist, $search, $user) {
 		<td class="controls"><input type="submit" name="update" value="Update"></td>
         </tr>
 </form>
-<?
-#          }
+<?php
 	}
 ?>        </table>
 </div>
-<?
+<?php
 
 }
 
