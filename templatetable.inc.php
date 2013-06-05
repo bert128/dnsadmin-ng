@@ -161,7 +161,7 @@ function showtemplates ($count, $page, $adminlist, $search, $public) {
 <?php	}	?>
         </table>
 </div>
-<?
+<?php
 }
 
 
@@ -285,11 +285,11 @@ function showtemplate ($tpid, $count, $page, $adminlist, $search) {
 		<td class="priority"><?php print $row->prio; ?></td>
 		<td class="actions">[<a href="record-delete.php?type=1&id=<?php print $row->id; ?>" onClick="return confirmAction('Delete this record?')">Delete</a> | <a href="editrecord.php?type=1&id=<?php print $row->id; ?>">Edit</a>]</td>
         </tr>
-<?
+<?php
 	}
 ?>        </table>
 </div>
-<?
+<?php
 
   }
 }
