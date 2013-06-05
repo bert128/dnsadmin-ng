@@ -132,17 +132,17 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 		<td class="type"><?php print $row->type; ?></td>
                 <td class="owner">
 			<select name="owners"size="1">
-			<? domainowners($row->domain_id) ?>
+			<?php print domainowners($row->domain_id); ?>
 			</select>
 		</td>
 		<td class="actions">[ <a href="domain-delete.php?id=<?php print $row->domain_id; ?>" onClick="return confirmAction('Delete domain: <?php print htmlentities($row->domainname); ?>?')">Delete</a> | <a href="editdomain.php?id=<?php print $row->domain_id; ?>">Edit</a> ]</td>
         </tr>
-<?
+<?php
 #          }
 	}
 ?>        </table>
 </div>
-<?
+<?php
 
   }
 }
