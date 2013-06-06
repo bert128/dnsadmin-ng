@@ -47,7 +47,7 @@ function add_record($domainid, $proc, $name, $type, $priority, $content, $ttl) {
                 error("Database error when inserting template record");
         }
 	$_SESSION['infonotice']="Successfully created record";
-        redirect("editdomain.php?id=$domainid");
+//        redirect("editdomain.php?id=$domainid");
 }
 
 function list_types($domain, $default) {
@@ -191,6 +191,49 @@ This is where the help text for TXT records goes.
 This is where the help text for URL records goes.
 </div>
 
+<?php
+}
+?>
+
+<?php
+function addhostform($domainid, $type, $edit, $data) {
+	$domain = domain_id2name($domainid);
+?>
+
+<script type="text/javascript" src="js/addrecord.js"></script>
+
+<div class="section">
+<h1>Add Host</h1>
+<table class="addrecord">
+<form action="addrecord.php" method="post">
+<input type="hidden" name="domainid" value="<?php print $domainid; ?>">
+<input type="hidden" name="edit" value="<?php print $edit; ?>">
+<input type="hidden" name="proc" value="<?php print $type; ?>">
+
+        <tr class="header">
+                <td class="name">Host name</td>
+                <td class="content">IPv4 Address</td>
+                <td class="content">IPv6 Address</td>
+		<td class="ttl">TTL</td>
+		<td class="rev">Set reverse</td>
+        </tr>
+	<tr class="input">
+                <td class="name"><input type="text" class="name" name="name" value="<?php if (isset($data->name)) { print htmlentities(strip_domain($domainid, $data->name)); } ?>">.<?php print htmlentities($domain) ?></td>
+                <td class="content"><input type="text" class="content" name="ipv4" value="<?php if (isset($data->ipv4)) { print htmlentities($data->ipv4); } ?>"></td>
+                <td class="content"><input type="text" class="content" name="ipv6" value="<?php if (isset($data->ipv6)) { print htmlentities($data->ipv6); } ?>"></td>
+		<td class="ttl"><input type="text" class="ttl" name="ttl" value="<?php if (isset($data->ttl)) { print htmlentities($data->ttl); } else { print htmlentities($_SESSION['defttl']); } ?>"></td>
+		<td class="rev"><input type="checkbox" name="reverse" value="1" CHECKED></td>
+	</tr>
+	<tr>
+		<td class="controls"><input type="submit" name="addhost" value="addhost" title="Submit"></td>
+                <td class="content"></td>
+                <td class="content"></td>
+		<td class="ttl"></td>
+		<td class="rev"></td>
+	</tr>
+</form>
+</table>
+</div>
 <?php
 }
 

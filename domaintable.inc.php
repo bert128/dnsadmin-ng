@@ -294,7 +294,12 @@ function showdomain ($domainid, $count, $page, $adminlist, $search) {
         </tr>
 <?php
 	}
-?>        </table>
+?>
+	<tr class="controls">
+		<td class="name" colspan=5></td>
+		<td class="actions">[ <a href="addhost.php?domain=<?php print $domainid; ?>">Add host</a> ]</td>
+	</tr>
+        </table>
 </div>
 <?php
 

@@ -43,11 +43,11 @@ if (isset($_POST['change'])) {
 		if (!($cryptpass == $row->password)) { error("Password incorrect"); }
 	}
 
-	$pwcheck = pwqcheck($newpass1, $oldpass, $username, "", "");
+//	$pwcheck = pwqcheck($newpass1, $oldpass, $username, "", "");
 
-	if ($pwcheck!="OK") {
-		error("Password change failed: $pwcheck");
-	}
+//	if ($pwcheck!="OK") {
+//		error("Password change failed: $pwcheck");
+//	}
 
 	changepass ($user, $newpass1);
 	$_SESSION['infonotice']="Successfully changed password";

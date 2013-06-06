@@ -2,6 +2,7 @@
         include_once('config.inc.php');
         include_once('auth.inc.php');
 	include_once('util.inc.php');
+	include_once('iputil.inc.php');
 	include_once('userprefs.inc.php');
 	include_once('domaintable.inc.php');
 	include_once('users.inc.php');
@@ -84,6 +85,36 @@ if (isset($_POST['add'])) {
 	} else {
 		error("Invalid record type");
 	}
+}
+
+if (isset($_POST['addhost'])) {
+	if (isset($_POST['domainid'])) { $domainid = $_POST['domainid']; } else { error("Invalid domain id"); }
+	if (isset($_POST['proc'])) { $proc = $_POST['proc']; } else { error("Invalid domain type"); }
+
+	if (isset($_POST['ipv4'])) { $ipv4 = $_POST['ipv4']; } else { error("Invalid IPv4 address"); }
+	if (isset($_POST['ipv6'])) { $ipv6 = $_POST['ipv6']; } else { error("Invalid IPv6 address"); }
+
+	if (isset($_POST['name'])) { $name = $_POST['name']; } else { $name=""; }
+
+	if (isset($_POST['ttl'])) { $ttl = $_POST['ttl']; } else { $ttl=3600; }
+	if (isset($_POST['reverse'])) { $reverse = $_POST['reverse']; } else { $reverse="f"; }
+
+/* validate  */
+	if (!validate_record($domainid, 0, $name, "A", 0, $ipv4, $ttl)) {
+		error("Record validation failed");
+	}
+	if (!validate_record($domainid, 0, $name, "AAAA", 0, $ipv6, $ttl)) {
+		error("Record validation failed");
+	}
+
+	if (!(is_owner($domainid, $user)) && !(isadmin())) {
+		error("Non admin user attempting to add record");
+	}
+	add_record($domainid, 0, $name, "A", 0, $ipv4, $ttl);
+	add_record($domainid, 0, $name, "AAAA", 0, $ipv6, $ttl);
+/* add corresponding reverse dns? */
+
+	redirect("editdomain.php?id=$domainid");
 }
 
 if (isset($_GET['id'])) {
