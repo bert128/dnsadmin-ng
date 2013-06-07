@@ -89,9 +89,13 @@ Show per page:
 <option value="50">50</option>
 <option value="100">100</option>
 </select>
-<?php if (isset($page)) { print "<input type=\"hidden\" name=\"page\" value=\"".$page."\">\n"; } ?>
-<?php if (isset($id)) { print "<input type=\"hidden\" name=\"id\" value=\"$id\">\n"; } ?>
-<?php if (isset($search)) { print "<input type=\"hidden\" name=\"search\" value=\"$search\">\n"; } ?>
+<?php
+if (!is_numeric($page)) { $page = 0; }
+if (!is_numeric($id)) { $id = 0; }
+if (isset($page)) { print "<input type=\"hidden\" name=\"page\" value=\"".$page."\">\n"; }
+if (isset($id)) { print "<input type=\"hidden\" name=\"id\" value=\"$id\">\n"; }
+if (isset($search)) { $searchx = htmlentities($search); print "<input type=\"hidden\" name=\"search\" value=\"$searchx\">\n"; }
+?>
 <input type="text" name="itemsx">
 
 <input type="submit" name="set" value="set" title="Set per page display">
