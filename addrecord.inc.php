@@ -29,7 +29,7 @@ function modify_record($record, $proc, $name, $type, $priority, $content, $ttl) 
 }
 
 function add_record($domainid, $proc, $name, $type, $priority, $content, $ttl) {
-        global $DB;
+        global $DB, $_SESSION;
 	$domain = domain_id2name($domainid);
 
         $query = $DB->prepare("INSERT INTO records (domain_id, name, type, content, ttl, prio, ordername, auth) VALUES (?, ?, ?, ?, ?, ?, ?, 1)");
@@ -41,12 +41,42 @@ function add_record($domainid, $proc, $name, $type, $priority, $content, $ttl) {
 	}
 
 	$ordername = generate_ordername($domain, $insname);
+	writelog($_SESSION['username'], $_SESSION['userid'], 6, "Creating new record domain($domainid), name($insname), type($type), content($content), ttl($ttl)");
         $dbreturn = $DB->execute($query, array((int) $domainid, $insname, $type, $content, (int) $ttl, (int) $priority, $ordername));
 
         if (PEAR::isError($dbreturn)) {
                 error("Database error when inserting template record");
         }
 	$_SESSION['infonotice']="Successfully created record";
+//        redirect("editdomain.php?id=$domainid");
+}
+
+function update_ptr($domainid, $name, $content, $ttl) {
+        global $DB, $_SESSION;
+	$domain = domain_id2name($domainid);
+
+        $query = $DB->prepare("INSERT INTO records (domain_id, name, type, content, ttl, ordername, auth) VALUES (?, ?, ?, ?, ?, ?, 1)");
+        $query2 = $DB->prepare("UPDATE records SET content=?, ttl=?, ordername=?, auth=1 WHERE id=?");
+
+	$ordername = generate_ordername($domain, $name);
+
+	$record = ptr_exists($domainid, $name);
+
+	if ($record != 0) {
+		writelog($_SESSION['username'], $_SESSION['userid'], 6, "Updating existing PTR id($record), content($content), domainid($domainid)");
+		$dbreturn = $DB->execute($query2, array($content, (int) $ttl, $ordername, (int) $record));
+	} else {
+		writelog($_SESSION['username'], $_SESSION['userid'], 6, "Creating new PTR domain($domainid), name($name), content($content)");
+	        $dbreturn = $DB->execute($query, array((int) $domainid, $name, "PTR", $content, (int) $ttl, $ordername));
+	}
+
+        if (PEAR::isError($dbreturn)) {
+		$dberr = $dbreturn->getMessage();
+		print "Database error: $dberr <br>\n";
+		exit();
+                error("Database error when inserting PTR record");
+        }
+	$_SESSION['infonotice']="Successfully created PTR record";
 //        redirect("editdomain.php?id=$domainid");
 }
 
@@ -91,9 +121,9 @@ if ($type==0) {			/* domain */
 <h1>Add Record</h1>
 <table class="addrecord">
 <form action="addrecord.php" method="post">
-<input type="hidden" name="domainid" value="<?php print $domainid; ?>">
-<input type="hidden" name="edit" value="<?php print $edit; ?>">
-<input type="hidden" name="proc" value="<?php print $type; ?>">
+<input type="hidden" name="domainid" value="<?php print htmlentities($domainid); ?>">
+<input type="hidden" name="edit" value="<?php print htmlentities($edit); ?>">
+<input type="hidden" name="proc" value="<?php print htmlentities($type); ?>">
 
         <tr class="header">
                 <td class="name">Record name</td>
@@ -206,9 +236,9 @@ function addhostform($domainid, $type, $edit, $data) {
 <h1>Add Host</h1>
 <table class="addrecord">
 <form action="addrecord.php" method="post">
-<input type="hidden" name="domainid" value="<?php print $domainid; ?>">
-<input type="hidden" name="edit" value="<?php print $edit; ?>">
-<input type="hidden" name="proc" value="<?php print $type; ?>">
+<input type="hidden" name="domainid" value="<?php print htmlentities($domainid); ?>">
+<input type="hidden" name="edit" value="<?php print htmlentities($edit); ?>">
+<input type="hidden" name="proc" value="<?php print htmlentities($type); ?>">
 
         <tr class="header">
                 <td class="name">Host name</td>
