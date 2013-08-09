@@ -53,6 +53,10 @@
         }
 
        function redirect ($location) {
+		if ((strpos($location, '\n')) || (strpos($location, '\r'))) {
+			header("Location: index.php");
+			exit;
+		}
                 header("Location: $location");
                 exit;
         }
