@@ -81,7 +81,7 @@ function domain_id2name($domainid) {
 function show_numberset($thisfile, $page, $search, $id)
 {
 ?>
-<form action="<?php print $thisfile; ?>" method="get">
+<form action="<?php print htmlentities($thisfile); ?>" method="get">
 Show per page:
 <select name="items" size="1">
 <option value="10">10</option>

@@ -297,7 +297,7 @@ function showdomain ($domainid, $count, $page, $adminlist, $search) {
 ?>
 	<tr class="controls">
 		<td class="name" colspan=5></td>
-		<td class="actions">[ <a href="addhost.php?domain=<?php print $domainid; ?>">Add host</a> ]</td>
+		<td class="actions">[ <a href="addhost.php?domain=<?php print htmlentities($domainid); ?>">Add host</a> ]</td>
 	</tr>
         </table>
 </div>
