@@ -4,21 +4,15 @@
 function showdomains ($count, $page, $adminlist, $search, $user) {
 	global $DB, $row_classes, $content_footer;
 
-	if ($count==0) { $count = 100; }
-	if ($page==0) { $page = 1; }
-
 	$searchstr = "%".$search."%";
-	$offset = $count * ($page - 1);
-
-	set_items($count);
 
 /* do the database queries */
 	if ($adminlist==1) {
 		if (strlen($search) > 0) {		# admin doing a search
 			$domains = $DB->prepare("SELECT domains.id AS domain_id, domains.type AS type, min(zones.owner) ".
 				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id WHERE domains.name LIKE ? ".
-				"GROUP BY domainname, domain_id ORDER BY domainname LIMIT ? OFFSET ?");
-			$dbreturn = $DB->execute($domains, array($searchstr, (int) $count, (int) $offset));
+				"GROUP BY domainname, domain_id ORDER BY domainname");
+			$dbreturn = $DB->execute($domains, array($searchstr));
 
 			$domsall = $DB->prepare("SELECT domains.id AS domain_id, min(zones.owner) ".
 				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id WHERE domains.name LIKE ? ".
@@ -27,8 +21,8 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 		} else {		# no search
 			$domains = $DB->prepare("SELECT domains.id AS domain_id, domains.type AS type, min(zones.owner) ".
 				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id ".
-				"GROUP BY domainname, domain_id ORDER BY domainname LIMIT ? OFFSET ?");
-			$dbreturn = $DB->execute($domains, array((int) $count, (int) $offset));
+				"GROUP BY domainname, domain_id ORDER BY domainname");
+			$dbreturn = $DB->execute($domains, NULL);
 
 			$domsall = $DB->prepare("SELECT domains.id AS domain_id, min(zones.owner) ".
 				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id ".
@@ -39,8 +33,8 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 		if (strlen($search) > 0) {		# non admin doing a search
 			$domains = $DB->prepare("SELECT domains.id AS domain_id, domains.type AS type, min(zones.owner) ".
 				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id WHERE zones.owner=? AND domains.name LIKE ? ".
-				"GROUP BY domainname, domain_id ORDER BY domainname LIMIT ? OFFSET ?");
-			$dbreturn = $DB->execute($domains, array((int) $user, $searchstr, (int) $count, (int) $offset));
+				"GROUP BY domainname, domain_id ORDER BY domainname");
+			$dbreturn = $DB->execute($domains, array((int) $user, $searchstr));
 
 			$domsall = $DB->prepare("SELECT domains.id AS domain_id, min(zones.owner) ".
 				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id WHERE zones.owner=? AND domains.name LIKE ? ".
@@ -49,8 +43,8 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 		} else {		# no search
 			$domains = $DB->prepare("SELECT domains.id AS domain_id, domains.type AS type, min(zones.owner) ".
 				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id WHERE zones.owner=? ".
-				"GROUP BY domainname, domain_id ORDER BY domainname LIMIT ? OFFSET ?");
-			$dbreturn = $DB->execute($domains, array((int) $user, (int) $count, (int) $offset));
+				"GROUP BY domainname, domain_id ORDER BY domainname");
+			$dbreturn = $DB->execute($domains, array((int) $user));
 
 			$domsall = $DB->prepare("SELECT domains.id AS domain_id, min(zones.owner) ".
 				"AS owner, domains.name AS domainname FROM domains LEFT JOIN zones ON domains.id=zones.domain_id LEFT JOIN records ON records.domain_id=domains.id WHERE zones.owner=? ".
@@ -107,18 +101,20 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 <?php		}
 	}					?>
 
-
+<?php
+/*
 	<div class="controls">
 <?php show_numberset($thisfile, $page, $search, 0); ?>
         </div>
-
-        <table class="list domains" id="domains-table">
+*/
+?>
+        <table class="display" id="domains-table">
 	<thead>
 	        <tr class="header">
-	                <td class="domain">Domain name</td>
-	                <td class="type">Type</td>
-	                <td class="owner">Owner(s)</td>
-	                <td class="actions">Actions</td>
+	                <td>Domain name</td>
+	                <td>Type</td>
+	                <td>Owner(s)</td>
+	                <td>Actions</td>
 	        </tr>
 	</thead>
 	<tbody>
@@ -131,14 +127,14 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 
 ?>
         <tr class="<?php print $row_classes[$count++ % 2]; ?>">
-                <td class="domain"><a href="editdomain.php?id=<?php print $row->domain_id; ?>"><?php print htmlentities($row->domainname); ?></a></td>
-		<td class="type"><?php print $row->type; ?></td>
-                <td class="owner">
+                <td><a href="editdomain.php?id=<?php print $row->domain_id; ?>"><?php print htmlentities($row->domainname); ?></a></td>
+		<td><?php print $row->type; ?></td>
+                <td>
 			<select name="owners"size="1">
 			<?php print domainowners($row->domain_id); ?>
 			</select>
 		</td>
-		<td class="actions">[ <a href="domain-delete.php?id=<?php print $row->domain_id; ?>" onClick="return confirmAction('Delete domain: <?php print htmlentities($row->domainname); ?>?')">Delete</a> | <a href="editdomain.php?id=<?php print $row->domain_id; ?>">Edit</a> ]</td>
+		<td>[ <a href="domain-delete.php?id=<?php print $row->domain_id; ?>" onClick="return confirmAction('Delete domain: <?php print htmlentities($row->domainname); ?>?')">Delete</a> | <a href="editdomain.php?id=<?php print $row->domain_id; ?>">Edit</a> ]</td>
         </tr>
 <?php
 #          }
@@ -148,7 +144,27 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 </div>
 <script>
     $(document).ready(function() {
-        $('#domains-table').DataTable();
+        $('#domains-table').DataTable({
+            "order": [ 0, 'asc' ],
+            "columns": [
+                {
+                    "orderable": true,
+                    "searchable": true
+                },
+                {
+                    "orderable": true,
+                    "searchable": false
+                },
+                {
+                    "orderable": true,
+                    "searchable": false
+                },
+                {
+                    "orderable": false,
+                    "searchable": false
+                }
+            ]
+        });
     });
 </script>
 
@@ -189,25 +205,20 @@ function showdomain ($domainid, $count, $page, $adminlist, $search) {
 
 	$dname = domain_id2name($domainid);
 
-	if ($count==0) { $count = 100; }
-	if ($page==0) { $page = 1; }
-
-
 	$searchstr = "%".$search."%";
-	$offset = $count * ($page - 1);
 
 /* order nicely */
 /* select name, type, content, CASE type WHEN 'SOA' THEN 1 WHEN 'NS' THEN 2 WHEN 'MX' THEN 3 WHEN 'TXT' THEN 4 WHEN 'A' THEN 5 WHEN 'AAAA' THEN 5 ELSE 6 END AS ordering FROM records WHERE domain_id=20 ORDER BY ordering limit 50; */
 /* do the database queries */
 		if (strlen($search) > 0) {		# doing a search
-			$domainq = $DB->prepare("SELECT *, CASE type WHEN 'SOA' THEN 1 WHEN 'NS' THEN 2 WHEN 'MX' THEN 3 WHEN 'TXT' THEN 4 WHEN 'A' THEN 5 WHEN 'AAAA' THEN 5 ELSE 6 END AS ordering  FROM records WHERE domain_id=? AND content LIKE ? OR name LIKE ? ORDER BY ordering LIMIT ? OFFSET ?");
-			$dbreturn = $DB->execute($domainq, array((int) $domainid, $searchstr, $searchstr, (int) $count, (int) $offset));
+			$domainq = $DB->prepare("SELECT *, CASE type WHEN 'SOA' THEN 1 WHEN 'NS' THEN 2 WHEN 'MX' THEN 3 WHEN 'TXT' THEN 4 WHEN 'A' THEN 5 WHEN 'AAAA' THEN 5 ELSE 6 END AS ordering  FROM records WHERE domain_id=? AND content LIKE ? OR name LIKE ? ORDER BY ordering");
+			$dbreturn = $DB->execute($domainq, array((int) $domainid, $searchstr, $searchstr));
 
 			$domsall = $DB->prepare("SELECT *, CASE type WHEN 'SOA' THEN 1 WHEN 'NS' THEN 2 WHEN 'MX' THEN 3 WHEN 'TXT' THEN 4 WHEN 'A' THEN 5 WHEN 'AAAA' THEN 5 ELSE 6 END AS ordering FROM records WHERE domain_id=? AND content LIKE ? OR name LIKE ? ORDER BY ordering");
 			$dbreturnall = $DB->execute($domsall, array((int) $domainid, $searchstr, $searchstr));
 		} else {		# no search
-			$domainq = $DB->prepare("SELECT *, CASE type WHEN 'SOA' THEN 1 WHEN 'NS' THEN 2 WHEN 'MX' THEN 3 WHEN 'TXT' THEN 4 WHEN 'A' THEN 5 WHEN 'AAAA' THEN 5 ELSE 6 END AS ordering FROM records WHERE domain_id=? ORDER BY ordering LIMIT ? OFFSET ?");
-			$dbreturn = $DB->execute($domainq, array((int) $domainid, (int) $count, (int) $offset));
+			$domainq = $DB->prepare("SELECT *, CASE type WHEN 'SOA' THEN 1 WHEN 'NS' THEN 2 WHEN 'MX' THEN 3 WHEN 'TXT' THEN 4 WHEN 'A' THEN 5 WHEN 'AAAA' THEN 5 ELSE 6 END AS ordering FROM records WHERE domain_id=? ORDER BY ordering");
+			$dbreturn = $DB->execute($domainq, array((int) $domainid));
 
 			$domsall = $DB->prepare("SELECT *, CASE type WHEN 'SOA' THEN 1 WHEN 'NS' THEN 2 WHEN 'MX' THEN 3 WHEN 'TXT' THEN 4 WHEN 'A' THEN 5 WHEN 'AAAA' THEN 5 ELSE 6 END AS ordering FROM records WHERE domain_id=? ORDER BY ordering");
 			$dbreturnall = $DB->execute($domsall, array((int) $domainid));
@@ -272,20 +283,22 @@ function showdomain ($domainid, $count, $page, $adminlist, $search) {
 						<input type="submit" name="set" value="Properties" title="properties">
 					</form>
 				</td>
-				<td class="right"><?php show_numberset($thisfile, $page, $search, $domainid); ?></td>
 			</tr>
 		</table>
         </div>
 
-        <table class="list records">
-        <tr class="header">
-                <td class="name">Record name</td>
-                <td class="type">Type</td>
-                <td class="content">Content</td>
-                <td class="ttl">TTL</td>
-                <td class="priority">Priority</td>
-                <td class="actions">Actions</td>
-        </tr>
+        <table class="display" id="domain-records">
+	<thead>
+	        <tr class="header">
+	                <td>Record name</td>
+	                <td>Type</td>
+	                <td>Content</td>
+	                <td>TTL</td>
+	                <td>Priority</td>
+	                <td>Actions</td>
+	        </tr>
+	</thead>
+	<tbody>
 <?php
 	while ($row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT)) {
                     if (DB::isError($row)) {
@@ -295,21 +308,32 @@ function showdomain ($domainid, $count, $page, $adminlist, $search) {
 
 ?>
         <tr class="<?php print $row_classes[$count++ % 2]; ?>">
-                <td class="name"><a href="editrecord.php?type=0&id=<?php print $row->id; ?>"><?php print htmlentities($row->name); ?></a></td>
-		<td class="type"><?php print $row->type; ?></td>
-		<td class="content"><?php print $row->content; ?></td>
-		<td class="ttl"><?php print $row->ttl; ?></td>
-		<td class="priority"><?php print $row->prio; ?></td>
-		<td class="actions">[<a href="record-delete.php?type=0&id=<?php print $row->id; ?>" onClick="return confirmAction('Delete this record?')">Delete</a> | <a href="editrecord.php?type=0&id=<?php print $row->id; ?>">Edit</a>]</td>
+                <td><a href="editrecord.php?type=0&id=<?php print $row->id; ?>"><?php print htmlentities($row->name); ?></a></td>
+		<td><?php print $row->type; ?></td>
+		<td><?php print $row->content; ?></td>
+		<td><?php print $row->ttl; ?></td>
+		<td><?php print $row->prio; ?></td>
+		<td>[<a href="record-delete.php?type=0&id=<?php print $row->id; ?>" onClick="return confirmAction('Delete this record?')">Delete</a>]</td>
         </tr>
 <?php
 	}
 ?>
+<?php
+/*
 	<tr class="controls">
 		<td class="name" colspan=5></td>
 		<td class="actions">[ <a href="addhost.php?domain=<?php print htmlentities($domainid); ?>">Add host</a> ]</td>
 	</tr>
+*/
+?>
+	</tbody>
         </table>
+<script>
+    $(document).ready(function() {
+        $('#domain-records').DataTable();
+    });
+</script>
+
 </div>
 <?php
 
