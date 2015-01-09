@@ -112,7 +112,7 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 <?php show_numberset($thisfile, $page, $search, 0); ?>
         </div>
 
-        <table class="list domains" id="domainstable">
+        <table class="list domains" id="domains-table">
 	<thead>
 	        <tr class="header">
 	                <td class="domain">Domain name</td>
@@ -148,7 +148,7 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 </div>
 <script>
     $(document).ready(function() {
-        $('#domainstable').DataTable();
+        $('#domains-table').DataTable();
     });
 </script>
 
