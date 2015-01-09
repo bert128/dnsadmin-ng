@@ -97,7 +97,8 @@ if (isset($_POST['addhost'])) {
 	if (isset($_POST['name'])) { $name = $_POST['name']; } else { $name=""; }
 
 	if (isset($_POST['ttl'])) { $ttl = $_POST['ttl']; } else { $ttl=3600; }
-	if (isset($_POST['reverse'])) { $reverse = $_POST['reverse']; } else { $reverse="f"; }
+	if (isset($_POST['reverse'])) { $reverse = $_POST['reverse']; } else { $reverse=0; }
+
 
 /* validate  */
 	if (!validate_record($domainid, 0, $name, "A", 0, $ipv4, $ttl)) {
@@ -110,6 +111,38 @@ if (isset($_POST['addhost'])) {
 	if (!(is_owner($domainid, $user)) && !(isadmin())) {
 		error("Non admin user attempting to add record");
 	}
+	if ($reverse==1) {
+		$domain = domain_id2name($domainid);
+	        if (strlen($name) > 0) {
+	                $insname = $name .".". $domain;
+	        } else {
+	                $insname = $domain;
+	        }
+
+		$revdomain6 = ip6_to_ptr($ipv6);
+		$revdomain4 = ip4_to_ptr($ipv4);
+
+		$domid4 = reverse_domain($revdomain4);
+		$domid6 = reverse_domain($revdomain6);
+		if ($domid4!=0) {
+			$name4 = domain_id2name($domid4);
+			if ((is_owner($domid4, $user)) && (isadmin())) {
+			$newhost4 = preg_replace('/'. preg_quote($name4, '/') . '$/', '', $revdomain4);
+			$newhost4 = substr($newhost4, 0, -1);
+			update_ptr($domid4, $revdomain4, $insname, $ttl);
+			}
+		}
+
+		if ($domid6!=0) {
+			$name6 = domain_id2name($domid6);
+			if ((is_owner($domid6, $user)) && (isadmin())) {
+			$newhost6 = preg_replace('/'. preg_quote($name6, '/') . '$/', '', $revdomain6);
+			$newhost6 = substr($newhost6, 0, -1);
+			update_ptr($domid6, $revdomain6, $insname, $ttl);
+			}
+		}
+	}
+
 	add_record($domainid, 0, $name, "A", 0, $ipv4, $ttl);
 	add_record($domainid, 0, $name, "AAAA", 0, $ipv6, $ttl);
 /* add corresponding reverse dns? */

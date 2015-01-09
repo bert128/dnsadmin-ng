@@ -2,6 +2,31 @@
 
 /* functions for dealing with domains */
 
+/* see if a PTR exists */
+function ptr_exists($domainid, $ptr) {
+	global $DB;
+
+	$query = $DB->prepare("SELECT id FROM records WHERE domain_id=? AND type='PTR' AND name=?");
+
+print "Selecting name: $ptr from domain $domainid<br>\n";
+	$dbreturn = $DB->execute($query, array((int) $domainid, $ptr));
+
+	if (PEAR::isError($dbreturn)) {
+		return 0;
+	}
+
+/* no existing record */
+	if ($dbreturn->numRows()==0) {
+		return 0;
+	}
+/* one existing record */
+	if ($dbreturn->numRows()==1) {
+		$row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT);
+		return $row->id;
+	}
+/* anything else, eg multiple records */
+	return 0;
+}
 
 /* count records belonging to a domain */
 function domain_type($domainid) {
@@ -74,7 +99,7 @@ function get_domain_id($name) {
 		$row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT);
 		return $row->id;
         }
-	error("Cannot find domain");
+	return 0;
 }
 
 function add_domain_slave($name, $masterip, $owner) {
@@ -89,6 +114,9 @@ function add_domain_slave($name, $masterip, $owner) {
 	}
 
 	$domainid = get_domain_id($name);
+	if ($domainid==0) {
+		error("Invalid domain");
+	}
 
 	$query = $DB->prepare("INSERT INTO zones (domain_id, owner) VALUES (?, ?)");
 	$dbreturn = $DB->execute($query, array((int) $domainid, (int) $owner));
@@ -115,6 +143,9 @@ function add_domain_native($name, $template, $owner) {
 	}
 
 	$domainid = get_domain_id($name);
+	if ($domainid==0) {
+		error("Invalid domain");
+	}
 
 	apply_template($template, $domainid);
 
