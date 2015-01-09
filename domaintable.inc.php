@@ -330,10 +330,58 @@ function showdomain ($domainid, $count, $page, $adminlist, $search) {
         </table>
 <script>
     $(document).ready(function() {
-        $('#domain-records').DataTable();
+        $('#domain-records').DataTable({
+            "order": [[ 1, 'asc' ], [ 0, 'asc' ]],
+            "columns": [
+                {
+                    "orderable": true,
+                    "searchable": true
+                },
+                {
+                    "orderable": true,
+                    "searchable": true,
+                    "render": function ( data, type, row, meta ) {
+                        //Do not alter printing etc
+                        if (type !== 'sort') {
+                            return data;
+                        }
+
+                        //Else sorting initiated
+                        switch(data) {
+                            case "SOA":
+                                return 0;
+
+                            case "NS":
+                                return 1;
+
+                            case "MX":
+                                return 2;
+
+                            default:
+                                return 3;
+                        }
+                    }
+                },
+                {
+                    "orderable": false,
+                    "searchable": false
+                },
+                {
+                    "orderable": false,
+                    "searchable": false
+                },
+                {
+                    "orderable": false,
+                    "searchable": false
+                },
+                {
+                    "orderable": false,
+                    "searchable": false
+                }
+            ]
+        });
     });
 </script>
-
 </div>
 <?php
 
