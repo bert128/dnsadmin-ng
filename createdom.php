@@ -21,10 +21,12 @@
 	}
 
 if (isset($_POST['add'])) {
+
 	if (isset($_POST['name'])) { $name = $_POST['name']; } else { error("Invalid domain name");; }
 	if (isset($_POST['type'])) { $type = $_POST['type']; } else { $type=0; }			/* default to type=native */
 	if (isset($_POST['master'])) { $master = $_POST['master']; } else { $master=""; }
 	if (isset($_POST['template'])) { $template = $_POST['template']; } else { $template=0; }	/* default template */
+
 
 	if (isadmin()) {		/* only admin can set the owner field */
 		if (isset($_POST['owner'])) { $owner = $_POST['owner']; } else { $owner=$_SESSION['userid']; }
@@ -38,6 +40,7 @@ if (isset($_POST['add'])) {
 	}
 
 	if ($type==1) {
+
 		if (!validate_ip($master)) {
 			error("Invalid Master IP address");
 		}

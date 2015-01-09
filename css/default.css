@@ -149,7 +149,7 @@ TABLE#main {
 }
 	TABLE#main TD#header {
 		height: 100px;
-		background: url(images/ev6logo2.png) no-repeat top left;
+		background: url(../images/ev6logo2.png) no-repeat top left;
 		padding: 0px 0px 0px 0px;
 		text-align: right;
 		vertical-align: bottom;

@@ -62,12 +62,12 @@ function validate_hostname($name) {
 }
 
 function validate_a($domainid, $proc, $name, $type, $priority, $content, $ttl) {
-	if (!filter_var($content, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) { error("Invalid IP Address"); }
+	if (!filter_var($content, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) { return FALSE; }
 return TRUE;
 }
 
 function validate_aaaa($domainid, $proc, $name, $type, $priority, $content, $ttl) {
-	if (!filter_var($content, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) { error("Invalid IPv6 Address"); }
+	if (!filter_var($content, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) { return FALSE; }
 return TRUE;
 }
 
@@ -110,7 +110,7 @@ return TRUE;
 }
 
 function validate_ip($ip) {
-	if (!filter_var($content, FILTER_VALIDATE_IP)) { error("Invalid IP Address"); }
+	if (!filter_var($ip, FILTER_VALIDATE_IP)) { return FALSE; }
 return TRUE;
 }
 

@@ -112,13 +112,16 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 <?php show_numberset($thisfile, $page, $search, 0); ?>
         </div>
 
-        <table class="list domains">
-        <tr class="header">
-                <td class="domain">Domain name</td>
-                <td class="type">Type</td>
-                <td class="owner">Owner(s)</td>
-                <td class="actions">Actions</td>
-        </tr>
+        <table class="list domains" id="domainstable">
+	<thead>
+	        <tr class="header">
+	                <td class="domain">Domain name</td>
+	                <td class="type">Type</td>
+	                <td class="owner">Owner(s)</td>
+	                <td class="actions">Actions</td>
+	        </tr>
+	</thead>
+	<tbody>
 <?php
 	while ($row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT)) {
                     if (DB::isError($row)) {
@@ -140,8 +143,15 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 <?php
 #          }
 	}
-?>        </table>
+?>		</tbody>
+        </table>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#domainstable').DataTable();
+    });
+</script>
+
 <?php
 
   }
