@@ -108,7 +108,7 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
         </div>
 */
 ?>
-        <table class="display compaact" id="domains-table">
+        <table class="display compact" id="domains-table">
 	<thead>
 	        <tr class="header">
 	                <td>Domain name</td>
