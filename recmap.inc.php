@@ -49,11 +49,8 @@ function showmappedrecords ($count, $page, $adminlist, $search, $user) {
 	}					?>
 
 
-	<div class="controls">
-<?php show_numberset($thisfile, $page, $search, 0); ?>
-        </div>
-
-        <table class="list domains">
+        <table class="display compact" id="table-recmap">
+	<thead>
         <tr class="header">
                 <td class="hostname">Hostname</td>
                 <td class="type">Type</td>
@@ -62,6 +59,8 @@ function showmappedrecords ($count, $page, $adminlist, $search, $user) {
                 <td class="content">Content</td>
                 <td class="controls">Controls</td>
         </tr>
+	</thead>
+	<tbody>
 <?php  #select user, record_id, recmap.id AS recmap_id, records.name, records.id AS recid, records.type, records.ttl, records.prio, records.content from recmap LEFT JOIN records ON records.id=record_id WHERE user=?
 	while ($row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT)) {
                     if (DB::isError($row)) {
@@ -84,7 +83,43 @@ function showmappedrecords ($count, $page, $adminlist, $search, $user) {
 </form>
 <?php
 	}
-?>        </table>
+?>
+	</tbody>
+        </table>
+<script>
+    $(document).ready(function() {
+        $('#table-recmap').DataTable({
+            "order": [ 0, 'asc' ],
+            "columns": [
+                {
+                    "orderable": true,
+                    "searchable": true
+                },
+                {
+                    "orderable": true,
+                    "searchable": false
+                },
+                {
+                    "orderable": true,
+                    "searchable": false
+                },
+                {
+                    "orderable": true,
+                    "searchable": false
+                },
+                {
+                    "orderable": true,
+                    "searchable": true
+                },
+                {
+                    "orderable": false,
+                    "searchable": false
+                }
+            ]
+        });
+    });
+</script>
+
 </div>
 <?php
 

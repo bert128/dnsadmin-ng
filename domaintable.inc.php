@@ -78,6 +78,7 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 	} else {
 
 		$thisfile = $_SERVER['PHP_SELF'];
+/*
 		if ($page > 1) {
 			$content_footer["left"] = "<a href=\"". $thisfile ."?page=". ($page-1) ."&search=". htmlentities($search) ."\">&#171 Previous Page</a>";
 		}
@@ -87,7 +88,7 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 		if ($page < $num_pages) {
 			$content_footer["right"] = "<a href=\"". $thisfile ."?page=". ($page+1) ."&search=". htmlentities($search) ."\">Next Page &#187</a>";
 		}
-
+*/
 ?>
 <div class="section">
 <?php
