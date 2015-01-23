@@ -132,6 +132,10 @@ TABLE.controls {
 	padding: 1px 1px 1px 1px;
 }
 
+TABLE.hide {
+	display: none;
+}
+
 TABLE.controls TD {
 	padding: 5px 5px 0px 0px;
 }

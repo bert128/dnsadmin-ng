@@ -121,46 +121,73 @@ function showtemplates ($count, $page, $adminlist, $search, $public) {
 			$content_footer["right"] = "<a href=\"". $thisfile ."?page=". ($page+1) ."&search=". htmlentities($search) ."\">Next Page &#187</a>";
 		}
 	}
+	$tableid = "template-". $public;
 ?>
 
-	<div class="controls">
-<?php show_numberset($thisfile, $page, $search, 0); ?>
-        </div>
-
-        <table class="list templates">
-        <tr class="header">
-                <td class="tpname">Template name</td>
-                <td class="owner">Owner</td>
+        <table class="display compact" id="<?php print htmlentities($tableid); ?>">
+	<thead>
+	        <tr class="header">
+	                <td>Template name</td>
+	                <td>Owner</td>
 <?php 	if ($public==0) { 	?>
-		<td class="type">Type</td>
+			<td>Type</td>
 <?php	}			?>
-                <td class="actions">Actions</td>
-        </tr>
+	                <td>Actions</td>
+	        </tr>
+	</thead>
+	<tbody>
 <?php
 	while ($row = $dbreturn->fetchRow(DB_FETCHMODE_OBJECT)) {
                     if (DB::isError($row)) {
                         header('Location: error.php?error=dberror');
                     }
-
-
 ?>
-        <tr class="<?php print $row_classes[$count++ % 2]; ?>">
-                <td class="tpname"><?php print htmlentities($row->name); ?></td>
-                <td class="owner"><?php print htmlentities(id2user($row->owner)); ?></td>
+
+	        <tr>
+	                <td class="tpname"><?php print htmlentities($row->name); ?></td>
+	                <td class="owner"><?php print htmlentities(id2user($row->owner)); ?></td>
 <?php 	if ($public==0) { 	?>
-		<td class="type"><?php if ($row->public==0) { print "private"; } else { print "public"; } ?></td>
+			<td class="type"><?php if ($row->public==0) { print "private"; } else { print "public"; } ?></td>
 <?php	}			?>
-		<td class="actions"><?php
-		if ($public==1) {
-			print "[<a href=\"createdomain.php?template=$row->id\">Use</a>]";
-		} else {
-			print "[<a href=\"createdomain.php?template=$row->id\">Use</a>|<a href=\"tpedit.php?type=1&id=$row->id\">Edit</a>|<a href=\"tpdelete.php?id=$row->id\" onClick=\"return confirmAction('Delete template ". htmlentities($row->name) ."?')\">Delete</a>]";
-		}
+			<td class="actions"><?php
+			if ($public==1) {
+				print "[<a href=\"createdomain.php?template=$row->id\">Use</a>]";
+			} else {
+				print "[<a href=\"createdomain.php?template=$row->id\">Use</a>|<a href=\"tpedit.php?type=1&id=$row->id\">Edit</a>|<a href=\"tpdelete.php?id=$row->id\" onClick=\"return confirmAction('Delete template ". htmlentities($row->name) ."?')\">Delete</a>]";
+			}
 		?></td>
-        </tr>
+	        </tr>
 <?php	}	?>
+		</tbody>
         </table>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#<?php print htmlentities($tableid); ?>').DataTable({
+            "order": [ 0, 'asc' ],
+            "columns": [
+                {
+                    "orderable": true,
+                    "searchable": true
+                },
+                {
+                    "orderable": true,
+                    "searchable": false
+                },
+<?php   if ($public==0) {       ?>
+               {
+                    "orderable": true,
+                    "searchable": false
+                },
+<?php   }                       ?>
+                {
+                    "orderable": false,
+                    "searchable": false
+                }
+            ]
+        });
+    });
+</script>
 <?php
 }
 
