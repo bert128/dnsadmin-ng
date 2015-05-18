@@ -36,6 +36,9 @@ validate_hostname($name);
                 case "PTR":
                         return validate_ptr($domainid, $proc, $name, $type, $priority, $content, $ttl);
                         break;
+                case "SSHFP":
+                        return validate_sshfp($domainid, $proc, $name, $type, $priority, $content, $ttl);
+                        break;
                 case "SOA":
                         return validate_soa($domainid, $proc, $name, $type, $priority, $content, $ttl);
                         break;
@@ -97,6 +100,9 @@ function validate_ptr() {
 return TRUE;
 }
 function validate_soa() {
+return TRUE;
+}
+function validate_sshfp() {
 return TRUE;
 }
 function validate_srv() {
