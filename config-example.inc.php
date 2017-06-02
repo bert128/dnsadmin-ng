@@ -28,7 +28,7 @@ $CONFIG = array(
 	"crypto" => 1
 );
 
-$rectypes = array('A', 'AAAA', 'CNAME', 'HINFO', 'MBOXFW', 'MX', 'NAPTR', 'NS', 'PTR', 'SSHFP', 'SOA', 'SRV', 'TXT', 'URL');
+$rectypes = array('A', 'AAAA', 'CNAME', 'HINFO', 'MBOXFW', 'MX', 'NAPTR', 'NS', 'PTR', 'SSHFP', 'SOA', 'SRV', 'TXT', 'URL', 'CAA');
 
 $SESSION_NAME = "DNSAdmin";
 
