@@ -86,7 +86,9 @@ function showmappedrecords ($count, $page, $adminlist, $search, $user) {
 ?>
 	</tbody>
         </table>
-<script>
+<?php
+/*
+<!-- script>
     $(document).ready(function() {
         $('#table-recmap').DataTable({
             "order": [ 0, 'asc' ],
@@ -118,8 +120,9 @@ function showmappedrecords ($count, $page, $adminlist, $search, $user) {
             ]
         });
     });
-</script>
-
+<!-- /script>
+*/
+?>
 </div>
 <?php
 

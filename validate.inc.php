@@ -51,6 +51,9 @@ validate_hostname($name);
                 case "URL":
                         return validate_url($domainid, $proc, $name, $type, $priority, $content, $ttl);
                         break;
+                case "CAA":
+                        return TRUE;
+                        break;
                 default:
 			return FALSE;
         }
