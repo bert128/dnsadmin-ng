@@ -101,6 +101,7 @@ function showdomains ($count, $page, $adminlist, $search, $user) {
 			<h1>Domains for user: <?php print htmlentities($_SESSION['username']); ?>, Total: (<?php print $total; ?>)</h1>
 <?php		}
 	}					?>
+        [ <a href="addhost.php?domain=<?php print htmlentities($domainid); ?>">Add host</a> ]<br>
 
 <?php
 /*
@@ -284,6 +285,7 @@ function showdomain ($domainid, $count, $page, $adminlist, $search) {
 						<input type="submit" name="set" value="Properties" title="properties">
 					</form>
 				</td>
+				<td class="right">[ <a href="addhost.php?domain=<?php print htmlentities($domainid); ?>">Add host</a> ]</td>
 			</tr>
 		</table>
         </div>
@@ -318,14 +320,6 @@ function showdomain ($domainid, $count, $page, $adminlist, $search) {
         </tr>
 <?php
 	}
-?>
-<?php
-/*
-	<tr class="controls">
-		<td class="name" colspan=5></td>
-		<td class="actions">[ <a href="addhost.php?domain=<?php print htmlentities($domainid); ?>">Add host</a> ]</td>
-	</tr>
-*/
 ?>
 	</tbody>
         </table>
