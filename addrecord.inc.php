@@ -3,6 +3,15 @@
  * functions for adding records
  */
 
+
+function ip6_to_ptr($ip) {
+	$addr = inet_pton($ip);
+	$unpack = unpack('H*hex', $addr);
+	$hex = $unpack['hex'];
+	$arpa = implode('.', array_reverse(str_split($hex))) . '.ip6.arpa';
+	return $arpa;
+}
+
 function modify_record($record, $proc, $name, $type, $priority, $content, $ttl) {
 	global $DB;
 
