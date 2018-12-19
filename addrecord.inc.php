@@ -4,6 +4,13 @@
  */
 
 
+function ip4_to_ptr($ip) {
+$parts = explode('.',$ip);
+$reverse_ip = implode('.', array_reverse($parts)) .".in-addr.arpa";
+
+return $reverse_ip;
+}
+
 function ip6_to_ptr($ip) {
 	$addr = inet_pton($ip);
 	$unpack = unpack('H*hex', $addr);
